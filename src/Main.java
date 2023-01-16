@@ -4,8 +4,8 @@ public class Main {
 //    }
 
 //    실행구문
-    public void main(String[] args){
-        System.out.println("출력");
+    public static void main(String[] args){
+        System.out.println();
     }
 
 //    https://brunch.co.kr/@mystoryg/168
