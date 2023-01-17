@@ -1,5 +1,8 @@
 package programmers.level0;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class Page5 { //5페이지 문제 모음
 
     int num1 = 60;
@@ -44,12 +47,16 @@ public class Page5 { //5페이지 문제 모음
     public static void main(String[] args){
         Page5 n = new Page5();
 
+//        int gcd = getGcd(n.num1, n.num2);
+//        System.out.println(gcd);
 
-        int gcd = getGcd(n.num1, n.num2);
-
-        System.out.println(gcd);
-
-
+//        int[] array = new int[3];
+        int[] array = {5,7,1,3,9};
+        Arrays.sort(array); // 정렬
+//        Arrays.sort(array,Collections.reverseOrder()); // 오름차순정렬 오류! - int[] >> integer[] 변환필요
+        for(int i:array){
+            System.out.println(i);
+        }
 
     }
 
