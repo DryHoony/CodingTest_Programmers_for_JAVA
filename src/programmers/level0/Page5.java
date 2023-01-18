@@ -41,6 +41,32 @@ public class Page5 { //5페이지 문제 모음
     int[] array2 = new int[]{1,2,3}; // 위의 array1과 동일하다.
 
 
+    public int[] getOddNumber(int n) { // 짝수는 싫어요
+        int[] answer = new int[(n+1)/2];
+        int k = 0;
+
+        for(int i=1; i<=n; i+=2){
+            answer[k] = i;
+            k++;
+        }
+
+        return answer;
+    }
+
+    public int closeDiscount(int price) { // 옷가게 할인받기
+        // 0.8 , 0.9 소수점 담위로 입력안되나?
+
+        if(price>=500000){
+            return price*8/10;
+        }else if(price>=300000){
+            return price*9/10;
+        }else if(price>=100000){
+            return price*95/100;
+        }else{
+            return price;
+        }
+
+    }
 
 
     // 실행 테스트

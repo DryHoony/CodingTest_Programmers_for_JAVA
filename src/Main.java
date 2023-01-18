@@ -3,10 +3,7 @@ public class Main {
 //        System.out.println("Hello world!");
 //    }
 
-//    실행구문
-    public static void main(String[] args){
-        System.out.println();
-    }
+
 
 //    https://brunch.co.kr/@mystoryg/168
 //    위 블로그 글을 바탕으로 github에 연동
@@ -14,5 +11,11 @@ public class Main {
 //    푸시 : 파일을 추가하거나 변경 내용을 원격 저장소에 업로드하는 작업
 
 
+    public static void main(String[] args) {
+        int n = 10;
+        for(int i=1; i<=n; i+=2){
+            System.out.println(i);
+        }
+    }
 
 }
