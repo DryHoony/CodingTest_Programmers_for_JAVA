@@ -1,18 +1,18 @@
 package skillpractice;
 
-public class StringPractice {
+public class String {
     // 스트링 String
 
 
 
-    public static void main(String[] args) {
-        String str = "String"; // ""로 생성해야 한다
+    public static void main(java.lang.String[] args) {
+        java.lang.String str = "String"; // ""로 생성해야 한다
 //        String str0 = 'wrong';  // ''로 생성하면 오류
 
         // 숫자를
 
         // 추가하기
-        String strPlus = str;
+        java.lang.String strPlus = str;
         strPlus += "plus";
 //        System.out.println(strPlus);
 
@@ -20,10 +20,10 @@ public class StringPractice {
         StringBuilder sb = new StringBuilder();
         sb.append(str);
         sb.reverse();
-        String reverseStr = sb.toString();
+        java.lang.String reverseStr = sb.toString();
 
         // 한글자씩 배열로 반환 - split("")
-        String[] strList = str.split("");
+        java.lang.String[] strList = str.split("");
 //        for(String s:strList){
 //            System.out.println(s);
 //        }
@@ -45,7 +45,7 @@ public class StringPractice {
 
 
         // 대체하기, 바꾸기 - replace
-        String newStr = str.replace("S", "NewS");
+        java.lang.String newStr = str.replace("S", "NewS");
 //        String newStr = str.replace("S", ""); // 특정문자 제거도 가능
 //        System.out.println(newStr);
 

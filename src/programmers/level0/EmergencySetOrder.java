@@ -9,7 +9,7 @@ public class EmergencySetOrder { // 응급 순서 정하기
         Arrays.sort(orderd);
 
         ReverseArray ra = new ReverseArray();
-        orderd = ra.reberse(orderd);
+        orderd = ra.reverse(orderd);
 
         int[] answer = new int[emergency.length];
 

@@ -2,7 +2,7 @@ package programmers.level0;
 
 public class ReverseArray { //배열 뒤집기
 
-    public int[] reberse(int[] num_list) {
+    public int[] reverse(int[] num_list) {
         int len = num_list.length;
         int[] answer = new int[len];
 

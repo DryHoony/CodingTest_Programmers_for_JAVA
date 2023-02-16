@@ -1,11 +1,21 @@
+import programmers.level0.ReverseArray;
+
+import java.util.Arrays;
+
+
 public class Test {
 
 
 
     public static void main(String[] args) {
-        String str = "string";
 
-        System.out.println("*".repeat(3));
+
+        int n = 0;
+        for (int i=0; i<10; i++){
+            n+=2;
+            System.out.println(n);
+        }
+
 
 
 
