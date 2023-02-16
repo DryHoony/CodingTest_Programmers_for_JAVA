@@ -1,4 +1,4 @@
-package practice;
+package skillpractice;
 
 import programmers.level0.ArraySlice;
 import programmers.level0.EmergencySetOrder;

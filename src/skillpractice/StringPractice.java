@@ -1,4 +1,4 @@
-package practice;
+package skillpractice;
 
 public class StringPractice {
     // 스트링 String

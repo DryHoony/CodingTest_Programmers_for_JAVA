@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class EmergencySetOrder { // 응급 순서 정하기
 
     public int[] setOrder(int[] emergency){
-        int[] orderd = emergency;
+        int[] orderd = Arrays.copyOf(emergency,emergency.length); // 얕은복사로
         Arrays.sort(orderd);
 
         ReverseArray ra = new ReverseArray();
@@ -23,6 +23,25 @@ public class EmergencySetOrder { // 응급 순서 정하기
         }
 
         return answer;
+    }
+
+    // 주어진 숫자 범위가 100이하 임을 이용한 편법
+    public int[] setOrder1(int[] emergency){
+        int[] answer = new int[emergency.length];
+        int a=1; // answer에 할당될 응급도 순서
+
+        for(int i=100; i>0; i--){
+            for (int j=0; j<emergency.length; j++){
+                if(i==emergency[j]){
+                    answer[j]=a;
+                    a++;
+                    break;
+                }
+            }
+        }
+
+        return answer;
+
     }
 
 
