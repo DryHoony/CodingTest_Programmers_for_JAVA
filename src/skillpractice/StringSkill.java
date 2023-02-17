@@ -1,18 +1,17 @@
 package skillpractice;
 
-public class String {
+public class StringSkill {
     // 스트링 String
 
 
 
-    public static void main(java.lang.String[] args) {
-        java.lang.String str = "String"; // ""로 생성해야 한다
+    public static void main(String[] args) {
+        String str = "String"; // ""로 생성해야 한다
 //        String str0 = 'wrong';  // ''로 생성하면 오류
 
-        // 숫자를
 
         // 추가하기
-        java.lang.String strPlus = str;
+        String strPlus = str;
         strPlus += "plus";
 //        System.out.println(strPlus);
 
@@ -20,10 +19,10 @@ public class String {
         StringBuilder sb = new StringBuilder();
         sb.append(str);
         sb.reverse();
-        java.lang.String reverseStr = sb.toString();
+        String reverseStr = sb.toString();
 
         // 한글자씩 배열로 반환 - split("")
-        java.lang.String[] strList = str.split("");
+        String[] strList = str.split("");
 //        for(String s:strList){
 //            System.out.println(s);
 //        }
@@ -33,6 +32,7 @@ public class String {
 //        for(int i=0; i<str.length(); i++){
 //            System.out.println(str.charAt(i));
 //        }
+        String r = String.valueOf(str.charAt(0)); // 잘라서 String 타입으로 변환해 사용
 
 
 
@@ -45,7 +45,7 @@ public class String {
 
 
         // 대체하기, 바꾸기 - replace
-        java.lang.String newStr = str.replace("S", "NewS");
+        String newStr = str.replace("S", "NewS");
 //        String newStr = str.replace("S", ""); // 특정문자 제거도 가능
 //        System.out.println(newStr);
 

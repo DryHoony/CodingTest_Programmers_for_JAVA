@@ -29,7 +29,7 @@ public class Array {
 
 
 
-    public static void main(String[] args) {
+    public static void main(StringSkill[] args) {
 
 //        int[][] array = new int[][]{{1},{2,3},{4,5,6}};
 ////         for each 구문을 자주 사용
