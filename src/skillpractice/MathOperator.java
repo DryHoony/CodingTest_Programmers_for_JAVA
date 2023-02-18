@@ -2,6 +2,7 @@ package skillpractice;
 
 
 import programmers.level0.PermutationAndCombination;
+import programmers.level0.PrimeNumber;
 import programmers.level0.divisor;
 
 public class MathOperator {
@@ -11,6 +12,8 @@ public class MathOperator {
     double e = Math.E; // 오일러 수
     double pi = Math.PI; // 원주율
 
+    // 사직연산
+    int n = 10%3; // 모듈러, 나머지
     double powv = Math.pow(2,5);// 제곱
     double sqrtv = Math.sqrt(100); // 제곱근
 
@@ -34,7 +37,7 @@ public class MathOperator {
     // 약수의 갯수
     divisor dclass = new divisor();
 
-    // 소수
+    PrimeNumber pclass = new PrimeNumber();// 소수
 
     PermutationAndCombination pc = new PermutationAndCombination();// 팩토리얼, 순열, 조합, gcd
 

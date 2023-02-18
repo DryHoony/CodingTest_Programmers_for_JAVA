@@ -1,28 +1,34 @@
 import programmers.level0.ReverseArray;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class Test {
 
     public static void main(String[] args) {
 
-//        int[] num_list = {1, 2, 3, 4, 5, 6, 7, 8};
-//        int n = 2;
-        int[] num_list = {100, 95, 2, 4, 5, 6, 18, 33, 948};
-        int n = 3;
+        // ver2 - list를 2개 사용
 
-        int l = num_list.length/n;
-        int[][] answer = new int[l][n];
+        int n = 100;
+        List<Integer> list = new ArrayList<>();
+        for (int i = 2; i <= n; i++) {
+            list.add(i);
+        }
+        List<Integer> answer = new ArrayList<>();
 
-        for (int i = 0; i < l; i++) {
-            for (int j = 0; j < n; j++) {
-                answer[i][j] = num_list[n*i+j];
-            }
+        int p;
+        list.removeIf(q -> q%2==0);
+
+        System.out.println(list);
+
+
+
+
+
 
         }
-
-        System.out.println();
-
-
 
 
 
@@ -31,4 +37,4 @@ public class Test {
     
 
 
-}
+
