@@ -41,7 +41,7 @@ public class MathOperator {
     // 도형, 공간
     RectangleArea area = new RectangleArea(); // 직사각형 넓이
     DirectionKey dkey = new DirectionKey(); // 방향키 누름
-
+    SafetyZone safezone = new SafetyZone(); // 격자공간 근방제거
 
     PolynomialPlus firstDemPol = new PolynomialPlus(); // 다항식
 
