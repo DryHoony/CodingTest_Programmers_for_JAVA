@@ -30,8 +30,9 @@ public class StringClass {
 //            System.out.println(s);
 //        }
 
-        // 숫자판별, 숫자변환
-        StirngToNumber st = new StirngToNumber();
+
+        StirngToNumber st = new StirngToNumber(); // 숫자판별, 숫자로변환
+        String ns = String.valueOf(100);// 숫자를 문자로 변환
 
         // 특정 '문자' '문자열' 검색(첫 등장 인덱스 반환)  indexOf(String)
         // 특정인덱스 이후로 검색(첫 등장 인덱스 반환) indexOf(String, int)
