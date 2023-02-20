@@ -48,6 +48,7 @@ public class MathOperator {
 
     // 리스트 정렬규칙
     ClosedArrange closed = new ClosedArrange(); // 특정숫자에 가까운 순서로 정렬
+    RankArrange rankArrange = new RankArrange(); // 등수정렬
 
     PolynomialPlus firstDemPol = new PolynomialPlus(); // 다항식
 
