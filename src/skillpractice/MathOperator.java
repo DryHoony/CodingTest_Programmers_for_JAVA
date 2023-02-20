@@ -42,6 +42,12 @@ public class MathOperator {
     RectangleArea area = new RectangleArea(); // 직사각형 넓이
     DirectionKey dkey = new DirectionKey(); // 방향키 누름
     SafetyZone safezone = new SafetyZone(); // 격자공간 근방제거
+    Parallel p = new Parallel(); // 평행, 기울기 비교
+    OverlapLine overlap = new OverlapLine();// 겹치는 선분길이
+
+
+    // 리스트 정렬규칙
+    ClosedArrange closed = new ClosedArrange(); // 특정숫자에 가까운 순서로 정렬
 
     PolynomialPlus firstDemPol = new PolynomialPlus(); // 다항식
 
