@@ -37,6 +37,9 @@ public class MathOperator {
 
     PermutationAndCombination pc = new PermutationAndCombination();// 팩토리얼, 순열, 조합, gcd
 
+    //진법
+    // 이진법
+
 
     // 도형, 공간
     RectangleArea area = new RectangleArea(); // 직사각형 넓이

@@ -3,7 +3,9 @@ import java.util.Arrays;
 public class Test {
 
     public static void main(String[] args) {
-        int[] list = new int[]{75, 75, 40, 95, 95, 100, 20};
+        for (int i = 10; i >=0 ; i--) {
+            System.out.println(Math.pow(2,i)>100);
+        }
 
 
 
@@ -11,11 +13,6 @@ public class Test {
 
 
     }
-
-
-
-
-
 
     }
 
