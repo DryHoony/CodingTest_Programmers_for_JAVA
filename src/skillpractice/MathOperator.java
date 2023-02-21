@@ -29,9 +29,7 @@ public class MathOperator {
     double ranv = Math.random(); // 0<= x < 1 실수 random 추출
     int ranz = (int) (Math.random()*100); // 0~99 정수 random 추출
 
-
-    // 약수의 갯수
-    divisor dclass = new divisor();
+    divisor dclass = new divisor(); // 약수
 
     PrimeNumber pclass = new PrimeNumber();// 소수
 

@@ -12,6 +12,8 @@ public class StringClass {
     public static void main(String[] args) {
         String str = "String"; // ""로 생성해야 한다, ''로 생성하면 오류
 
+        String s = String.valueOf(5); // String으로 변환
+
         // 길이
         str.length();
 
@@ -40,10 +42,12 @@ public class StringClass {
         StringUpperLower uplow = new StringUpperLower();// 대소문자 판별
         String u = str.toUpperCase(Locale.ROOT); // 대소문자 변환
 
+        // 검색
         // 특정 '문자' '문자열' 검색(첫 등장 인덱스 반환)  indexOf(String)
         // 특정인덱스 이후로 검색(첫 등장 인덱스 반환) indexOf(String, int)
         // 특정 문자가 마지막 등장 인덱스 반환 lastIndexOf(int ch)
         // 특정 인덱스 이후로, 특정 문자가 마지막 등장 인덱스 반환 lastIndexOf(int ch, int)
+        StringSearch search = new StringSearch(); // 문자열안에 문자열 검색
 
         // 대체하기, 바꾸기 - replace
         String newStr = str.replace("S", "NewS"); // str은 바뀌지 않는다.
