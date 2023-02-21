@@ -1,5 +1,6 @@
 package skillpractice;
 
+import programmers.level0.CipherCode;
 import programmers.level0.StirngToNumber;
 import programmers.level0.StringReplace;
 
@@ -20,6 +21,7 @@ public class StringClass {
         // 자르기(slice) subString
         String sub = str.substring(0); // 특정인덱스부터 끝까지 새로운 문자열로 반환
         String sub2 = str.substring(2,4); // 특정인덱스부터 특정인덱스까지 새로운 문자열로 반환, 인덱스 벗어남 주의! - Exception
+        CipherCode cipher = new CipherCode(); // 응용
 
         // 공백으로 쪼개기 - split(" ")
         String [] strList1 = str.split(" ");
