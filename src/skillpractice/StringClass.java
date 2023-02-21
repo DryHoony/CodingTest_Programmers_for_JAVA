@@ -42,6 +42,8 @@ public class StringClass {
         StringUpperLower uplow = new StringUpperLower();// 대소문자 판별
         String u = str.toUpperCase(Locale.ROOT); // 대소문자 변환
 
+        StringSort stringSort = new StringSort();// 정렬
+
         // 검색
         // 특정 '문자' '문자열' 검색(첫 등장 인덱스 반환)  indexOf(String)
         // 특정인덱스 이후로 검색(첫 등장 인덱스 반환) indexOf(String, int)
