@@ -83,6 +83,8 @@ public class StringClass {
 
 
 
+        Babbling bab = new Babbling();// 단어조합
+
 
 
     }
