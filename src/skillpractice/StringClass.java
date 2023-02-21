@@ -1,8 +1,8 @@
 package skillpractice;
 
-import programmers.level0.CipherCode;
-import programmers.level0.StirngToNumber;
-import programmers.level0.StringReplace;
+import programmers.level0.*;
+
+import java.util.Locale;
 
 public class StringClass {
     // 스트링 String클래스는 불변(immutatable)클래스
@@ -22,6 +22,7 @@ public class StringClass {
         String sub = str.substring(0); // 특정인덱스부터 끝까지 새로운 문자열로 반환
         String sub2 = str.substring(2,4); // 특정인덱스부터 특정인덱스까지 새로운 문자열로 반환, 인덱스 벗어남 주의! - Exception
         CipherCode cipher = new CipherCode(); // 응용
+        StringSpecificChange change = new StringSpecificChange(); // 특정 인덱스 바꾸기
 
         // 공백으로 쪼개기 - split(" ")
         String [] strList1 = str.split(" ");
@@ -35,6 +36,9 @@ public class StringClass {
 
         StirngToNumber st = new StirngToNumber(); // 숫자판별, 숫자로변환
         String ns = String.valueOf(100);// 숫자를 문자로 변환
+
+        StringUpperLower uplow = new StringUpperLower();// 대소문자 판별
+        String u = str.toUpperCase(Locale.ROOT); // 대소문자 변환
 
         // 특정 '문자' '문자열' 검색(첫 등장 인덱스 반환)  indexOf(String)
         // 특정인덱스 이후로 검색(첫 등장 인덱스 반환) indexOf(String, int)
