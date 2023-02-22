@@ -4,6 +4,7 @@ import programmers.level0.ArraySlice;
 import programmers.level0.EmergencySetOrder;
 import programmers.level0.Mode;
 import programmers.level0.ReverseArray;
+import programmers.level1.Poketmon;
 
 import java.util.Arrays;
 
@@ -79,6 +80,8 @@ public class Array {
         for (int i = 0; i < array1.length; i++) {
             array7[i] = array1[i];
         }
+
+        Poketmon po = new Poketmon();// 중복제거, Set
 
         // 배열 통계치 연산
         int l = array.length;// 길이, 배열의 크기
