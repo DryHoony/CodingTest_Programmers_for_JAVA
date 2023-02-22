@@ -4,7 +4,9 @@ import programmers.level0.ArraySlice;
 import programmers.level0.EmergencySetOrder;
 import programmers.level0.Mode;
 import programmers.level0.ReverseArray;
+import programmers.level1.OverlapRemove;
 import programmers.level1.Poketmon;
+import programmers.level1.StringStrangeArrange;
 
 import java.util.Arrays;
 
@@ -56,6 +58,8 @@ public class Array {
 
         Arrays.sort(array); // 정렬(오름차순)
         ReverseArray reverseArray = new ReverseArray(); // 뒤집기, 정렬 후 사용하면 내림차순
+        StringStrangeArrange strangeArrange = new StringStrangeArrange();// 이차원 배열 정렬
+        // 이차원 이상의 배열에서도 Arrays.sort(list, new Comparator<>())를 잘 구현해 사용하면 됨
 
         EmergencySetOrder setOrder = new EmergencySetOrder(); // 배열의 원소 (크기)순서 매기기
 
@@ -81,7 +85,8 @@ public class Array {
             array7[i] = array1[i];
         }
 
-        Poketmon po = new Poketmon();// 중복제거, Set
+        Poketmon po = new Poketmon();// Set
+        OverlapRemove ov = new OverlapRemove();// 중복제거
 
         // 배열 통계치 연산
         int l = array.length;// 길이, 배열의 크기
