@@ -1,0 +1,11 @@
+package skillpractice;
+
+import programmers.level1.Budget;
+
+public class Recursion {
+
+    // 예산 n을 넘지않는 선에서 {1,2,3,4,...}중 최대갯수로 뽑아내기
+    Budget budget = new Budget();
+
+
+}
