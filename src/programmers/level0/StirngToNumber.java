@@ -10,7 +10,7 @@ public class StirngToNumber {
 
     public static boolean isNumber(String s){
         try{
-            Integer.parseInt(s);
+            Integer.parseInt(s); // "-10" 음수도 인식가능
             return true;
         }catch (NumberFormatException e){
             return false;

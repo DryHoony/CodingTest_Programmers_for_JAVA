@@ -45,6 +45,23 @@ public class divisor { // 순서쌍(ordered pair) 추가
         return list;
     }
 
+    //약수의 합
+    public static int divisorSum(int n){ // 음이 아닌 정수 n에 대해
+        int answer=0;
+        int r = (int)Math.sqrt(n);
+
+        // 제곱근 전까지 연산
+        for(int i=1; i<=r; i++){
+            if(n%i==0){
+                answer += i + n/i;
+            }
+        }
+        // 제곱수일 경우 중복제거
+        if (r==Math.sqrt(n)) answer -= r;
+
+        return answer;
+    }
+
     public static void main(String[] args) {
         divisor d = new divisor();
 

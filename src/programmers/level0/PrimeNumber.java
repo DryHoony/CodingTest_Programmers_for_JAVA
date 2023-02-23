@@ -10,9 +10,9 @@ public class PrimeNumber {
         for(int i=2; i<= (int)Math.sqrt(n); i++){
             if(n%i==0) return false;
         }
-
         return true;
     }
+
 
     // 에라토스테네스의 체 - 범위내 소수집합 구하기
     // 동적으로 크기가 변화해야 하므로 array를 사용하지 않고 list를 사용

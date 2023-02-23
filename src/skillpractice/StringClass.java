@@ -26,6 +26,8 @@ public class StringClass {
         CipherCode cipher = new CipherCode(); // 응용
         StringSpecificChange change = new StringSpecificChange(); // 특정 인덱스 바꾸기
 
+        str = str.trim(); // 양끝 공백 제거
+
         // 공백으로 쪼개기 - split(" ")
         String [] strList1 = str.split(" ");
 

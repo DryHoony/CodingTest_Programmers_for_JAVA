@@ -2,6 +2,7 @@ package skillpractice;
 
 
 import programmers.level0.*;
+import programmers.level1.ACipherSum;
 
 public class MathOperator {
 
@@ -24,6 +25,7 @@ public class MathOperator {
     double ceilv = Math.ceil(1.5); // 천장함수
     double roundv = Math.round(1.5); // 반올림
 
+    ACipherSum sum = new ACipherSum(); //자릿수 합
 
 
     double ranv = Math.random(); // 0<= x < 1 실수 random 추출
@@ -36,7 +38,7 @@ public class MathOperator {
     PermutationAndCombination pc = new PermutationAndCombination();// 팩토리얼, 순열, 조합, gcd
 
     //진법
-    // 이진법
+    BinarySystem bi = new BinarySystem();// 이진법
 
 
     // 도형, 공간
