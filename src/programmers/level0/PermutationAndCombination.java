@@ -34,6 +34,11 @@ public class PermutationAndCombination { //순열과 조합
         return gcd(b, a%b);
     }
 
+    // lcm, 최대공약수
+    public int lcm(int a, int b){
+        return a*b/gcd(a,b);
+    }
+
     //조합
     public long Combination(int n, int r){
 //        return this.Permutation(n,r) / this.Factorial(r); //비효율적

@@ -7,6 +7,7 @@ import programmers.level0.ReverseArray;
 import programmers.level1.OverlapRemove;
 import programmers.level1.Poketmon;
 import programmers.level1.StringStrangeArrange;
+import programmers.level1.ToArrayConvert;
 
 import java.util.Arrays;
 
@@ -60,6 +61,8 @@ public class Array {
         ReverseArray reverseArray = new ReverseArray(); // 뒤집기, 정렬 후 사용하면 내림차순
         StringStrangeArrange strangeArrange = new StringStrangeArrange();// 이차원 배열 정렬
         // 이차원 이상의 배열에서도 Arrays.sort(list, new Comparator<>())를 잘 구현해 사용하면 됨
+
+        ToArrayConvert convert = new ToArrayConvert(); // Arraylist를 array로 변환, 반대로 변환도 있음
 
         EmergencySetOrder setOrder = new EmergencySetOrder(); // 배열의 원소 (크기)순서 매기기
 

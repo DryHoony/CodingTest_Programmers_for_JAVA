@@ -3,6 +3,7 @@ package skillpractice;
 
 import programmers.level0.*;
 import programmers.level1.ACipherSum;
+import programmers.level1.MatrixAdd;
 
 public class MathOperator {
 
@@ -35,7 +36,7 @@ public class MathOperator {
 
     PrimeNumber pclass = new PrimeNumber();// 소수
 
-    PermutationAndCombination pc = new PermutationAndCombination();// 팩토리얼, 순열, 조합, gcd
+    PermutationAndCombination pc = new PermutationAndCombination();// 팩토리얼, 순열, 조합, gcd,lcm
 
     //진법
     BinarySystem bi = new BinarySystem();// 이진법
@@ -57,6 +58,8 @@ public class MathOperator {
 
     // 삼각함수
 
+
+    MatrixAdd mAdd = new MatrixAdd(); //행렬
 
 
 
