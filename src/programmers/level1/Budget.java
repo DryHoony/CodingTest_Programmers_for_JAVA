@@ -54,20 +54,20 @@ public class Budget { //기출 https://school.programmers.co.kr/learn/courses/30
         return -1; // 종료조건 해당안되는 재귀가지 어떻게 처리??
     }
 
-    public static int recursion2(ArrayList<Integer> list, int budget){
-        if(listSum(list) > budget) ;
-        else if (listSum(list) == budget) return list.size();
-        else{
-            for (int i = 0; i < list.size(); i++) {
-                ArrayList<Integer> nextlist = (ArrayList<Integer>) list.stream().toList(); //깊은복사 되었나?
-                nextlist.remove(i);
-                System.out.println(nextlist); //출력해서 확인해보자
-                return recursion2(nextlist, budget);
-            }
-        }
-
-//        return; // 마찬가지로 탈락한 재귀가지를 어떻게 처리할지,,
-    }
+//    public static int recursion2(ArrayList<Integer> list, int budget){
+//        if(listSum(list) > budget) ;
+//        else if (listSum(list) == budget) return list.size();
+//        else{
+//            for (int i = 0; i < list.size(); i++) {
+//                ArrayList<Integer> nextlist = (ArrayList<Integer>) list.stream().toList(); //깊은복사 되었나?
+//                nextlist.remove(i);
+//                System.out.println(nextlist); //출력해서 확인해보자
+//                return recursion2(nextlist, budget);
+//            }
+//        }
+//
+////        return; // 마찬가지로 탈락한 재귀가지를 어떻게 처리할지,,
+//    }
 
 
     public static void main(String[] args) {
