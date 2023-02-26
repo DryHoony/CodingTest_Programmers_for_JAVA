@@ -14,6 +14,10 @@ public class MergeSort { //병합정렬, 합병정렬
 
 
     // 재귀로 구현
+    public  static int[] mergesort0(int[] list){
+
+        return null;
+    }
 
     public static void main(String[] args) {
         int[] list = {1,5,8,5,4,3,5,8,2};
