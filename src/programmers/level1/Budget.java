@@ -34,52 +34,32 @@ public class Budget { //기출 https://school.programmers.co.kr/learn/courses/30
         return sum;
     }
 
-    // 원소별로 포함,미포함 2^n 가짓수 재귀
-    public static int recursion(ArrayList<Integer> list, int budget, int i){
+    public static int budgetCount(int[] list, int budget){
+        // 정렬된 list 의 일부원소의 합 == budget 인 원소갯수의 최댓값 count
+        int count=0;
+        int index = 0;
 
-        if(listSum(list) == budget) return list.size(); // 종료조건 list의 합이 budget이면 종료
-        else if (listSum(list) < budget) {
-            // i번째 연산
-            if(i<list.size()){
-                // i번째 포함 재귀
-                return recursion(list,budget,i+1);
+        //연산 budgetOperation
+        return budgetOperation(list,budget,0,0);
+    } //실패 및 시간초과
 
-                // i번째 미포함 재귀
-//                list.remove(i);
-//                return recursion(list,budget,i);
-            }
+    public static int budgetOperation(int[] list, int budget, int count, int index){
+        if(budget==0) return count; // 종료조건
+        else if (budget<0 || index==list.length) return 0; // 해당안되는 재귀가지 종료조건 강제할당!! 해결필요!!
 
-        }
-
-        return -1; // 종료조건 해당안되는 재귀가지 어떻게 처리??
+        return Math.max(budgetOperation(list, budget-list[index], count+1,index+1),
+                budgetOperation(list, budget, count,index+1));
     }
-
-//    public static int recursion2(ArrayList<Integer> list, int budget){
-//        if(listSum(list) > budget) ;
-//        else if (listSum(list) == budget) return list.size();
-//        else{
-//            for (int i = 0; i < list.size(); i++) {
-//                ArrayList<Integer> nextlist = (ArrayList<Integer>) list.stream().toList(); //깊은복사 되었나?
-//                nextlist.remove(i);
-//                System.out.println(nextlist); //출력해서 확인해보자
-//                return recursion2(nextlist, budget);
-//            }
-//        }
-//
-////        return; // 마찬가지로 탈락한 재귀가지를 어떻게 처리할지,,
-//    }
-
 
     public static void main(String[] args) {
 
-        int[] d = {1,3,2,5,4};
-        int budget = 9;
-        int answer;
-
+        int[] d = {2,2,3,3};
         Arrays.sort(d); //오름차순
-        d = ReverseArray.reverse(d); // 내림차순
-        ArrayList<Integer> list = ToArrayConvert.intConvert2(d); //Arraylist 변환
-        System.out.println(list);
+//        int b = 9;
+
+        System.out.println(budgetCount(d,10));
+
+
 
 
 
