@@ -4,10 +4,9 @@ import java.util.ArrayList;
 
 public class MergeSort { //병합정렬, 합병정렬
 
-    // 비재귀로 구현 - bottom up
+    // 비재귀로 구현 - bottom up방식
     public static int[] mergesort(int[] list){
         ArrayList<Integer> answer = new ArrayList<>();
-
 
         return null;
     }
