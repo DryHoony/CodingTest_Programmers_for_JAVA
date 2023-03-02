@@ -2,52 +2,40 @@ import java.util.*;
 
 public class Test {
 
-    // 이차원 배열 정렬 int
-    public static int[][] arrange2Int(int[][] list){
-        Arrays.sort(list, new Comparator<int[]>() {
-            @Override
-            public int compare(int[] o1, int[] o2) {
-                if(o1[0] == o2[0]) {
-                    return o1[1] - o2[1]; // int형으로 return
-                }else {
-                    return o1[0] - o2[0];
-                }
-            }
-        });
-
-        return list;
-    }
-
-    // 이차원 배열 정렬 double
-    public static double[][] arrange2Double(double[][] list){
-        Arrays.sort(list, new Comparator<double[]>() {
-            @Override
-            public int compare(double[] o1, double[] o2) {
-                if(o1[0] == o2[0]) {
-                    if (o1[1] > o2[1]) return 1;
-                    else if(o1[1] == o2[1]) return 0;
-                    else return -1;
-                }else if(o1[0] > o2[0]) return 1;
-                else return -1;
-            }
-        });
-
-        return list;
-    }
-
 
     public static void main(String[] args) {
-//        int[][] list = new int[6][];
-        double[][] list = {{14.5,5},{19,1},{13.5,2},{14.5,3},{15,4},{17.5,6}};
+        ArrayList<Integer> answer = new ArrayList<>();
+        answer.add(0); // 빈통 방지
+        answer.add(0,3);
+        answer.add(0,1);
+        answer.add(0,5);
+        answer.add(0,2);
 
-        // 이차원정렬
-        arrange2Double(list);
+        System.out.println(answer);
 
-        for (double[] arr:list){
-            System.out.println(arr[0] + "," + arr[1]);
-        }
+        answer.remove(0);
+        answer.remove(0);
+        System.out.println(answer);
+        System.out.println(answer.get(0));
 
 
+
+//        int[][] board = {{0,0,0,0,0},{0,0,1,0,3},{0,2,5,0,1},{4,2,4,4,2},{3,5,1,3,1}};
+//        int[] moves = {1,5,3,5,1,2,1,4};
+//        int n = board.length;
+//
+//        ArrayList<ArrayList<Integer>> board2 = new ArrayList<>(); // ArrayList 이차원배열
+//        ArrayList<Integer> row = new ArrayList<Integer>();
+//        for (int i = 0; i < n; i++) {
+//            row.clear();
+//            for (int j = 0; j < n; j++) {
+//                if(board[j][i] != 0) row.add(board[j][i]);
+//            }
+//            System.out.println(row);
+//            board2.add(row);
+//        }
+//
+//        System.out.println(board2);
 
     }
 
