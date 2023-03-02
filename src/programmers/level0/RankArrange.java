@@ -23,13 +23,13 @@ public class RankArrange { // 등수 매기기
         return -1; //없으면
     }
 
-    public static int[] rank(double[] list){
+    public static int[] rank(double[] list){ // 높은값 순으로 index+1 나열, 중복시 공동등수
         int l = list.length;
         int[] answer = new int[l];
 
         double[] ordered = Arrays.copyOf(list,l); //깊은복사
         Arrays.sort(ordered);
-        ordered = reverse(ordered);
+        ordered = reverse(ordered); // 내림차순
 
         for (int i = 0; i < l; i++) {
             // list[i]가 ordered에서의 index를 answer[i]에 할당
@@ -38,6 +38,9 @@ public class RankArrange { // 등수 매기기
 
         return answer;
     }
+
+    // 이차원 정렬
+
 
 
     public static void main(String[] args) {
