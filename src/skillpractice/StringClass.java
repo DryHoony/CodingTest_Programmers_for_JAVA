@@ -41,6 +41,12 @@ public class StringClass {
         StirngToNumber st = new StirngToNumber(); // 숫자판별, 숫자로변환
         String ns = String.valueOf(100);// 숫자를 문자로 변환
 
+        // 한글자씩 판별
+        Character.isDigit('5'); // 숫자 판별
+        Character.isAlphabetic('a'); // 알파벳 판별
+        Character.isLetter('a'); // 위와 동일, 영어일 경우 차이X
+
+
         StringUpperLower uplow = new StringUpperLower();// 대소문자 판별
         String u = str.toUpperCase(Locale.ROOT); // 대소문자 변환
 
