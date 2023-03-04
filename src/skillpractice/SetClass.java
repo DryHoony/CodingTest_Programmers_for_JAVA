@@ -26,6 +26,8 @@ public class SetClass {
         Set<Integer> set = new HashSet<>();
         set = Set.copyOf(list); // List를 Set으로 변환, list는 그대로(변화X)
 //        list = List.copyOf(set); // Set을 List로 변환
+        // 단, set을 List로 변환했을때, 정렬을 보장하진 않음
+
         System.out.println(set);
 //        Set<Integer> set = new HashSet<>();
 //        set.addAll(list);
