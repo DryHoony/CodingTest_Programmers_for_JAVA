@@ -3,7 +3,7 @@ package programmers.level1;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BurgerMaking { // 햄버거 만들기
+public class BurgerMaking { // 햄버거 만들기, 미해결!!
 
 
 //    public static void main(String[] args) {
