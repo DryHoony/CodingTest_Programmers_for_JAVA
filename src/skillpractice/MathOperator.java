@@ -3,6 +3,7 @@ package skillpractice;
 
 import programmers.level0.*;
 import programmers.level1.ACipherSum;
+import programmers.level1.MainScreenClean;
 import programmers.level1.MatrixAdd;
 
 public class MathOperator {
@@ -45,7 +46,8 @@ public class MathOperator {
     // 도형, 공간
     RectangleArea area = new RectangleArea(); // 직사각형 넓이
     DirectionKey dkey = new DirectionKey(); // 방향키 누름
-    SafetyZone safezone = new SafetyZone(); // 격자공간 근방제거
+    SafetyZone safezone = new SafetyZone(); // 격자공간 근방제거 - 킹(거리1)위치 폭탄제거
+    MainScreenClean mainScreenClean = new MainScreenClean(); // 격자공간 파일(존재)체크, 직사각형 드래그 연산
     Parallel p = new Parallel(); // 평행, 기울기 비교
     OverlapLine overlap = new OverlapLine();// 겹치는 선분길이
 
