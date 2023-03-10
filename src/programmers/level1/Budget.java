@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Budget { //기출 https://school.programmers.co.kr/learn/courses/30/lessons/12982?language=java
+public class Budget { //예산 https://school.programmers.co.kr/learn/courses/30/lessons/12982?language=java
 
     // 답이 존재한다는 가정하에 꼼수
     public static int idiot(int[] d, int budget) {
@@ -52,6 +52,8 @@ public class Budget { //기출 https://school.programmers.co.kr/learn/courses/30
     }
 
     public static void main(String[] args) {
+        // 재귀함수로 딱 맞게 풀려면 어떻게 해야 할까?
+
 
         int[] d = {2,2,3,3};
         Arrays.sort(d); //오름차순
