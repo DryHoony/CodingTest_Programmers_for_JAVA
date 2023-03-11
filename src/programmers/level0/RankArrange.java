@@ -1,6 +1,8 @@
 package programmers.level0;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RankArrange { // 등수 매기기
 
@@ -41,6 +43,41 @@ public class RankArrange { // 등수 매기기
 
     // 이차원 정렬
 
+    // Map<,> 이용 ver - 주어진 값을 key 로 해당 index 를 value 에 담는다
+    // 중복은 처리못함 - key 값이 겹치기에 중복 처리 X
+    public static int[] rank2(int[] list){
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < list.length; i++) {
+            if (!map.containsKey(list[i]))
+                map.put(list[i],i);
+        }
+
+        Integer[] keyList = map.keySet().toArray(new Integer[0]);
+        Arrays.sort(keyList); // 오름차순
+        keyList = reverseIntArray(keyList); // 내림차순
+
+        int[] answer = new int[list.length];
+        // list 의 원소의 등수에 해당하는 index 할당
+        int i=1;
+        for (int n:keyList){
+            answer[map.get(n)] = i; // key 값에 해당하는 원소는 i등
+            i++;
+        }
+
+        return answer;
+    }
+
+    public static Integer[] reverseIntArray(Integer[] list){
+        int l = list.length;
+        Integer[] answer = new Integer[l];
+
+        for (int i = 0; i < l; i++) {
+            answer[i] = list[l-1-i];
+        }
+
+        return answer;
+    }
+
 
 
     public static void main(String[] args) {
@@ -62,6 +99,8 @@ public class RankArrange { // 등수 매기기
 
 
         }
+
+
 
 
 

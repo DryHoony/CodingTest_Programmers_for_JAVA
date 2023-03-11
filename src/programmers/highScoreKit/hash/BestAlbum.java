@@ -31,6 +31,7 @@ public class BestAlbum { // 베스트앨범
         // gerePlayTime 에서 value(plays) 높은 순서로 key(genre)출력 - 2.로 연결
         System.out.println(genrePlayTime.keySet());
         System.out.println(genrePlayTime.values());
+        System.out.println(genrePlayTime.values().toArray());
 
 
         // 2. 출력된 key(genre)에 해당하는 노래(index)중 play 횟수가 1,2위인 노래(index)만 출력 - 3.으로 연결
