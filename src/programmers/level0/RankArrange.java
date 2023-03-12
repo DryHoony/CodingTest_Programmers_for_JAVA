@@ -57,7 +57,7 @@ public class RankArrange { // 등수 매기기
         keyList = reverseIntArray(keyList); // 내림차순
 
         int[] answer = new int[list.length];
-        // list 의 원소의 등수에 해당하는 index 할당
+        // list 의 원소의 등수(큰 순서)에 해당하는 index 할당
         int i=1;
         for (int n:keyList){
             answer[map.get(n)] = i; // key 값에 해당하는 원소는 i등
