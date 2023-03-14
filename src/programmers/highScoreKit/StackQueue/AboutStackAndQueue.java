@@ -9,7 +9,7 @@ import java.util.concurrent.TransferQueue;
 public class AboutStackAndQueue {
 //    Stack, Queue, LIFO, FIFO, push & pop
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         System.out.println("Stack");
         // 스택 정의
 //        - 제한적으로 접근할 수 있는 나열 구조, 접근은 언제나 목록의 끝에서만 일어난다, 끝먼저내기 목록(pushdouwn list)
@@ -62,7 +62,7 @@ public class AboutStackAndQueue {
     }
 
 
-    public static void main2(String[] args) {
+    public static void main(String[] args) {
         System.out.println("Queue");
 
 //        큐 정의
