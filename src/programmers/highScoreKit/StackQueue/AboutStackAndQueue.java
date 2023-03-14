@@ -40,7 +40,7 @@ public class AboutStackAndQueue {
         stack.push("d");
         System.out.println(stack);
 
-        System.out.println("pop연산 " + stack.pop() + stack);;
+        System.out.println("pop연산 " + stack.pop() + stack);; // EmptyStackException 주의
         System.out.println("peek연산 " + stack.peek() + stack);;
         System.out.println();
 
