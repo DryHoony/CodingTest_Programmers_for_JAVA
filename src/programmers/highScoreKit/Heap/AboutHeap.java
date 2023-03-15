@@ -1,5 +1,8 @@
 package programmers.highScoreKit.Heap;
 
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 public class AboutHeap { // 힙
 
 
@@ -35,8 +38,24 @@ public class AboutHeap { // 힙
 //        - 힙 정렬(heap sort)
 //        - 허프만 코드 : 무손실 압축 알고리즘
 
-        // 힙 기능
+        // 구현
+        HeapClass heap = new HeapClass(); // 최대 힙, 입력, 출력(최댓값), 크기, 초기화
 
+
+        // '우선순위 큐'와 비교해 보자 - '최소 힙'과 동일한 기능 하는 것으로 보임
+        Queue<Integer> queue = new PriorityQueue<>();
+        queue.add(5);
+        queue.add(15);
+        queue.add(6);
+        queue.add(3);
+        queue.add(8);
+        queue.add(11);
+        queue.add(1);
+        queue.add(6);
+
+        while(!queue.isEmpty()){
+            System.out.println(queue.poll());
+        }
 
 
 

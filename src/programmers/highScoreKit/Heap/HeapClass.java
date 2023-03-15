@@ -10,9 +10,9 @@ public class HeapClass { // 힙 구현
 
 
     // 정수 최대 힙
-    public HeapClass(List<Integer> integersHeapTree) {
-        this.heap = integersHeapTree;
-    }
+//    public HeapClass(List<Integer> integersHeapTree) {
+//        this.heap = integersHeapTree;
+//    }
 
     @Override
     public String toString() {
@@ -35,7 +35,7 @@ public class HeapClass { // 힙 구현
 
      public void input(int n){
          heap.add(n);
-         int c = heap.size(); // 자식노드 index
+         int c = heap.size()-1; // 자식노드 index
          int p = (c-1)/2; // 부모노드 index
 
          // 힙ok or c==0 때까지(뿌리 노드 될때까지) 연산(swap)
@@ -87,6 +87,33 @@ public class HeapClass { // 힙 구현
          return max;
      }
 
+     public boolean isEmpty(){
+         if(heap.size()==0) return true;
+         else return false;
+     }
+
+     public int heapSize(){
+         return heap.size();
+     }
 
 
+    public static void main(String[] args) {
+        HeapClass heap = new HeapClass();
+        heap.input(5);
+        heap.input(15);
+        heap.input(6);
+        heap.input(3);
+        heap.input(8);
+        heap.input(11);
+        heap.input(1);
+        heap.input(6);
+
+
+        // 확인
+//        System.out.println(heap.toString());
+        while (!heap.isEmpty()){
+            System.out.println("최댓값 출력:" + heap.output() + ", 남은 " + heap.toString());
+        }
+
+    }
 }
