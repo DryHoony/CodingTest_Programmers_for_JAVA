@@ -9,7 +9,18 @@ public class MInHeapClass { // 최소 힙 구현 - 최대 힙과 중복제거
     // 자식 노드 i >> 부모 노드 (int) (i-1)/2
 
     // 정수 최소 힙
-    List<Integer> heap = new ArrayList<>();
+    List<Integer> heap;
+
+    public MInHeapClass() {
+        this.heap = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "MInHeapClass{" +
+                "heap=" + heap +
+                '}';
+    }
 
     public void swap(int i, int j){ // i,j 위치 교환
         int n = heap.get(i);
@@ -69,6 +80,10 @@ public class MInHeapClass { // 최소 힙 구현 - 최대 힙과 중복제거
         }
 
         return min;
+    }
+
+    public int peek(){
+        return heap.get(0);
     }
 
     public void clear(){

@@ -10,9 +10,13 @@ public class MaxHeapClass { // 최대 힙 구현 - 최소 힙과 중복제거, �
 
 
     // 정수 최대 힙
-    List<Integer> heap = new ArrayList<>();
+    List<Integer> heap;
 
-     public void swap(int i, int j){ // i,j 위치 교환
+    public MaxHeapClass() {
+        this.heap = new ArrayList<>();
+    }
+
+    public void swap(int i, int j){ // i,j 위치 교환
          int n = heap.get(i);
          heap.set(i, heap.get(j));
          heap.set(j, n);
