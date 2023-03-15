@@ -39,7 +39,7 @@ public class AboutHeap { // 힙
 //        - 허프만 코드 : 무손실 압축 알고리즘
 
         // 구현
-        HeapClass heap = new HeapClass(); // 최대 힙, 입력, 출력(최댓값), 크기, 초기화
+        MaxHeapClass heap = new MaxHeapClass(); // 최대 힙, 입력, 출력(최댓값), 크기, 초기화
 
 
         // '우선순위 큐'와 비교해 보자 - '최소 힙'과 동일한 기능 하는 것으로 보임
