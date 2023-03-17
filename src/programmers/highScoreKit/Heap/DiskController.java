@@ -48,11 +48,11 @@ public class DiskController { // 디스크 컨트롤러
             lc = 2*p+1;
             rc = 2*p+2;
 
-            if(heap.get(p)[1] > heap.get(lc)[1] && heap.get(rc)[1] > heap.get(lc)[1]){ // 왼쪽 자식
+            if(heap.get(p)[1] > heap.get(lc)[1] && heap.get(rc)[1] >= heap.get(lc)[1]){ // 왼쪽 자식
                 swap(p,lc);
                 p = lc;
             }
-            else if(heap.get(p)[1] > heap.get(rc)[1] && heap.get(lc)[1] > heap.get(rc)[1]){ // 오른쪽 자식
+            else if(heap.get(p)[1] > heap.get(rc)[1] && heap.get(lc)[1] >= heap.get(rc)[1]){ // 오른쪽 자식
                 swap(p,rc);
                 p = rc;
             }
@@ -137,8 +137,8 @@ public class DiskController { // 디스크 컨트롤러
         int count = 0; // 소요'시간' + 대기'시간'*대기작업수 = '시간' * (1+대기작업수)
 
 
-        int[] job = jobs[0]; // heap 에서 꺼냄
-        int[] nextjob = jobs[1]; // heap 에 들어감
+        int[] job = jobs[0];
+        int[] nextjob = jobs[1]; // heap 에 들어갈 준비(대기)
         int jobIndex=2;
 
         // 중간연산 - while 문으로 돌리자!, nextjob 이 없을 때까지
@@ -320,12 +320,8 @@ public class DiskController { // 디스크 컨트롤러
 
     }
 
-    public static int positive(int n){
-        if(n>0) return n;
-        else return 0;
-    }
 
-    public static void main(String[] args) { // ver3 - ver2를 개선 - 똑같이 실패,,3/20 문제를 잘 못 이해했나,,
+    public static void main3(String[] args) { // ver3 - ver2를 개선 - 똑같이 실패,,3/20 문제를 잘 못 이해했나,,
         // 걸린시간 = 수행시간 + 지연시간
         // 수행시간 : job[1] 의 길이 합
         // 지연시간 : (job 의 실제 시작시간(time) - job[0]) 의 합
