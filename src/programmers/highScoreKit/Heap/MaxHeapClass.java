@@ -55,11 +55,11 @@ public class MaxHeapClass { // 최대 힙 구현 - 최소 힙과 중복제거, �
             lc = 2*p+1;
             rc = 2*p+2;
 
-            if(heap.get(p) < heap.get(lc) && heap.get(rc) < heap.get(lc)){ // 왼쪽 자식
+            if(heap.get(p) < heap.get(lc) && heap.get(rc) <= heap.get(lc)){ // 왼쪽 자식
                 swap(p,lc);
                 p = lc;
             }
-            else if(heap.get(p) < heap.get(rc) && heap.get(lc) < heap.get(rc)){ // 오른쪽 자식
+            else if(heap.get(p) < heap.get(rc) && heap.get(lc) <= heap.get(rc)){ // 오른쪽 자식
                 swap(p,rc);
                 p = rc;
             }
@@ -88,6 +88,10 @@ public class MaxHeapClass { // 최대 힙 구현 - 최소 힙과 중복제거, �
      public int heapSize(){
          return heap.size();
      }
+
+    public int peek(){
+        return heap.get(0);
+    }
 
 
     public static void main(String[] args) {

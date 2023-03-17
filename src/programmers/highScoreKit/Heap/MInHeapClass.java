@@ -35,7 +35,7 @@ public class MInHeapClass { // 최소 힙 구현 - 최대 힙과 중복제거
 
         // 힙ok or c==0 때까지(뿌리 노드 될때까지) 연산(swap)
         while(c!=0){
-            if(heap.get(p) > heap.get(c)){ // 자식노드가 더 작으면
+            if(heap.get(p) > heap.get(c)){ // 하지만, 자식노드가 더 작으면
                 swap(p,c);
                 c = p;
                 p = (c-1)/2;
@@ -61,11 +61,11 @@ public class MInHeapClass { // 최소 힙 구현 - 최대 힙과 중복제거
             lc = 2*p+1;
             rc = 2*p+2;
 
-            if(heap.get(p) > heap.get(lc) && heap.get(rc) > heap.get(lc)){ // 왼쪽 자식
+            if(heap.get(p) > heap.get(lc) && heap.get(rc) >= heap.get(lc)){ // 왼쪽 자식
                 swap(p,lc);
                 p = lc;
             }
-            else if(heap.get(p) > heap.get(rc) && heap.get(lc) > heap.get(rc)){ // 오른쪽 자식
+            else if(heap.get(p) > heap.get(rc) && heap.get(lc) >= heap.get(rc)){ // 오른쪽 자식
                 swap(p,rc);
                 p = rc;
             }
