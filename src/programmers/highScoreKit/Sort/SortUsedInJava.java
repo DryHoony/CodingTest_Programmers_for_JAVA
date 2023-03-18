@@ -1,8 +1,6 @@
 package programmers.highScoreKit.Sort;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 public class SortUsedInJava {
     // 'array' 에 대해, 'List' 에 대해
@@ -52,6 +50,36 @@ public class SortUsedInJava {
 
     // List 에 대한 정렬
     public static void main(String[] args) {
+//        List<Integer> list = new ArrayList<>();
+        List<Integer> IntegerList = new ArrayList<>(Arrays.asList(5,3,4,2,6,7,96,2,5));
+
+        // 오름차순
+        Collections.sort(IntegerList);
+//        IntegerList.sort(Comparator.naturalOrder());
+        System.out.println(IntegerList);
+
+        // 내림차순
+        Collections.sort(IntegerList, Collections.reverseOrder());
+//        IntegerList.sort(Comparator.reverseOrder());
+        System.out.println(IntegerList);
+
+
+
+
+        List<String> StringList = new ArrayList<>(Arrays.asList("C", "A", "B", "a"));
+
+        // 대소문자 구분없이 오름차순
+        Collections.sort(StringList, String.CASE_INSENSITIVE_ORDER);
+//        StringList.sort(String.CASE_INSENSITIVE_ORDER);
+        System.out.println("대소문자 구분없이 오름차순 : " + StringList); // [a, A, B, C]
+
+        // 대소문자 구분없이 내림차순
+        Collections.sort(StringList, Collections.reverseOrder(String.CASE_INSENSITIVE_ORDER));
+//        StringList.sort(Collections.reverseOrder(String.CASE_INSENSITIVE_ORDER));
+        System.out.println("대소문자 구분없이 내림차순 : " + StringList); // [C, B, a, A]
+
+
+        // 사용자 정의 - Comparator 구현
 
 
     }
