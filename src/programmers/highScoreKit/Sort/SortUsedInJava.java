@@ -28,8 +28,8 @@ public class SortUsedInJava {
         Arrays.sort(IntegerArray, new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
-                return o1 - o2; // 오름차순(정렬의 default) 구조
-//                return o2 - o1; // 내림차순 >> Collections.reverseOrder()를 쓰자
+                return o1 - o2; // 오름차순(작은값 먼저 , 정렬의 default) 구조
+//                return o2 - o1; // 내림차순(큰값 먼저) >> Collections.reverseOrder()를 쓰자
             }
         });
 
