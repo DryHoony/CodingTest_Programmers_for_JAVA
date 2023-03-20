@@ -1,28 +1,19 @@
-package programmers.highScoreKit.Heap;
+package programmers.highScoreKit.Sort;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MaxHeapClass { // 최대 힙 구현 - 최소 힙과 중복제거, 리팩토링, 공통부분 묶음, 인터페이스 추상화 등등
-    // index 0부터 시작
-    // 부모 노드 i >> 왼쪽 자식 2*i+1 , 오른쪽 자식 2*i+2
-    // 자식 노드 i >> 부모 노드 (int) (i-1)/2
+public class HIndex { // H-Index
 
+    static List<Integer> heap = new ArrayList<>();
 
-    // 정수 최대 힙
-    List<Integer> heap;
+    public static void swap(int i, int j){ // i,j 위치 교환
+        int n = heap.get(i);
+        heap.set(i, heap.get(j));
+        heap.set(j, n);
+    }
 
-//    public MaxHeapClass() {
-//        this.heap = new ArrayList<>();
-//    }
-
-    public void swap(int i, int j){ // i,j 위치 교환
-         int n = heap.get(i);
-         heap.set(i, heap.get(j));
-         heap.set(j, n);
-     }
-
-    public void input(int n){
+    public static void input(int n){
         heap.add(n);
         int c = heap.size()-1; // 자식노드 index
         int p = (c-1)/2; // 부모노드 index
@@ -39,7 +30,7 @@ public class MaxHeapClass { // 최대 힙 구현 - 최소 힙과 중복제거, �
         }
     }
 
-    public int output(){
+    public static int output(){
         int max = heap.get(0);
         int l = heap.size();
 
@@ -76,41 +67,34 @@ public class MaxHeapClass { // 최대 힙 구현 - 최소 힙과 중복제거, �
         return max;
     }
 
-     public void clear(){
-         heap.clear();
-     }
+    public static void main(String[] args) { // ver1 - Nice! 한번에 통과!
+        int[] citations = {3, 0, 6, 1, 5}; // 원소값 0~10000, 배열 길이 1~1000
 
-     public boolean isEmpty(){
-         if(heap.size()==0) return true;
-         else return false;
-     }
-
-     public int heapSize(){
-         return heap.size();
-     }
-
-    public int peek(){
-        return heap.get(0);
-    }
-
-
-    public static void main(String[] args) {
-        MaxHeapClass heap = new MaxHeapClass();
-        heap.input(5);
-        heap.input(15);
-        heap.input(6);
-        heap.input(3);
-        heap.input(8);
-        heap.input(11);
-        heap.input(1);
-        heap.input(6);
-
-
-        // 확인
-//        System.out.println(heap.toString());
-        while (!heap.isEmpty()){
-            System.out.println("최댓값 출력:" + heap.output() + ", 남은 " + heap.toString());
+//        Arrays.sort(citations, Collections.reverseOrder()); // Integer[] 여야 한다
+        // Max Heap 으로 대체
+        for(int i:citations){
+            input(i);
         }
 
+        int H=0;
+        int n;
+
+        for (int i = 0; i < citations.length; i++) {
+            n = output();
+//            System.out.println(n); // 확인용
+            if(H >= n) break;
+
+            H++;
+            if(H==n) break;
+
+        }
+
+        // 결과확인
+        System.out.println(H);
+
+
+
+
     }
+
 }

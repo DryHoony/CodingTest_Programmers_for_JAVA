@@ -17,9 +17,11 @@ public class MaximumNumber { // 가장 큰 수
         return n;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { // ver1 - 8/15, 런타임 에러(5), 실패(2)
 //        int[] numbers = {6,10,2}; // 원소는 0~1000, 길이는 1~100,000(많네)
-        int[] numbers = {3,30,34,5,9};
+//        int[] numbers = {3,30,34,5,9};
+//        int[] numbers = {5,7,6,3,276,5,1,58,3,2,2,4,85,63};
+        int[] numbers = {1, 10, 100, 1000, 818, 81, 898, 89, 0, 0}; // 89/898/818/81/1/10/100/1000/0/0
 
         // array 를 Integer[] 변경필요
         Integer[] numberArray = new Integer[numbers.length];
@@ -31,11 +33,12 @@ public class MaximumNumber { // 가장 큰 수
         /*
         * 정렬기준 정의
         * 1. 최고자리 숫자 큰값 (0~9) 연산
-        * 2. 반복문 연산
+        * 2. 반복문 연산 while
         * 2-1. 다음 자릿수로 넘어감(이하 자릿수 연산)
-        * 2-2. 자릿수가 큰 값 return, (만약 자릿수가 없다면 이전 자릿수로 연산) (34 > 3 > 30, '3'을 다음 자릿수 연산에서 33으로 취급)
-        * 2-3. 자릿수 연산에서 값이 같다면 while 문으로 2.1 부터 반복
-        * 2-4. 만약 둘중 자릿수가 더 없다면 '마지막 비교'로 연산종료
+        * 2-2. 만약 둘중 자릿수가 더 없다면 '마지막 비교'로 연산종료
+        * 2-3. 자릿수가 큰 값 return, (만약 자릿수가 없다면 이전 자릿수로 연산) (34 > 3 > 30, '3'을 다음 자릿수 연산에서 33으로 취급)
+        * 2-4. 자릿수 연산에서 값이 같다면 2.1 부터 반복
+        *
         * */
         // array 를 전체 정렬 vs '힙'을 이용한 반 정렬 (어짜피 최대값 순으로 뽑아낼테니)
         Arrays.sort(numberArray, new Comparator<Integer>() {
@@ -47,18 +50,28 @@ public class MaximumNumber { // 가장 큰 수
 
                 String x = String.valueOf(o1);
                 String y = String.valueOf(o2);
+                String preN;
 
-                if(x.charAt(0) != y.charAt(0)) // 최고자리 숫자 비교
+                if(x.charAt(0) != y.charAt(0)) // 1. 최고자리 숫자 비교
                     return y.charAt(0) - x.charAt(0); // 양수면 y return, 즉 큰 값 return
                 else{
 
-                    while(true){
+                    while(true){ // 2. 반복문 연산
+                        preN = String.valueOf(x.charAt(0)); // 이전 자릿수 저장
+
+                        // 2.1 다음 자릿수
                         x = x.substring(1);
                         y = y.substring(1);
 
-                        if(x.equals("")) return -1;
-                        else if(y.equals("")) return 1;
-                        else if (x.charAt(0) != y.charAt(0))
+                        //2.2 (둘중 하나라도) 자릿수 없을때 마지막 연산
+                        if(x.equals("") || y.equals("")){
+                            if(x.equals("")) x = preN; // 자릿수 없다면 이전 자릿수 값 할당
+                            if(y.equals("")) y = preN; // "
+                            return y.charAt(0) - x.charAt(0);
+                        }
+
+                        // 2.3 자릿수가 큰 값 return
+                        else if (x.charAt(0) != y.charAt(0)) // 자릿수가 다를때만 연산, 같다면 2.4 로 반복문 연산
                             return y.charAt(0) - x.charAt(0); // 양수면 y return, 즉 큰 값 return
                     }
 
@@ -76,8 +89,10 @@ public class MaximumNumber { // 가장 큰 수
             answer.append(n);
         }
 
+        String a = answer.toString();
+
         // answer return 값 확인
-        System.out.println(answer);
+        System.out.println(a);
 
 
 
