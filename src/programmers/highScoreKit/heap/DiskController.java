@@ -1,4 +1,4 @@
-package programmers.highScoreKit.Heap;
+package programmers.highScoreKit.heap;
 
 import java.util.*;
 

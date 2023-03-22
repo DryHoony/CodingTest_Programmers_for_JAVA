@@ -1,4 +1,4 @@
-package programmers.highScoreKit.Sort;
+package programmers.highScoreKit.sort;
 
 public class AboutSort { // 정렬
 

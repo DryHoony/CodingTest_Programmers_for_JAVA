@@ -1,6 +1,5 @@
-package programmers.highScoreKit.StackQueue;
+package programmers.highScoreKit.stackQueue;
 
-import java.util.Iterator;
 import java.util.Stack;
 
 public class HateSameNumber { // 같은 숫자는 싫어

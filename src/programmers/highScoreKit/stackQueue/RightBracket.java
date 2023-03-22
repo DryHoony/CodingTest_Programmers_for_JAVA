@@ -1,6 +1,4 @@
-package programmers.highScoreKit.StackQueue;
-
-import java.util.Stack;
+package programmers.highScoreKit.stackQueue;
 
 public class RightBracket { // 올바른 괄호
 

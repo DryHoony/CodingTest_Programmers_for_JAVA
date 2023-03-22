@@ -1,10 +1,6 @@
-package programmers.highScoreKit.StackQueue;
+package programmers.highScoreKit.stackQueue;
 
-import javax.swing.*;
 import java.util.*;
-import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.TransferQueue;
 
 public class AboutStackAndQueue {
 //    Stack, Queue, LIFO, FIFO, push & pop

@@ -1,4 +1,4 @@
-package programmers.highScoreKit.Sort;
+package programmers.highScoreKit.sort;
 
 public class KthNumber { // k번째 수
     // 앞서 푼 방법 그대로 ok

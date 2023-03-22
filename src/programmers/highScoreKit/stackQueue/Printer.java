@@ -1,4 +1,4 @@
-package programmers.highScoreKit.StackQueue;
+package programmers.highScoreKit.stackQueue;
 
 import java.util.Arrays;
 import java.util.LinkedList;

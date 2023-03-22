@@ -1,4 +1,4 @@
-package programmers.highScoreKit.Sort;
+package programmers.highScoreKit.sort;
 
 import java.util.ArrayList;
 import java.util.List;

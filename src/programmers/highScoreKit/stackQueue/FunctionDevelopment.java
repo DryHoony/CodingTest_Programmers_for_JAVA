@@ -1,8 +1,7 @@
-package programmers.highScoreKit.StackQueue;
+package programmers.highScoreKit.stackQueue;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 public class FunctionDevelopment { // 기능개발
 
