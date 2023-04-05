@@ -11,43 +11,68 @@ public class MapleExperience { // 메이플 경험치 연산
     10783397,11374327,11997640,12655110,13348610,14080113,14851703,15665576,16524049,17429566,18384706,19392187,20454878,21575805,22758159,24005306,25320796,26708375,28171993,29715818};
 
 
-
-
-
-    public static void main(String[] args) {
-
-        int nowLevel = 40; // 현재 레벨
-        int exExchange = 217340; // 와이번 전리품 경험치
-        // 한칸(9999개)당 10000/200 = 50번으로 연산
-
-
-        // 목표레벨에 따른 필요 전리품 갯수
-        int targetLevel = 70;
-        // 현재 레벨에서 목표레벨 까지
-        int needEX=0;
+    public static void targetLeveling(int nowLevel, int targetLevel, int exItemExchange){
+        int needEx = 0;
         for (int i = nowLevel; i < targetLevel; i++) {
-            needEX += experienceRequired[i];
+            needEx += experienceRequired[i];
         }
 
-        int count = needEX/exExchange + 1;
+        int count = needEx/exItemExchange + 1;
         System.out.println("현재 레벨" + nowLevel + "에서 목표 래벨" + targetLevel + "까지 '" + count + "'번의 전리품 교환이 필요");
         float itemNedd = count*200;
         itemNedd /= 9999;
         System.out.println(itemNedd + "칸 만큼의 전리품이 필요");
         System.out.println();
+    }
 
-
-        // 현재 전리품 갯수에 따른 도달 레벨
-        float itemGet = (float) 1.15; // 전리품 '칸' 수로 계산
-
-        int experienceGet = (int)itemGet*50; // 한칸당 갯수는 10000(9999)개 >> 10000/200 = 50번 만큼 교환가능
-        experienceGet *= exExchange;
+    public static void leveling(int nowLevel, int exItemExchange, float itemGet){
+        int experienceGet = (int)itemGet*50; // 한칸당 10000개 >> 10000/200 = 50번 만큼 교환가능
+        experienceGet *= exItemExchange;
 
         while(experienceGet > experienceRequired[nowLevel]){
             experienceGet -= experienceRequired[nowLevel];
-            nowLevel ++;
+            nowLevel++;
         }
+
         System.out.println("현재 전리품 " + itemGet + "칸으로 " + nowLevel + "까지 레벨 업");
+        System.out.println();
+    }
+
+
+    public static void main(String[] args) {
+
+        int nowLevel, exItemExchange, targetLevel;
+        float itemGet;
+
+        ///////////////////////////////////////////////////////////////
+
+        nowLevel = 40; // 현재 레벨
+        targetLevel = 70; // 목표 레벨
+        exItemExchange = 217340; // 와이번 전리품 경험치
+        // 한칸(9999개)당 10000/200 = 50번으로 연산
+
+        // 목표레벨 까지 필요한 전리품
+        targetLeveling(nowLevel, targetLevel, exItemExchange);
+
+        ///////////////////////////////////////////////////////////////
+
+        // 현재 전리품으로 도달할 수 있는 레벨
+        nowLevel = 40; // 현재 레벨
+        exItemExchange = 217340; // 와이번 전리품 경험치
+//        exItemExchange = 335450; // 스켈로스, 스켈레곤 전리품 경험치
+        itemGet = 1.2f; // // 전리품 '칸'
+
+        leveling(nowLevel, exItemExchange, itemGet);
+
+        ///////////////////////////////////////////////////////////////
+
+        // 70 레벨 이후
+        nowLevel = 70;
+        targetLevel = 80;
+        exItemExchange = 335450; // 스켈로스, 스켈레곤 전리품 경험치
+        targetLeveling(nowLevel, targetLevel,exItemExchange);
+
+
 
 
 
