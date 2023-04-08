@@ -46,9 +46,10 @@ public class MapleExperience { // 메이플 경험치 연산
 
         ///////////////////////////////////////////////////////////////
 
-        nowLevel = 70; // 현재 레벨
-        targetLevel = 90; // 목표 레벨
-        exItemExchange = 154240; // 켄타우로스 전리품 경험치
+        nowLevel = 55; // 현재 레벨
+        targetLevel = 65; // 목표 레벨
+        exItemExchange = 134240; // 빨코 전리품 경험치
+//        exItemExchange = 154240; // 켄타우로스 전리품 경험치
 //        exItemExchange = 217340; // 와이번 전리품 경험치
         // 한칸(9999개)당 10000/200 = 50번으로 연산
 
