@@ -71,9 +71,9 @@ public class MapleExperience { // 메이플 경험치 연산
         // 70 레벨 이후
         nowLevel = 70;
         targetLevel = 80;
-        exItemExchange = 154240; // 켄타우로스 전리품 경험치
-//        exItemExchange = 335450; // 스켈로스, 스켈레곤 전리품 경험치
-//        targetLeveling(nowLevel, targetLevel,exItemExchange);
+//        exItemExchange = 154240; // 켄타우로스 전리품 경험치
+        exItemExchange = 335450; // 스켈로스, 스켈레곤 전리품 경험치
+        targetLeveling(nowLevel, targetLevel,exItemExchange);
 
 
 
