@@ -79,17 +79,6 @@ public class MapleExperience { // 메이플 경험치 연산
 
 
 
-//        System.out.println("레인저 현재레벨 107, 몬스터 전리품 1칸(9999) 모으는 경험치 계산");
-//        // 드롭률 100% 경치 10014
-//        int experienceGet = 10000*10014;
-//
-//        nowLevel = 107;
-//        while(experienceGet > experienceRequired[nowLevel]){
-//            experienceGet -= experienceRequired[nowLevel];
-//            nowLevel++;
-//        }
-//        System.out.println("레벨 " + nowLevel + "에 경험치 " + (float)experienceGet/experienceRequired[nowLevel] + "퍼");
-
 
 
 
