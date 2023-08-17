@@ -15,7 +15,7 @@ public class PermutationAndCombination { //순열과 조합
         return f;
     }
 
-    //순열
+    //순열 - 숫자만 계산
     public long Permutation(int n, int r){
 //        return this.Factorial(n) / this.Factorial(n-r); //비효율적
 
@@ -85,18 +85,44 @@ public class PermutationAndCombination { //순열과 조합
 
 
     public static void main(String[] args) {
-        PermutationAndCombination pc = new PermutationAndCombination();
+        // 순열
+        int[] mix = {1,2,3,4};
+        int depth = mix.length;
 
-        for (int i = 1; i <= 60; i++) {
-//            System.out.println("F(" + i + ")는" + pc.Factorial(i)); // f(20)까지 ok
-//            System.out.println("P(20," + i + ")는" + pc.Permutation(20,i));
-            System.out.println("C(60,"+i+")는 " + pc.Combination(60,i));
+        // Swap 을 이용한 순열 출력(순열이라기 보단 팩토리얼 모든 케이스 같은데??)
+        permutation1(mix, 0, mix.length, 4);
+        int[][] result;
+
+    }
+
+
+
+
+    // 순열 - 모든 경우를 출력(println) / 참고 - https://bcp0109.tistory.com/14
+    static void permutation1(int[] arr, int depth, int n, int r){
+        // 재귀함수를 이용한다.
+        if (depth == r){ // 종료조건
+            // arr 출력
+            for (int i:arr){
+                System.out.print(i + " ");
+            }
+            System.out.println();
+            return;
         }
 
+        for (int i = depth; i < n; i++) {
+            swap(arr, depth, i);
+            permutation1(arr, depth+1, n, r);
+            swap(arr, depth, i);
+            // swap한 케이스에 대해 재귀로 돌리고, 다른 swap연산을 하기 위해 원상복구
+        }
 
+    }
 
-
-
+    static void swap(int[] arr, int i, int j){
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
 
     }
 
