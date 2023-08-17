@@ -1,4 +1,4 @@
-package playing;
+package somthingFun;
 
 public class MapleEnhance {
 

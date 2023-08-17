@@ -1,4 +1,4 @@
-package playing;
+package somthingFun;
 
 public class MapleExperience { // 메이플 경험치 연산
 
