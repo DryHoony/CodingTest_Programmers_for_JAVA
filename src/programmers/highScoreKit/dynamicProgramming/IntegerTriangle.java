@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 public class IntegerTriangle { // 정수삼각형
     // 아깝다! >> 정확성ok but 효율성 딱! 하나 실패(시간 초과)
+    // 연산조금 수정, List >> Array 로 변경 (출력, 검색속도 향상 기대)
 
     public static void main(String[] args) {
         int[][] triangle = {{7}, {3, 8}, {8, 1, 0}, {2, 7, 4, 4}, {4, 5, 2, 6, 5}};
