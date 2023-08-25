@@ -3,81 +3,41 @@ import java.util.*;
 public class Test {
 
 
-
     public static void main(String[] args) {
-        int N = 8;
-        int number = 5800;
-        // N과 사칙연산을 통해 number 만들기, 나누기 연산에서 나머지는 무시
-        // 88*8*8 + 88 + 88 - 8 = 5800 >> count = 9
+        int[][] triangle = {{7}, {3, 8}, {8, 1, 0}, {2, 7, 4, 4}, {4, 5, 2, 6, 5}};
 
         // 연산용 변수
-        int count=0;
-        ArrayList<Set<Integer>> memoList = new ArrayList<>();
-        Set<Integer> memo0 = new HashSet<>();
+        int l = triangle.length;
+        ArrayList<Integer> previousLevel = new ArrayList<>();
+        ArrayList<Integer> nextLevel = new ArrayList<>();
+        int left;
+        int right;
 
-        // 1항 설정
-        memo0.add(N);
-//        memoList.add(memo0);
-        memoList.add(Set.copyOf(memo0)); // 깊은복사 대체
-        count++;
-        if(memo0.contains(number)){
-            System.out.println("1항에 걸려서 답은 = " + count);
-//            return count;
+        // 첫째줄 등록
+        for(int n:triangle[l-1]){
+            previousLevel.add(n);
         }
-        System.out.println(count + "번째 memo0 = " + memo0);
 
-        // 2항 설정
-        memo0.clear();
-        memo0.add(0);
-        memo0.add(1);
-        memo0.add(2*N);
-        memo0.add(N*N);
-        memo0.add(10*N + N); // 두자릿 수 "NN"
-//        memoList.add(memo0);
-        memoList.add(Set.copyOf(memo0)); // 깊은복사 대체
-        count++;
-        if(memo0.contains(number)){
-            System.out.println("2항에 걸려서 답은 = " + count);
-//            return count;
-        }
-        System.out.println(count + "번째 memo0 = " + memo0);
+        // 본연산
+        for (int i = l-2; i >=0 ; i--) {
 
-        // 점화식 memo(n) = f(memo(n-1)) + f(memo(n-2))
-
-        while(!memo0.contains(number)){ // number 찾으면 종료조건
-            memo0.clear();
-            count++;
-//            if(count == 9) break; // 최솟값이 8보다 크면 -1을 return
-
-            // 점화식 연산(count-2) >> index는 count-3
-            for(int k:memoList.get(count-3)){
-                memo0.add(k+1);
-                if(k-1 > 0) memo0.add(k-1); // 자연수 범위만
+            // nextLevel 좌우 연산 한번에 시도 - max값 할당
+            for (int j = 0; j < i+1; j++) {
+                left = previousLevel.get(j) + triangle[i][j]; // 왼쪽
+                right = previousLevel.get(j+1) + triangle[i][j]; // 오른쪽
+                nextLevel.add(Math.max(left,right));
             }
+            System.out.println("중간점검 i = "+i + " >> nextLevel = " + nextLevel);
 
-            // 점화식 연산(count-1) >> index는 count-2
-            for(int k:memoList.get(count-2)){
-                memo0.add(k+N); // 덧셈
-                if(k-N > 0) memo0.add(k-N); // 뺄셈
-                memo0.add(k*N); // 곱셈
-                memo0.add(k/N); // 나눗셈 - 나머지 무시
-            }
 
-            // count 자리수 만들기
-            memo0.add(((int) Math.pow(10,count) - 1)/9 * N);
+            previousLevel.clear();
+            previousLevel = (ArrayList<Integer>) nextLevel.clone();
 
-//            memoList.add(memo0);
-            memoList.add(Set.copyOf(memo0)); // 깊은복사 대체
-            System.out.println(count + "번째 memo0 = " + memo0);
-            // while 문 조건 >> 종료조건
+            nextLevel.clear();
 
         }
 
-        if(count == 9){
-            System.out.println("최솟값이 8보다 크면 -1을 return");
-        }
-        else System.out.println("답은 = " + count);
-
+        System.out.println("previousLevel 에 마지막남은 하나가 답" + previousLevel.get(0));
     }
 
     // '프로그래머스' 에서는 array가 []로 주어진다.
@@ -86,6 +46,7 @@ public class Test {
         input = input.replaceAll("\\[","{");
         input = input.replaceAll("\\]","}");
 
+        System.out.println(input);
         return input;
     }
 
