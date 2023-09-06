@@ -2,44 +2,64 @@ import java.util.*;
 
 public class Test {
 
-    public static void main(String[] args) { // 대각선 ver - 하나 빼고 다 틀림,,,ㅜㅜ
-        int n = 50; //세로 1~100
-        int m = 80; //가로 1~100
-        int[][] puddles = {{2,2}}; // 물이 잠긴 지역 0~10
+    public static void main(String[] args) {
+        int m = 4;
+        int n = 3;
+        int[][] puddles = {{2,2}}; // 0~10개
 
         // 연산용 변수
-        int[][] map = new int[n+1][m+1]; // 초기값 0, index 는 m n 그대로
-        map[1][1] = 1; // 집 출발
+        int[][] way = new int[n+1][m+1];
+        int layer = 1; // 연산하는 층
+        List<Integer> layerPuddles = new ArrayList<>(); // 연산하는 층의 웅덩이
+        int pud; // 웅덩이 변수
 
-        // 웅덩이 할당 -1
-        for(int[] p:puddles){
-            map[p[0]][p[1]] = -1;
-        }
-
-        int j;
-        // 본 연산
-        for (int k = 3; k <= m+n; k++) {
-            // i+j = k
-            for (int i = 1; i < k; i++) {
-                j = k-i;
-                if(i>n || j>m) continue; // map 범위내 연산
-                System.out.println("["+i+","+j+"] 연산");
-//                map[i][j] = checkPuddle(map[i-1][j]) + checkPuddle(map[i][j-1]);
-                if(map[i][j] != -1) map[i][j] = (checkPuddle(map[i-1][j]) + checkPuddle(map[i][j-1])) % 1000000007;
+        // 연산
+        while(layer<=n){
+            // layerPuddles 세팅
+            layerPuddles.clear();
+            for(int[] p:puddles){
+                if(p[0] == layer){ // 현재 층에 해당하는 웅덩이 할당
+                    layerPuddles.add(p[1]);
+                }
             }
-            System.out.println("다음 라인 >>");
+            Collections.sort(layerPuddles);
 
+            // 현재 웅덩이 셋팅
+            pud = -1; // fake 값
+            if(layerPuddles.size()>0){
+                pud = layerPuddles.get(0);
+                layerPuddles.remove(0);
+            }
+
+            // 메인 연산
+            for (int i = 1; i <= m; i++) {
+                // way[layer][i] 에 대한 연산
+
+                if(i == pud){ // 웅덩이 이면
+                    // 웅덩이 연산 - pud update - outOfBounce 주의
+                    if(layerPuddles.size()>0){
+                        pud = layerPuddles.get(0);
+                        layerPuddles.remove(0);
+                    }
+                }else {
+                    // 정상연산 - 위,왼쪽 값 더함
+                    way[layer][i] = way[layer-1][i] + way[layer][i-1];
+                }
+
+            }
+
+            // Mod 적용 추가 할것
+            layer++;
         }
 
-
-        System.out.println();
-        System.out.println("전체 map 출력 확인");
-        for (int[] arr:map){
-            for(int a:arr) System.out.print(a +"  ");
-            System.out.println();
-        }
-        System.out.println("답은 = "+ map[n][m]);
+        System.out.println(way[n][m]);
+        // 최단경로의 개수를 1,000,000,007 Module
     }
+
+
+
+
+
 
     // '프로그래머스' 에서는 array가 []로 주어진다.
     // [] 를 {} 로 바꿔서 입력하자
@@ -50,12 +70,6 @@ public class Test {
         System.out.println(input);
         return input;
     }
-
-    public static int checkPuddle(int x){
-        if(x==-1) return 0;
-        return x;
-    }
-
 }
 
 
