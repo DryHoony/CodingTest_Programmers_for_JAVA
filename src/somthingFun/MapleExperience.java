@@ -46,32 +46,32 @@ public class MapleExperience { // 메이플 경험치 연산
 
         ///////////////////////////////////////////////////////////////
 
-        nowLevel = 55; // 현재 레벨
-        targetLevel = 65; // 목표 레벨
-        exItemExchange = 134240; // 빨코 전리품 경험치
+//        nowLevel = 55; // 현재 레벨
+//        targetLevel = 65; // 목표 레벨
+//        exItemExchange = 134240; // 빨코 전리품 경험치
 //        exItemExchange = 154240; // 켄타우로스 전리품 경험치
 //        exItemExchange = 217340; // 와이번 전리품 경험치
         // 한칸(9999개)당 10000/200 = 50번으로 연산
 
         // 목표레벨 까지 필요한 전리품
-        targetLeveling(nowLevel, targetLevel, exItemExchange);
+//        targetLeveling(nowLevel, targetLevel, exItemExchange);
 
         ///////////////////////////////////////////////////////////////
 
         // 현재 전리품으로 도달할 수 있는 레벨
-        nowLevel = 70; // 현재 레벨
-        exItemExchange = 154240; // 켄타우로스 전리품 경험치
+//        nowLevel = 70; // 현재 레벨
+//        exItemExchange = 154240; // 켄타우로스 전리품 경험치
 //        exItemExchange = 217340; // 와이번 전리품 경험치
 //        exItemExchange = 335450; // 스켈로스, 스켈레곤 전리품 경험치
-        itemGet = 1f; // // 전리품 '칸'
+//        itemGet = 1f; // // 전리품 '칸'
 
-        leveling(nowLevel, exItemExchange, itemGet);
+//        leveling(nowLevel, exItemExchange, itemGet);
 
         ///////////////////////////////////////////////////////////////
 
         // 70 레벨 이후
-        nowLevel = 70;
-        targetLevel = 80;
+        nowLevel = 84;
+        targetLevel = 85;
 //        exItemExchange = 154240; // 켄타우로스 전리품 경험치
         exItemExchange = 335450; // 스켈로스, 스켈레곤 전리품 경험치
         targetLeveling(nowLevel, targetLevel,exItemExchange);
