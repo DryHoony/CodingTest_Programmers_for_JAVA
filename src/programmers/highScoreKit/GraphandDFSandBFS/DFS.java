@@ -1,18 +1,24 @@
 package programmers.highScoreKit.GraphandDFSandBFS;
 
 import java.util.Deque;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class DFS { // DFS Example
     // 스택을 사용, 재귀를 사용
 
     public static void main(String[] args) {
+        // 출력결과 // 1 2 7 6 8 3 4 5
         DFSByRecursionVer1.main(args);
+        DFSByRecursionVer2.main(args);
         DFSByStackVer1.main(args);
+
+
 
 
     }
 
+    // 재귀, int[][]
     public static class DFSByRecursionVer1 { // https://scshim.tistory.com/241
         public static boolean[] visited = {false, false, false ,false ,false ,false ,false ,false, false};
 
@@ -43,6 +49,64 @@ public class DFS { // DFS Example
             dfs(start);
             System.out.println();
         }
+    }
+
+    // 재귀, LinkedList<Integer>
+    public static class DFSByRecursionVer2{ // https://velog.io/@smallcherry/Java-AlgorithmBFSAndDFS
+
+        public static void main(String[] args) {
+            DFSByRecursionVer2 dfs = new DFSByRecursionVer2(9);
+            // 간선을 2차원 배열로 표현, Node는 8개 Index 1~8
+            int[][] graph = {{}, {2, 3, 8},{1, 7},{1, 4, 5},{3, 5}, {3, 4}, {7},{2, 6, 8},{1, 7}};
+
+            // 2차월 배열 형태의 간선을 LinkedList로 변환
+            for (int i = 1; i < graph.length; i++) {
+                for(int j:graph[i]){
+                    dfs.addEdge(i,j);
+                }
+            }
+
+            System.out.print("재귀를 이용한 탐색 ver2, LinkedList >> ");
+            dfs.DFS(1); // 1 노드부터 탐색 시작
+            System.out.println();
+
+        }
+
+        private int V;
+        private LinkedList<Integer>[] adj; // 링크드리스트의 배열
+
+        // constructor
+         DFSByRecursionVer2(int v){
+            V = v;
+            adj = new LinkedList[v]; // v개의 LinkedList 선언 및 생성
+            for (int i = 0; i < v; i++) {
+                adj[i] = new LinkedList<>();
+            }
+        }
+
+        void addEdge(int v, int w){ // v번째 LinkedList 에 w를 삽입
+            adj[v].add(w);
+        }
+
+        void DFS(int v){ // v를 시작노드로
+            boolean visited[] = new boolean[V]; // 각 노드의 방문 여부
+            DFSUtil(v, visited);
+        }
+
+        void DFSUtil(int v, boolean visited[]){
+            // 현재 노드 방문
+            visited[v] = true;
+            System.out.print(v + " ");
+
+            // 방문한 노드와 인접한 모든 노드를 가져옴
+            Iterator<Integer> it = adj[v].listIterator();
+            while(it.hasNext()){
+                int n = it.next();
+                // 방문하지 않은 노드면 해당 노드에서 재귀
+                if(!visited[n]) DFSUtil(n, visited);
+            }
+        }
+
     }
 
     public static class DFSByStackVer1{ // https://scshim.tistory.com/241
@@ -92,5 +156,6 @@ public class DFS { // DFS Example
             System.out.println();
         }
     }
+
 
 }

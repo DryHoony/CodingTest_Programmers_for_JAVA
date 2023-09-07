@@ -60,4 +60,9 @@ public class BFS { // BFS Example
     }
 
 
+    class BFSVer2 { // https://velog.io/@smallcherry/Java-AlgorithmBFSAndDFS
+        private int V;
+        private LinkedList<Integer> adj[]; // 링크드리스트의 배열
+
+    }
 }
