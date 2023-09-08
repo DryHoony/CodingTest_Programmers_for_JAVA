@@ -3,10 +3,11 @@ import java.util.*;
 public class Test {
 
     public static void main(String[] args) {
-        bracketTranslate("[[4, 3], [4, 2], [3, 2], [1, 2], [2, 5]]");
-        bracketTranslateReverse("{{4, 3}, {4, 2}, {3, 2}, {1, 2}, {2, 5}}");
+//        bracketTranslate("[[4, 3], [4, 2], [3, 2], [1, 2], [2, 5]]");
+//        bracketTranslateReverse("{{4, 3}, {4, 2}, {3, 2}, {1, 2}, {2, 5}}");
 
-
+        String str = "[[1, 2], [1, 3], [2, 4], [2, 5], [3, 6], [4, 7], [5, 7], [7, 8]]";
+        bracketTranslate(str);
     }
 
 
