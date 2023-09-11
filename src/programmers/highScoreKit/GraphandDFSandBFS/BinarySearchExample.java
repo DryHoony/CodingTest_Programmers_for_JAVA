@@ -1,6 +1,7 @@
 package programmers.highScoreKit.GraphandDFSandBFS;
 
 public class BinarySearchExample { // 이진탐색
+    // 다양한 예시를 더 보자! 응용하기 어렵다!
 
     public static void main(String[] args) {
         int[] arr = {1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100}; // 길이 19
