@@ -3,7 +3,7 @@ import java.util.*;
 public class Test {
 
     public static void main(String[] args) {
-        bracketTranslate("[[1,0,1,1,1],[1,0,1,0,1],[1,0,1,1,1],[1,1,1,0,1],[0,0,0,0,1]]");
+        bracketTranslate("[[4,5],[4,8],[10,14],[11,13],[5,12],[3,7],[1,4]]");
 
     }
 
