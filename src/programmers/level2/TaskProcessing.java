@@ -8,7 +8,7 @@ public class TaskProcessing { //과제 진행하기
     // 시작 시간 우선, 이전과제 멈춤 - 최근 멈춤과제 계속 진행 >> Stack 사용
 
     public static void main(String[] args) {
-        String[][] plans = {{"korean", "11:40", "30"}, {"english", "12:10", "20"}, {"math", "12:30", "40"}}; // 과제이름, 시작시간, 소요시간
+        String[][] plans = {{"science", "12:40", "50"}, {"music", "12:20", "40"}, {"history", "14:00", "30"}, {"computer", "12:30", "100"}};
         // 3 ~ 1000, 시작시간은 모두 다르다
 
         // 시작 시작으로 정렬
@@ -18,9 +18,9 @@ public class TaskProcessing { //과제 진행하기
 //                return o1[1] - o2[1]; // 오름차순
                 if( o1[1].split(":")[0].equals(o2[1].split(":")[0]) ){
                     // 시간이 같으면 분으로 비교
-                    return Integer.parseInt(o1[1].split(":")[1]) - Integer.parseInt(o1[1].split(":")[1]);
+                    return Integer.parseInt(o1[1].split(":")[1]) - Integer.parseInt(o2[1].split(":")[1]);
                 }
-                return Integer.parseInt(o1[1].split(":")[0]) - Integer.parseInt(o1[1].split(":")[0]);
+                return Integer.parseInt(o1[1].split(":")[0]) - Integer.parseInt(o2[1].split(":")[0]);
             }
         });
 
@@ -32,7 +32,7 @@ public class TaskProcessing { //과제 진행하기
 
             public Plan(String name, String time) {
                 this.name = name;
-                this.timeRemaining = minuteCalculate(time);
+                this.timeRemaining = Integer.parseInt(time);
             }
 
 
@@ -68,6 +68,7 @@ public class TaskProcessing { //과제 진행하기
                     resultIndex++;
 
                     nowTime += plan.timeRemaining;
+                    System.out.println("완료 >> " + plan.name);
                 }
                 else { // Stack 과제 부분 연산 - 시간만 update;
                     plan.timeRemaining -= nextPlanStartTime - nowTime;
@@ -81,6 +82,8 @@ public class TaskProcessing { //과제 진행하기
             waitingPlan.push(plan);
             nextPlanIndex++;
 
+            System.out.println("스택 추가 << "+ plan.name);
+
         }
 
         // Stack 에 남은 과제 연산
@@ -90,6 +93,7 @@ public class TaskProcessing { //과제 진행하기
             // 연산종료 후 result에 할당
             result[resultIndex] = plan.name;
             resultIndex++;
+            System.out.println("완료 >> " + plan.name);
         }
 
 
@@ -106,18 +110,5 @@ public class TaskProcessing { //과제 진행하기
         return time;
     }
 
-    public static boolean isLeftTimeEarlier(String t1, String t2){
-        if(t1.split(":")[0].equals(t2.split(":")[0]) ){
-            // 시간이 같으면 분으로 비교
-            if(Integer.parseInt(t1.split(":")[1]) < Integer.parseInt(t2.split(":")[1]))
-                return true;
-            return false;
-        }
-
-        if( Integer.parseInt(t1.split(":")[0]) < Integer.parseInt(t2.split(":")[0]) )
-            return true;
-
-        return false;
-    }
 
 }
