@@ -3,7 +3,13 @@ import java.util.*;
 public class Test {
 
     public static void main(String[] args) {
-        bracketTranslate("[[4,5],[4,8],[10,14],[11,13],[5,12],[3,7],[1,4]]");
+        String a = "aaa";
+        String b = "bbb";
+
+        a = b;
+        System.out.println(a +" " + b);
+        b = "change";
+        System.out.println(a +" " + b);
 
     }
 
