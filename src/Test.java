@@ -3,7 +3,16 @@ import java.util.*;
 public class Test {
 
     public static void main(String[] args) {
-        bracketTranslate("[\"diamond\", \"diamond\", \"diamond\", \"iron\", \"iron\", \"diamond\", \"iron\", \"stone\"]");
+        int i=0;
+
+
+        Loop1 : while (true){
+            while(true){
+                i++;
+                System.out.println(i);
+                if(i==5) break Loop1;
+            }
+        }
     }
 
 
