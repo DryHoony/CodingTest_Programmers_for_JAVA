@@ -1,5 +1,6 @@
 package programmers.highScoreKit.heap;
 
+import java.util.Collections;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -44,7 +45,8 @@ public class AboutHeap { // 힙
 
 
         // '우선순위 큐'와 비교해 보자 - '최소 힙'과 동일한 기능 하는 것으로 보임
-        Queue<Integer> queue = new PriorityQueue<>();
+        Queue<Integer> queue = new PriorityQueue<>(); // 최소 힙
+//        Queue<Integer> queue = new PriorityQueue<>(Collections.reverseOrder()); // 최대 힙
         queue.add(5);
         queue.add(15);
         queue.add(6);
