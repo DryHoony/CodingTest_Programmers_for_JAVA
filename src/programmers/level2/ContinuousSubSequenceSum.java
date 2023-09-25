@@ -5,46 +5,44 @@ public class ContinuousSubSequenceSum { // 연속된 부분수열의 합
     // 연산 뒤에서 부터 - 가장 짧은 수열이 여러 개 일때, 답(앞쪽 수열) 보장 안됨 - 수열길이가 달라 질때 까지 추가 연산으로 확인
 
     public static void main(String[] args) { // ver3 - 첫번째 연산에서 sum 연산을 최적화 시켜 보자
-        int[] sequence = {2, 2, 2, 2, 2}; // 길이 5~1,000,000
-        int k =6; // 5~1,000,000,000, 항상 만들 수 있음
+        int[] sequence = {1,2,3,4,5}; // 길이 5 ~ 1,000,000
+        int k =7; // 5~1,000,000,000, 항상 만들 수 있음
         // 합이 k인 부분수열 중 가장 짧은 길이 index[a,b] return, 여러개라면 앞쪽 수열 return
 
 
         // 연산용 변수
         int l = sequence.length;
-        int sum=0;
 
         int[] result = new int[] {l-1,l-1};
+        int sum = sequence[l-1]; // 초기 할당
 
-        // 연산 - 뒤에서 부터 ver
+        // 첫번째 연산 - 합이 k인 부분수열 찾기
         while (true){ // 합이 k인 부분수열 찾기 연산
-            for (int i = result[0]; i <= result[1]; i++) {
-                sum += sequence[i];
-            }
+//            for (int i = result[0]; i <= result[1]; i++) {
+//                sum += sequence[i];
+//            }
 
             System.out.println("result 범위 ("+result[0] + ", " + result[1] + ") 에서 sum = " + sum);
 
 //            if(sum < k)
             // 좌측 연산
             while (sum<k){
-                result[0]--;
+                result[0]--; // 왼쪽 범위 늘림
                 sum += sequence[result[0]];
             }
 
             if(sum == k) break; // 종료조건
             else { // sum > k // 다시 탐색
-                // 우측 범위 초기화 - 끝범위 줄임
+                // 우측 범위 줄임
+                sum -= sequence[result[1]];
                 result[1]--;
-                result[0] = result[1];
-//                result[0] = result[1] - k/sequence[result[1]]; // 적어도 k/sequence[result[1]] 개 만큼은 필요
-                // 코드 오류 있음
-                sum = 0;
             }
+
         }
 
         System.out.println("첫번째 연산 result = "+result[0] + ", " + result[1]);
 
-        // ver1에서 둘째 연산은 같은 숫자의 반복 [2,2,2,2,2] 이므로, 반복되는 같은 수를 찾는다.
+        // 둘째 연산 - 합이 k인 부분수열이 왼쪽에서도 가능할지 찾기 - 같은 숫자로만 나열되는 경우!!
         if(sequence[result[0]] == sequence[result[1]]){ // 둘째 연산 탐색 필요
             int sameN = sequence[result[0]];
             int leftIndex = 0;

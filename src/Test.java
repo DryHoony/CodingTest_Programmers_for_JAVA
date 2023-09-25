@@ -4,9 +4,8 @@ public class Test {
 
 
     public static void main(String[] args) {
+        // 연속된 부분 수열의 합
 
-
-        System.out.println(0 ^ 5);
 
 
 
