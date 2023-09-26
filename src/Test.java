@@ -4,7 +4,7 @@ public class Test {
 
 
     public static void main(String[] args) {
-        // 연속된 부분 수열의 합
+        bracketTranslate("[[0,0],[0,-1],[2,-3],[3,-3]]");
 
 
 
