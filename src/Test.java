@@ -4,7 +4,12 @@ public class Test {
 
 
     public static void main(String[] args) {
-        bracketTranslate("[[0,0],[0,-1],[2,-3],[3,-3]]");
+
+        Stack<Integer> stack = new Stack<>();
+
+
+
+
 
 
 
