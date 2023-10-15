@@ -5,7 +5,12 @@ public class Test {
 
     public static void main(String[] args) {
 
-        Stack<Integer> stack = new Stack<>();
+        int[] test = {1,2,3,4};
+
+        for (int i = 0; i < 4; i++) {
+            test[i] -= 2;
+            System.out.println(test[i]);
+        }
 
 
 
