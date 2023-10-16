@@ -4,19 +4,7 @@ public class Test {
 
 
     public static void main(String[] args) {
-
-        int[] test = {1,2,3,4};
-
-        for (int i = 0; i < 4; i++) {
-            test[i] -= 2;
-            System.out.println(test[i]);
-        }
-
-
-
-
-
-
+        bracketTranslate("[[40, 2900], [23, 10000], [11, 5200], [5, 5900], [40, 3100], [27, 9200], [32, 6900]]");
 
 
     }
