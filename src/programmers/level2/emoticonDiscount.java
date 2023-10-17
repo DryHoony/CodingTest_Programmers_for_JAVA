@@ -1,5 +1,7 @@
 package programmers.level2;
 
+import java.util.Arrays;
+
 public class emoticonDiscount { // 이모티콘 할인행사
     // 목표1 - 이모티콘 플러스 서비스 가입자 maximize
     // 목표2 - 이모티콘 판매액 maximize
@@ -15,68 +17,92 @@ public class emoticonDiscount { // 이모티콘 할인행사
     // user 를 기준으로 반복문 도는것이 유리해 보인다.
     // 각 user 의 (10% * n) 인 '조정비율'로 '가격'을 달성하기 위해서 필요한 이모티콘 가격합을 도출
 
-    public static void main(String[] args) {
-//        int[][] users = {{40,10000},{25,10000}}; // 1~100개, [비율, 가격],
-//        // '비율' 이상의 할인율이면 구매, '가격' 이상으로 구매하면 플러스 서비스 가입
-//        int[] emoticons = {7000, 9000}; // 1~7개, 값 100~1,000,000
-        // 각각의 할인율 경우의 수가 4 이므로 전체 (최대) 경우의 수는 4^7!! (겁나 크다,,)
+    static float[] purchaseArray;
+    static int[] emoticonsPrice;
 
-        // case2
+
+    public static void main(String[] args) {
         int[][] users = {{40, 2900}, {23, 10000}, {11, 5200}, {5, 5900}, {40, 3100}, {27, 9200}, {32, 6900}};
         int[] emoticons = {1300,1500,1600,4900};
 
 
+        // 이모티콘 기준 완전탐색 >> 종료조건 있을까? >> 없다면 BFS, DFS 뭐든
+        // 이모티콘 할인율 수치 경우의수 * user 연산 >> [max(서비스 가입자), max(판매액)]
+        // 1번목표 - 서비스 가입자가 많은 순서대로 결과가 나오는 (이모티콘 할인율) 탐색 방법(방향)이 있을까?
+
         // 연산용 변수
-        int[] answer = {0,0}; // [서비스 가입자, 매출액]
-        int n = users.length; // user 수
-        int emoticonsTotalPrice=0;
-        for (int k:emoticons){
-            emoticonsTotalPrice += k;
-        }
-        System.out.println("이모티콘 가격 총합 = " + emoticonsTotalPrice);
-        System.out.println();
-
-
-//        int discountPercent=0; // 할인율
-
-        // 각 유저별 '가격' 달성 조건 - [할인율, 이모티콘 가격합]
+        int n = emoticons.length;
+        purchaseArray = new float[4]; // 10% 20% 30% 40% 할인율 해당 구매 금액
+        emoticonsPrice = new int[n];
         for (int i = 0; i < n; i++) {
-            System.out.println(i+1 + "번 user >> ");
+            emoticonsPrice[i] = emoticons[i];
+        }
 
-            // 할인율 설정
-            int discountPercent = users[i][0]; // 1~40 // user 각각의 할인율로 계산
-            if(discountPercent<10) discountPercent = 10;
-            else if (discountPercent<20) discountPercent = 20;
-            else if (discountPercent < 30) discountPercent = 30;
-            else discountPercent = 40;
 
-            while (discountPercent <= 40){
-                int price = users[i][1]; // (필요) 구매 금액
-                price *= 100;
-                price /= 100-discountPercent;
 
-                // 결론
-                System.out.println(price + "원 만큼을 " + discountPercent + "할인해서 구매");
-                if (price > emoticonsTotalPrice) {
-                    System.out.println("도달 불가!!!");
-                    break;
+
+        // 4^n 의 경우의수 탐색
+        float[] discountPercent = new float[n]; // 각 임티 할인율 0.1, 0.2, 0.3, 0.4
+        for (int i = 0; i < n; i++) { // 초기화
+            discountPercent[i] = 0.1f;
+        }
+
+
+
+        // dfs 연산 출력확인
+        dfs(discountPercent, 0, n);
+
+
+
+
+
+
+
+
+    }
+
+    public static void dfs(float[] discountPercent, int i, int n){
+        if(i == n){ // 종료조건
+            System.out.print("출력 >> ");
+            for (int j = 0; j < n; j++) {
+                System.out.print(discountPercent[j] + ", ");
+            }
+            System.out.println();
+
+            // 구매 가격 초기화
+            for (int j = 0; j < 4; j++) {
+                purchaseArray[j] = 0;
+            }
+            // 구매 가격 연산
+            for (int j = 0; j < n; j++) {
+                float price = emoticonsPrice[j] * (1 - discountPercent[j]);
+                // '할인율'에 해당할때만 할당
+                for (int k = 0; k < discountPercent[j]*10; k++) {
+                    purchaseArray[k] += price;
                 }
-
-                // 다음 연산 준비
-                discountPercent += 10;
             }
 
+            // 구매 가격 출력
+            for (float f:purchaseArray){
+                System.out.print(f + ", ");
+            }
+            System.out.println();
+            System.out.println();
 
-
-
-
-
-
+            return;
         }
 
-        // 다음
+        dfs(Arrays.copyOf(discountPercent, n), i+1, n); // 0.1
+        discountPercent[i] += 0.1;
+        dfs(Arrays.copyOf(discountPercent, n), i+1, n); // 0.2
+        discountPercent[i] += 0.1;
+        dfs(Arrays.copyOf(discountPercent, n), i+1, n); // 0.3
+        discountPercent[i] += 0.1;
+        dfs(Arrays.copyOf(discountPercent, n), i+1, n);
 
-
-//        System.out.println("답은 = " + answer[0] + ", " + answer[1]);
     }
+
+
+
+
 }
