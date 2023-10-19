@@ -3,7 +3,7 @@ package programmers.level2;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ContinuousSubSequenceSumCount { // 연속 부분 수열 합의 개수
+public class CircularSubsequenceSum { // 연속 부분 수열 합의 개수
 
     public static void main(String[] args) {
         int[] elements = {7,9,1,1,4}; // 원형 수열, 길이 3~1000, 값 1~1000
