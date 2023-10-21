@@ -3,23 +3,32 @@ import java.util.List;
 
 public class Test2 {
 
+    static int classVar = 10;
+
+
     public static void main(String[] args) {
-        List<Integer> test = new ArrayList<>();
+        int var = 10;
 
-        test.add(1);
-        test.add(2);
-        test.add(3);
-
-        test.remove(0);
-        test.remove(0);
-        test.remove(0);
-
-        System.out.println(test);
+//        change(var);
 
 
+        System.out.println("var = " + var);
+        System.out.println("classVar = " + classVar);
 
 
     }
 
+    public static void change(int var){
+        classVar = 20; // 바뀐다
+        var = 20; // 안바뀐다. >> 지역변수
+
+    }
+
+    public static int changeReturn(int var){
+        classVar = 100;
+
+        var = 100;
+        return var;
+    }
 
 }
