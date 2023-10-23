@@ -1,14 +1,14 @@
 package programmers.level2;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class InterSectionStarMaking { // 교점에 별 만들기
 
     public static void main(String[] args) {
-        int[][] line = {{2, -1, 4}, {-2, -1, 4}, {0, -1, 1}, {5, -8, -12}, {5, 8, 12}};
+//        int[][] line = {{2, -1, 4}, {-2, -1, 4}, {0, -1, 1}, {5, -8, -12}, {5, 8, 12}};
+        int[][] line = {{0,1,-1},{1,0,-1},{1,0,1}};
+
         // 길이 2~1000, 값 -100,000 ~ 100,000 이하 정수
         // "Ax + By + C = 0" 에서 계수 ABC 값
         // 교점중 정수는 * 로 표현, 나머지는 . 로 표현
@@ -23,7 +23,7 @@ public class InterSectionStarMaking { // 교점에 별 만들기
         int minY = Integer.MAX_VALUE;
         int maxY = Integer.MIN_VALUE;
 
-        // 교점 연산
+        // 교점 연산 - jointSet 에 기록
         for (int i = 0; i < line.length-1; i++) {
             for (int j = i+1; j < line.length; j++) {
 //                System.out.println(i + "번째와 " + j + "번째 연산");
@@ -53,7 +53,7 @@ public class InterSectionStarMaking { // 교점에 별 만들기
             }
         }
 
-        // 교점을 포함한 String[] 그리기
+        // isStartPointArr 연산 - 복잡도를 줄이기 위해 Boolean 타입으로 교점을 표현
         System.out.println("x 범위 " + minX +"~" + maxX);
         System.out.println("y 범위 " + minY +"~" + maxY);
         boolean[][] isStartPointArr = new boolean[maxY - minY + 1][maxY - minY + 1]; // 연산용
@@ -61,21 +61,25 @@ public class InterSectionStarMaking { // 교점에 별 만들기
 
         for(int[] star : jointSet){
 //            System.out.println(star[0] + ", " + star[1]);
-            isStartPointArr[star[1]][star[0]] = true;
+            isStartPointArr[star[1] - minY][star[0] - minX] = true;
         }
 
+        // String[] 타입으로 바꾸기 - isStarPointArr >> answer
         String starLine;
+        String[] answer = new String[isStartPointArr.length];
 
-        for (int i = 0; i < isStartPointArr.length; i++) {
+        for (int i = isStartPointArr.length-1; i >=0 ; i--) {
             starLine = ""; // 초기화
-            for (int j = 0; j < isStartPointArr[i].length; j++) {
+            boolean[] booleanArr = isStartPointArr[i];
 
+            for(boolean isStar : booleanArr){
+                if(isStar) starLine += "*";
+                else starLine += ".";
             }
+
+            answer[i] = starLine;
+            System.out.println(starLine);
         }
-
-
-
-
 
 
 
@@ -92,6 +96,7 @@ public class InterSectionStarMaking { // 교점에 별 만들기
 
     // 두 직선의 교점이 유일하게 존재하는지 확인
     public static boolean checkTwoLine(int[] l1, int[] l2){
+        if(l1[0]*l2[1] - l1[1]*l2[0] == 0) return false; // 두직선은 평행
 
         if((l1[1]*l2[2] - l1[2]*l2[1]) % (l1[0]*l2[1] - l1[1]*l2[0]) == 0){
             if((l1[2]*l2[0] - l1[0]*l2[2]) % (l1[0]*l2[1] - l1[1]*l2[0]) == 0) return true;
