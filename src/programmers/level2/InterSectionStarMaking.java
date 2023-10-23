@@ -6,8 +6,7 @@ import java.util.Set;
 public class InterSectionStarMaking { // 교점에 별 만들기
 
     public static void main(String[] args) {
-//        int[][] line = {{2, -1, 4}, {-2, -1, 4}, {0, -1, 1}, {5, -8, -12}, {5, 8, 12}};
-        int[][] line = {{0,1,-1},{1,0,-1},{1,0,1}};
+        int[][] line = {{2, -1, 4}, {-2, -1, 4}, {0, -1, 1}, {5, -8, -12}, {5, 8, 12}};
 
         // 길이 2~1000, 값 -100,000 ~ 100,000 이하 정수
         // "Ax + By + C = 0" 에서 계수 ABC 값
@@ -56,7 +55,7 @@ public class InterSectionStarMaking { // 교점에 별 만들기
         // isStartPointArr 연산 - 복잡도를 줄이기 위해 Boolean 타입으로 교점을 표현
         System.out.println("x 범위 " + minX +"~" + maxX);
         System.out.println("y 범위 " + minY +"~" + maxY);
-        boolean[][] isStartPointArr = new boolean[maxY - minY + 1][maxY - minY + 1]; // 연산용
+        boolean[][] isStartPointArr = new boolean[maxY - minY + 1][maxX - minX + 1]; // 연산용
 
 
         for(int[] star : jointSet){
@@ -68,7 +67,7 @@ public class InterSectionStarMaking { // 교점에 별 만들기
         String starLine;
         String[] answer = new String[isStartPointArr.length];
 
-        for (int i = isStartPointArr.length-1; i >=0 ; i--) {
+        for (int i = 0; i < isStartPointArr.length; i++) {
             starLine = ""; // 초기화
             boolean[] booleanArr = isStartPointArr[i];
 
@@ -81,6 +80,18 @@ public class InterSectionStarMaking { // 교점에 별 만들기
             System.out.println(starLine);
         }
 
+//        for (int i = isStartPointArr.length-1; i >=0 ; i--) {
+//            starLine = ""; // 초기화
+//            boolean[] booleanArr = isStartPointArr[i];
+//
+//            for(boolean isStar : booleanArr){
+//                if(isStar) starLine += "*";
+//                else starLine += ".";
+//            }
+//
+//            answer[i] = starLine;
+//            System.out.println(starLine);
+//        }
 
 
 
