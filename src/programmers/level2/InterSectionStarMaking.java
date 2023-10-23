@@ -13,6 +13,7 @@ public class InterSectionStarMaking { // 교점에 별 만들기
         // 교점중 정수는 * 로 표현, 나머지는 . 로 표현
         // 별을 포함하는 최소 크기로 표현된 String[] return
         // 정답은 1000*1000 크기 이내에서 표현됨
+        // 연산 과정중 계수의 곱은 최대 10^10 >> int 의 범위 2*10^9 을 넘어감 >> long 타입 필요! >> 테스트29
 
         // 연산용 변수
 //        List<int[]> jointArray = new ArrayList<>(); // 교점 저장
@@ -65,9 +66,10 @@ public class InterSectionStarMaking { // 교점에 별 만들기
 
         // String[] 타입으로 바꾸기 - isStarPointArr >> answer
         String starLine;
-        String[] answer = new String[isStartPointArr.length];
+        int l = isStartPointArr.length;
+        String[] answer = new String[l];
 
-        for (int i = 0; i < isStartPointArr.length; i++) {
+        for (int i = 0; i < l; i++) {
             starLine = ""; // 초기화
             boolean[] booleanArr = isStartPointArr[i];
 
@@ -76,7 +78,7 @@ public class InterSectionStarMaking { // 교점에 별 만들기
                 else starLine += ".";
             }
 
-            answer[i] = starLine;
+            answer[l-i-1] = starLine;
             System.out.println(starLine);
         }
 
@@ -107,14 +109,15 @@ public class InterSectionStarMaking { // 교점에 별 만들기
 
     // 두 직선의 교점이 유일하게 존재하는지 확인
     public static boolean checkTwoLine(int[] l1, int[] l2){
-        if(l1[0]*l2[1] - l1[1]*l2[0] == 0) return false; // 두직선은 평행
+        if((long)l1[0]*l2[1] - (long)l1[1]*l2[0] == 0) return false; // 두직선은 평행
 
-        if((l1[1]*l2[2] - l1[2]*l2[1]) % (l1[0]*l2[1] - l1[1]*l2[0]) == 0){
-            if((l1[2]*l2[0] - l1[0]*l2[2]) % (l1[0]*l2[1] - l1[1]*l2[0]) == 0) return true;
+        if(((long)l1[1]*l2[2] - (long)l1[2]*l2[1]) % ((long)l1[0]*l2[1] - (long)l1[1]*l2[0]) == 0){
+            if(((long)l1[2]*l2[0] - (long)l1[0]*l2[2]) % ((long)l1[0]*l2[1] - (long)l1[1]*l2[0]) == 0) return true;
         }
 
         return false;
     }
+
 //    public static boolean checkTwoLine(int[] l1, int[] l2){
 //        int a = l1[0];
 //        int b = l1[1];
@@ -133,8 +136,8 @@ public class InterSectionStarMaking { // 교점에 별 만들기
     public static int[] calculateJoint(int[] l1, int[] l2){
         int[] joint = new int[2];
 
-        joint[0] = (l1[1]*l2[2] - l1[2]*l2[1]) / (l1[0]*l2[1] - l1[1]*l2[0]);
-        joint[1] = (l1[2]*l2[0] - l1[0]*l2[2]) / (l1[0]*l2[1] - l1[1]*l2[0]);
+        joint[0] = (int) (((long)l1[1]*l2[2] - (long)l1[2]*l2[1]) / ((long)l1[0]*l2[1] - (long)l1[1]*l2[0]));
+        joint[1] = (int) (((long)l1[2]*l2[0] - (long)l1[0]*l2[2]) / ((long)l1[0]*l2[1] - (long)l1[1]*l2[0]));
 
         return joint;
     }
