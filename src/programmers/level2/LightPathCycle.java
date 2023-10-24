@@ -1,7 +1,6 @@
 package programmers.level2;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class LightPathCycle { // 빛의 경로 사이클
@@ -45,7 +44,7 @@ public class LightPathCycle { // 빛의 경로 사이클
         int cycleLength=0;
         boolean finish = false;
 
-        while(!finish){
+        while(true){
             // visited 에서 출발 격자,방향 탐색(설정), cycle 시작값 설정
             finish = true;
             gridSearch : for (int i = 0; i < n; i++) {
@@ -63,38 +62,50 @@ public class LightPathCycle { // 빛의 경로 사이클
                     }
                 }
             }
-            // nowGrid[i][j] 에서 direction 방향으로 ㄱ
+            if(finish) break; // 종료조건
 
-            // cycle 연산
+
+
+            // cycle 연산 - nowGrid[i][j] 에서 direction 방향으로 ㄱ
             while(!visited[nowGrid[0]][nowGrid[1]][direction]){ // 종료조건 설정
+                System.out.println("(" + nowGrid[0] + ", " + nowGrid[1] + ") 에서 " + direction + "방향으로 연산");
+
                 cycleLength++; // 실제연산(건너감)
+                visited[nowGrid[0]][nowGrid[1]][direction] = true;
 
                 // 다음격자 계산 >> nowGrid 에 할당
                 switch (direction){
                     case 0:
-//                        System.out.println("위");
+                        System.out.println("위");
                         if(nowGrid[0] == 0) nowGrid[0] = n-1;
                         else nowGrid[0]--;
                         break;
                     case 2:
                         System.out.println("아래");
+                        if(nowGrid[0] == n-1) nowGrid[0] = 0;
+                        else nowGrid[0]++;
                         break;
                     case 1:
                         System.out.println("우");
+                        if(nowGrid[1] == l-1) nowGrid[1] = 0;
+                        else nowGrid[1]++;
                         break;
                     case 3:
                         System.out.println("좌");
+                        if(nowGrid[1] == 0) nowGrid[1] = l-1;
+                        else nowGrid[1]--;
                         break;
                 }
 
-                // nowGrid 의 격자함수값 연산 >> direction에 할당
-
+                // nowGrid 의 격자함수값 연산 >> direction 에 할당 (다음 진행할 방향)
+                direction += gridFunction[nowGrid[0]][nowGrid[1]];
+                if(direction == -1) direction=3;
+                else if (direction == 4) direction=0;
 
             }
 
             // 답에 할당
             answer.add(cycleLength);
-
         }
 
 
