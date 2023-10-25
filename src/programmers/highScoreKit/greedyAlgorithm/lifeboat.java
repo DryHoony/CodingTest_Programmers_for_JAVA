@@ -1,72 +1,59 @@
 package programmers.highScoreKit.greedyAlgorithm;
 
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class lifeboat { // 구명보트
 
-    public static void main(String[] args) { // 왕창 실패,,,ㅜㅜ
-        int[] people = {1,2,7,8,9,6,5,7,3,10,4,2,9,6,4,6,2,3,1,9,10,1,2,2,2,7};
-        int limit = 10;
+    public static void main(String[] args) {
+        int[] people = {70,50,80,50}; // 길이 1~50,000  값 40~240
+        int limit = 100; // 무게 제한
+        // 모든 people 을 구하는 최소한의 구명보트의 갯수 return
 
-        // 연산 변수
-        int boatCount = 0; // 구명보트 갯수의 최솟값
-        ArrayList<Integer> peopleArray = new ArrayList<>();
-        int boatRemainWeight;
-        int searchIndex;
-
-        // peopleArray 에 정렬된 형태로 저장
-        for(int i:people){
-            peopleArray.add(i);
+        // 연산용 변수
+        int[] weightArray = new int[limit+1]; // [i]는 몸무게 i인 사람의 수
+        for (int weight : people){
+            weightArray[weight] ++;
         }
-        Collections.sort(peopleArray); // 할당과 정렬을 합칠 수 있으면 최적화 가능할텐데, 정렬을 직접구현 해야 함, 일단 pass
+        int maxWeight = limit; // 가장 무거운 무게 부터 채우기, limit 을 넘기진 않음
+        int boatWeight; // 보트무게 연산용
+        int boatCount=0;
 
-        System.out.println(peopleArray);
-        System.out.println("최대 무게 = "+ limit);
-        System.out.println();
+        while (true){
 
-        // 본 연산
-        while(!peopleArray.isEmpty()){
-            // 변수 초기화
-            boatRemainWeight = limit;
-            boatCount ++;
-            System.out.println();
-            System.out.println("구명 보트 번호 = " + boatCount);
+            while(maxWeight > 0 && weightArray[maxWeight] == 0){
+                // if(weightArray[maxWeight] == 0) >> 따로 안빼도 되겠지? && 연산에서 index 검증을 먼저 실행할테니
+//                System.out.println(maxWeight + "는 없다. 다음 무게!");
+                maxWeight--;
+            }
+            if(maxWeight == 0) break;
 
+            boatCount++; // 새 보트
+            boatWeight = limit; // 초기화
+            boatWeight -= maxWeight; // 첫 승객
+            weightArray[maxWeight]--;
+//            System.out.println("새 보트 >> " + maxWeight + "태움");
 
-            // 젤 무거운사람 먼저 태움
-            boatRemainWeight -= peopleArray.get(peopleArray.size()-1);
-            System.out.print(peopleArray.get(peopleArray.size()-1) + " / ");
-            peopleArray.remove(peopleArray.size()-1);
+            boolean flag = true;
+            // 남은 boatWeight 무게로 가능할때까지 승객 태움
+            while (boatWeight>0){ //
+                flag = false;
 
-
-            // boatRemainWeight 부분연산
-            while(boatRemainWeight > 0){ // 남은 무게가 있는동안 연산
-                if(peopleArray.isEmpty()) break; // 남은 사람 없으면 부분연산 종료
-                if(boatRemainWeight < peopleArray.get(0)) break; // 태울 수 있는 '가벼운' 사람 없으면 부분연산 종료
-
-                // 남은무게 보다 '큰 사람' 나올 때 까지 탐색
-                searchIndex = 0; // 초기화
-                while(searchIndex < peopleArray.size()){ // 끝까지 탐색하면 종료 >> searchIndex == peopleArray.size()
-                    if(boatRemainWeight < peopleArray.get(searchIndex)) break;
-                    // "searchIndex-1" << 이사람이 태울수 있는사람중 가장 무거움
-                    searchIndex++;
+                for (int i = boatWeight; i > 0 ; i--) {
+                    if(weightArray[boatWeight] != 0){
+                        weightArray[boatWeight] --;
+                        boatWeight -= i;
+                        flag = true;
+                        break;
+                    }
                 }
 
-                // 태울 수 있는 가장 무거운 사람 할당
-                boatRemainWeight -= peopleArray.get(searchIndex-1);
-                System.out.print(peopleArray.get(searchIndex-1) + " / ");
-                peopleArray.remove(searchIndex-1);
-
+                // 남은 무게로 더이상 불가 - for 문 다돌면
+                if(!flag) break;
             }
-
-
 
         }
 
 
-        System.out.println();
-        System.out.println();
-        System.out.println("답은 = "+ boatCount);
+        System.out.println("답은 = " + boatCount);
     }
+
 }
