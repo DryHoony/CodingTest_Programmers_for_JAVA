@@ -4,9 +4,11 @@ import java.util.Stack;
 
 public class BigNumberMaking { // 큰 수 만들기
 
+    // 0 잘 작동하는것 같은데??,,
+    // 999991, 3 >> test
+
     public static void main(String[] args) { // 2개 실패(12개 중) - 반례, 오류 찾아보자
-        // 자릿수 중간에 0반영 안됨!!!
-        String number = "9876054321"; // 자릿수 2~1,000,000
+        String number = "99991"; // 자릿수 2~1,000,000
         int k = 3; // 1~number.length
         // number 에서 4개를 제거 >> 가장 큰 수 return
         // number 의 숫자 순서를 유지
@@ -50,6 +52,12 @@ public class BigNumberMaking { // 큰 수 만들기
                     }
                     if(l == -1){ // 모든 수가 searchN >> 즉시 종료
                         answer += searchN.repeat(number.length() - k);
+                        break;
+                    }
+                    if(number.length()-(l) < k) { // 남은 수가 k 보다 작을 경우
+                        int remain = number.length()-l;
+                        // answer 의 뒤에서 remain 만큼 제거
+                        answer = answer.substring(0, answer.length()-remain);
                         break;
                     }
                     number = number.substring(l, number.length());
