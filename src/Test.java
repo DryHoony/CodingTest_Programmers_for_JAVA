@@ -4,23 +4,10 @@ public class Test {
 
 
     public static void main(String[] args) {
+        String str = "0123456";
 
-
-        Random random = new Random();
-
-
-        ArrayList<Integer> arr = new ArrayList<>();
-        for (int i = 40; i <= 200; i+=10) {
-            int randomN = random.nextInt(5)+1;
-            for (int j = 0; j < randomN; j++) {
-                arr.add(i);
-            }
-            System.out.println(i + "갯수 = " + randomN);
-
-        }
-
-        System.out.println(arr);
-
+        System.out.println(str.substring(2,5));
+        System.out.println(str.substring(2,str.length()));
 
     }
 
