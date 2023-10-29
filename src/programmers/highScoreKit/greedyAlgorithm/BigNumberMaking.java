@@ -54,10 +54,9 @@ public class BigNumberMaking { // 큰 수 만들기
                         answer += searchN.repeat(number.length() - k);
                         break;
                     }
-                    if(number.length()-(l) < k) { // 남은 수가 k 보다 작을 경우
-                        int remain = number.length()-l;
-                        // answer 의 뒤에서 remain 만큼 제거
-                        answer = answer.substring(0, answer.length()-remain);
+                    if(number.length()-l < k) { // 남은 수가 k 보다 작을 경우
+                        // 수정!! - number 에서 k만큼만 제거
+                        answer += number.substring(0,number.length()-k);
                         break;
                     }
                     number = number.substring(l, number.length());
