@@ -4,8 +4,9 @@ import java.util.Stack;
 
 public class BigNumberMaking { // 큰 수 만들기
 
-    public static void main(String[] args) {
-        String number = "1231234"; // 자릿수 2~1,000,000
+    public static void main(String[] args) { // 2개 실패(12개 중) - 반례, 오류 찾아보자
+        // 자릿수 중간에 0반영 안됨!!!
+        String number = "9876054321"; // 자릿수 2~1,000,000
         int k = 3; // 1~number.length
         // number 에서 4개를 제거 >> 가장 큰 수 return
         // number 의 숫자 순서를 유지
