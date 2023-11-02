@@ -4,12 +4,40 @@ import java.util.Stack;
 
 public class BigNumberMaking { // 큰 수 만들기
 
-    // 0 잘 작동하는것 같은데??,,
-    // 999991, 3 >> test
+    public static void main(String[] args) { // GPT ver - 통과!
+        // 숫자를 k개 만큼 제거하는 대신 (뒤집어서) 남겨야 하는 숫자를 (큰수부터) 고름
 
-    public static void main(String[] args) { // 2개 실패(12개 중) - 반례, 오류 찾아보자
-        String number = "99991"; // 자릿수 2~1,000,000
-        int k = 3; // 1~number.length
+        String number = "19076803"; // 자릿수 2~1,000,000
+        int k = 5; // 1~number.length
+
+        StringBuilder answer = new StringBuilder(); // 문자열을 더할 때 StringBuilder 사용
+
+        int idx = 0; // 숫자를 선택할 인덱스
+        int remaining = number.length() - k; // 남아야 하는 숫자의 개수
+
+        for (int i = 0; i < remaining; i++) {
+
+            char maxDigit = '0'; // 현재까지 선택한 숫자 중 가장 큰 숫자
+
+            for (int j = idx; j <= k + i; j++) {
+                if (number.charAt(j) > maxDigit) {
+                    maxDigit = number.charAt(j);
+                    idx = j + 1; // 다음 숫자를 선택할 위치 업데이트
+                }
+            }
+
+            answer.append(maxDigit);
+        }
+
+        System.out.println("답은 = " + answer.toString());
+
+
+    }
+
+
+    public static void main0(String[] args) { // 2개 실패(12개 중) - 반례, 오류 찾아보자
+        String number = "19076803"; // 자릿수 2~1,000,000
+        int k = 5; // 1~number.length
         // number 에서 4개를 제거 >> 가장 큰 수 return
         // number 의 숫자 순서를 유지
         // 그리디하게 k번 연산하기는 너무 무겁지 않나?,,
