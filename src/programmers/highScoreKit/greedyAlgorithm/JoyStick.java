@@ -4,123 +4,185 @@ public class JoyStick { // 조이스틱
     // 오락씩 이니셜 기록 - 조작 최소 횟수
     // name 의 길이는 1~20
 
-    public static void main(String[] args) {
-        // 틀림(70%) - 아깝다,, 뭐가 틀렸을까?,,
+    public static void main0(String[] args) {
+        // 연산을 2단계로 나눠 독립적으로 해보자 - 위치이동 연산 / 알파벳 연산
 
         String name = "JEROEN";
 
+        // 연산용 변수
+        int answer = 0;
         int l = name.length();
-        String shiftName;
-        int count=999999;
+        boolean[] isAArr = new boolean[l];
 
-
+        // 1 위치이동 연산 - 알파벳 연산이 필요한 위치로 최소로 이동
         for (int i = 0; i < l; i++) {
-            shiftName = name.substring(i,l) + name.substring(0,i);
-            System.out.println(shiftName); // 연산에 이동값을 추가해야 함
-
-            count = Math.min(count, Math.min(leftCalculation(shiftName), rightCalculation(shiftName)) + Math.min(i, l-1));
+            if(name.charAt(i) == 'A') isAArr[i] = true;
         }
-        System.out.println(count);
 
+
+
+
+        // 2 알파벳 연산 - 각각의 위치에서 alphabetCount 연산을 실행
+        for (int i = 0; i < l; i++) {
+            answer += charOperation(name.charAt(i));
+        }
+
+
+        System.out.println("답은 = " + answer);
     }
 
-    public static void main0(String[] args) {
-//        String name = "JEROEN"; // 56
-//        String name = "JAN"; //23
-//        String name = "JAZ"; //11 - J 완성한 다음 오른쪽 아니라 왼쪽으로 이동에 주의!!
-        // 순방향이 아닌 유턴을 포함하는 예시
-        String name = "ABAAAAB"; //5
-//        String name = "BABAAAAAB"; // 8
-//        String name = "ABAAAABAB"; // 8 !!초기 방향 오른쪽, if(왼쪽출발)= 10 !!!
+    public static void main(String[] args) { // case2 문제있다! - 좌우 선택과정이 너무 어렵다
+        // 현재 Index 에서 (좌우탐색으로) 가까운 알파벳으로 이동하고 연산하자.
+        String name = "BABAAAAAB";
 
-
-        // Sol1 - Min(앞 방향 연산, 뒷 방향 연산) - 순 방향 밖에 계산 못함
-//        rightCalculation(name);
-//        leftCalculation(name);
-
-        // Sol2 - greedy 하게 접근해보자 - 각 단계에서 A가 아닌 문자 가까운 곳을 선택해 연산한다.
-        // 좌우 방향이 같으면 '재귀'를 이용해 둘다 해보고 min 값 도출!!
-        int totalCount = 0; // 이동+연산
-        int l = name.length(); // 길이
-        int index=0; // 탐색 위치(현재 위치)
-        String[] nameArray = name.split("");
-
-        while(true){
-            // 오른쪽 탐색 - l/2 만큼 탐색(A가 아닐때 까지) - 탐색범위 벗어나면 l/2+1
-
-            // 왼쪽 탐색 - l/2 만큼 탐색(A가 아닐때 까지) - 탐색범위 벗어나면 l/2+1
-
-            // 길이비교 - 방향선택 - 같으면 '재귀'로 둘다 탐색연산()
-
+        // 연산용 변수
+        int l = name.length();
+        int answer=0;
+        boolean finishFlag = false;
+        boolean[] isAArray = new boolean[l];
+        for (int i = 0; i < l; i++) {
+            if(name.charAt(i)=='A') isAArray[i] = true;
         }
 
 
-//        System.out.println(totalCount);
-    }
+        // 처음 위치 연산
+        int nowIndex = 0;
+        answer += charOperation(name.charAt(nowIndex));
+        isAArray[0] = true;
 
-    public static int leftCalculation(String name){
-        int leftCount = 0;
-        int joyStickHorizontalCount = 0; // alphabet 연산이 필요할때 연산횟수(Count)에 추가 및 초기화
+        // 본 연산
+        while (!finishFlag){
+            // 좌우탐색
+            int leftIndex = nowIndex;
+            int rightIndex = nowIndex;
+            finishFlag = true; // 아래 for 문 탐색에 A가 없으면 통과 >> 연산종료(while문)
 
-        // 왼쪽 연산
-        if(name.charAt(0) != 'A'){ // 반대로 돌기전 첫번째 위치 연산
-            leftCount += alphabetCount(String.valueOf(name.charAt(0)));
-        }
-        joyStickHorizontalCount = 1; // 오른쪽 연산에 썼으니 일단 초기화
+            // 이동 및 연산 1회 진행
+            for (int i = 0; i < l/2+1; i++) {
+                leftIndex--;
+                rightIndex++;
+                if(leftIndex==-1) leftIndex = l-1;
+                if(rightIndex==l) rightIndex = 0;
 
-        for (int i = name.length()-1; i > 0; i--) {
-            if(name.charAt(i) != 'A'){
-                leftCount += alphabetCount(String.valueOf(name.charAt(i)));
-                leftCount += joyStickHorizontalCount;
-//                System.out.println(name.charAt(i) + " 연산할때 " + joyStickHorizontalCount + "칸 움직임 횟수 추가");
-                joyStickHorizontalCount = 1;
+                if(isAArray[leftIndex] && isAArray[rightIndex]) continue; // case1 - 다음 범위 탐색
+                else if (!isAArray[leftIndex] && !isAArray[rightIndex]) { // case2 - 좌우 모두 연산필요 - 좌우방향 선택 추가연산
+                    // 좌우 중 어디가 최적일지 추가 탐색 - 누가 먼저 A가 나오는가(해당 방향으로 탐색)
+                    int leftCount = 0;
+                    int rightCount = 0;
+
+                    for (int j = 0; j < l/2+1; j++) {
+                        leftCount++;
+                        if(isAArray[(leftIndex-leftCount+l)%l]) break;
+                    }
+                    for (int j = 0; j < l/2+1; j++) {
+                        rightCount++;
+                        if(isAArray[(rightIndex+rightCount)%l]) break;
+                    }
+
+                    if(leftCount > rightCount){ // case2.1 - 왼쪽선택 연산
+                        // 이동연산값
+                        if(leftIndex < nowIndex) answer+= nowIndex-leftIndex;
+                        else answer += nowIndex - (leftIndex-l);
+                        // 알파벳연산값
+                        nowIndex = leftIndex;
+                        answer += charOperation(name.charAt(nowIndex));
+
+                        finishFlag = false;
+                        isAArray[nowIndex] = true;
+                        System.out.println("case2.1, 연산 알파벳 = " + name.charAt(nowIndex));
+                        break;
+                    }
+                    else { // case2.2 - 오른쪽 선택 연산
+                        // 이동연산값
+                        if(nowIndex < rightIndex) answer += rightIndex - nowIndex;
+                        else answer += (rightIndex+l) - nowIndex;
+                        // 알파벳연산값
+                        nowIndex = rightIndex;
+                        answer += charOperation(name.charAt(nowIndex));
+
+                        finishFlag = false;
+                        isAArray[nowIndex] = true;
+                        System.out.println("case2.2, 연산 알파벳 = " + name.charAt(nowIndex));
+                        break;
+                    }
+
+
+                } else if (!isAArray[leftIndex]) { // case3 - 왼쪽 연산
+                    // 이동연산값
+                    if(leftIndex < nowIndex) answer+= nowIndex-leftIndex;
+                    else answer += nowIndex - (leftIndex-l);
+                    // 알파벳연산값
+                    nowIndex = leftIndex;
+                    answer += charOperation(name.charAt(nowIndex));
+
+                    finishFlag = false;
+                    isAArray[nowIndex] = true;
+                    System.out.println("case3, 연산 알파벳 = " + name.charAt(nowIndex));
+                    break;
+                }else { // isArray[rightIndex] // case 4 - 오른쪽 연산
+                    // 이동연산값
+                    if(nowIndex < rightIndex) answer += rightIndex - nowIndex;
+                    else answer += (rightIndex+l) - nowIndex;
+                    // 알파벳연산값
+                    nowIndex = rightIndex;
+                    answer += charOperation(name.charAt(nowIndex));
+
+                    finishFlag = false;
+                    isAArray[nowIndex] = true;
+                    System.out.println("case4, 연산 알파벳 = " + name.charAt(nowIndex));
+                    break;
+                }
+
             }
-            else joyStickHorizontalCount++;
+
+
         }
 
-        System.out.println("왼쪽 연산 횟수 : " + leftCount);
 
-        return leftCount;
+        System.out.println("답은 = " + answer);
     }
 
-    public static int rightCalculation(String name){
-        int rightCount = 0;
-        int joyStickHorizontalCount = 0; // alphabet 연산이 필요할때 연산횟수(Count)에 추가 및 초기화
-
-        // 오른쪽 연산
-        for (int i = 0; i < name.length(); i++) {
-            if(name.charAt(i) != 'A'){
-                rightCount += alphabetCount(String.valueOf(name.charAt(i)));
-                rightCount += joyStickHorizontalCount; // 좌우 움직임 횟수 추가
-//                System.out.println(name.charAt(i) + " 연산할때 " + joyStickHorizontalCount + "칸 움직임 횟수 추가");
-                joyStickHorizontalCount = 1; // 초기화(한칸은 움직임)
-            }
-            else joyStickHorizontalCount++; // A이면 좌우 움직임만 기록
-        }
-
-        System.out.println("오른쪽 연산 횟수 : "+ rightCount);
-
-        return rightCount;
-    }
     public static int alphabetCount(String alphabet){
-        String[] alphabetArray = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        if (alphabet.equals("A")) return 0;
+
+        String[] alphabetArray = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"
+                , "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
         int count1=0;
         int count2=0;
 
-        for (int i = 0; i < 26; i++) { // 순방향
-            if(alphabet.equals(alphabetArray[i])) break;
+        for (int i = 1; i <= 13; i++) { // 순방향
             count1++;
+            if(alphabet.equals(alphabetArray[i])) break;
         }
 
-        for (int i = 25; i > 0; i--) { // 역방향
-            if(alphabet.equals(alphabetArray[i])){
-                count2++;
-                break;
-            }
+        for (int i = 25; i >= 13; i--) { // 역방향
             count2++;
+            if(alphabet.equals(alphabetArray[i])) break;
         }
 
 //        System.out.println(count1 + ", " + count2);
+        return Math.min(count1, count2);
+    }
+
+    public static int charOperation(char ch){
+        if(ch == 'A') return 0;
+
+        char[] charArray = {'A','B','C','D','E','F','G','H','I','J','K','L','M'
+                ,'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+
+        int count1=0;
+        int count2=0;
+
+        for (int i = 1; i <= 13; i++) { // 순방향
+            count1++;
+            if(ch == charArray[i]) break;
+        }
+
+        for (int i = 25; i >= 13; i--) {
+            count2++;
+            if(ch == charArray[i]) break;
+        }
+
         return Math.min(count1, count2);
     }
 }
