@@ -4,7 +4,7 @@ public class JoyStick { // 조이스틱
     // 오락씩 이니셜 기록 - 조작 최소 횟수
     // name 의 길이는 1~20
 
-    public static void main0(String[] args) {
+    public static void main(String[] args) {
         // 연산을 2단계로 나눠 독립적으로 해보자 - 위치이동 연산 / 알파벳 연산
 
         String name = "JEROEN";
@@ -13,12 +13,53 @@ public class JoyStick { // 조이스틱
         int answer = 0;
         int l = name.length();
         boolean[] isAArr = new boolean[l];
-
-        // 1 위치이동 연산 - 알파벳 연산이 필요한 위치로 최소로 이동
-        for (int i = 0; i < l; i++) {
-            if(name.charAt(i) == 'A') isAArr[i] = true;
+        for (int i = 1; i < l; i++) { // 첫번째는 제외 (어짜피 연산할 거니까)
+            if(name.charAt(i)=='A') isAArr[i] = true;
         }
 
+        int move = Integer.MAX_VALUE;
+        // 1 위치이동 연산 - 알파벳 연산이 필요한 위치로 최소로 이동, 최대 이동값은 l-1이다.
+        // 유턴은 길을 중복으로 지나가게 된다 - 최소화 (최대 한번??)
+        int leftEnd=0; // 왼쪽 끝 (초기 위치 기준)
+        int rightEnd=0; // 오른쪽 끝 (초기 위치 기준)
+
+        // case1 - 오른쪽 쭉 (왼쪽 방향에서 처음으로 A가 아닌값에 도착)
+        for (int i = 1; i < l; i++) {
+            if(!isAArr[l-1-i]){
+                leftEnd = -i;
+                move = Math.min(l-1-i, move);
+                System.out.println("case1 연산값 = " + (l-1-i));
+                break;
+            }
+        }
+        // case2 - 왼쪽 쭉
+        for (int i = 1; i < l; i++) {
+            if(!isAArr[i]){
+                rightEnd = i;
+                move = Math.min(l-1-i, move);
+                System.out.println("case2 연산값 = " + (l-1-i));
+                break;
+            }
+        }
+        // case3 - 오른쪽 가다가 왼쪽 유턴
+        for (int i = 1; i <= l/2; i++) { // 절반만 탐색
+            // i만큼 오른쪽 이동한 상태에서 왼쪽 끝 탐색 >> leftEnd 까지
+            if(!isAArr[i] && (i*2-leftEnd) < l-1){
+                move = Math.min(i*2-leftEnd , move);
+            }
+        }
+
+
+        // case4 - 왼쪽 가다가 오른쪽 유턴
+        for (int i = 1; i <= l/2; i++) {
+            // i만큼 왼쪽으로 이동한 상태에서 오른쪽 끝 탐색 >> rightEnd 까지
+            if(!isAArr[l-1-i] && (i*2+rightEnd) < l-1){
+                move = Math.min(i*2+rightEnd, move);
+            }
+        }
+
+        System.out.println("move = " + move);
+        answer+=move;
 
 
 
@@ -31,7 +72,7 @@ public class JoyStick { // 조이스틱
         System.out.println("답은 = " + answer);
     }
 
-    public static void main(String[] args) { // case2 문제있다! - 좌우 선택과정이 너무 어렵다
+    public static void main0(String[] args) { // case2 문제있다! - 좌우 선택과정이 너무 어렵다, 다른 전략 취해보자
         // 현재 Index 에서 (좌우탐색으로) 가까운 알파벳으로 이동하고 연산하자.
         String name = "BABAAAAAB";
 
