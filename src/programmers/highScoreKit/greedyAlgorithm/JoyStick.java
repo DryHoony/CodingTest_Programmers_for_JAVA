@@ -4,17 +4,25 @@ public class JoyStick { // 조이스틱
     // 오락씩 이니셜 기록 - 조작 최소 횟수
     // name 의 길이는 1~20
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { // 실패 2개뿐 - 16,17 반례 찾아보자!
         // 연산을 2단계로 나눠 독립적으로 해보자 - 위치이동 연산 / 알파벳 연산
 
-        String name = "JEROEN";
+        String name = "AAAA";
 
         // 연산용 변수
         int answer = 0;
         int l = name.length();
         boolean[] isAArr = new boolean[l];
-        for (int i = 1; i < l; i++) { // 첫번째는 제외 (어짜피 연산할 거니까)
-            if(name.charAt(i)=='A') isAArr[i] = true;
+        int aCount = 0;
+        for (int i = 0; i < l; i++) {
+            if(name.charAt(i)=='A'){
+                isAArr[i] = true;
+                aCount++;
+            }
+        }
+        if(aCount == l){
+//            return 0;
+            System.out.println("연산 종료!!");
         }
 
         int move = Integer.MAX_VALUE;
@@ -25,10 +33,11 @@ public class JoyStick { // 조이스틱
 
         // case1 - 오른쪽 쭉 (왼쪽 방향에서 처음으로 A가 아닌값에 도착)
         for (int i = 1; i < l; i++) {
-            if(!isAArr[l-1-i]){
+            if(!isAArr[l-i]){
                 leftEnd = -i;
-                move = Math.min(l-1-i, move);
-                System.out.println("case1 연산값 = " + (l-1-i));
+                System.out.println("왼쪽끝 = " + leftEnd);
+                move = Math.min(l-i, move);
+                System.out.println("case1 연산값 = " + (l-i));
                 break;
             }
         }
@@ -36,31 +45,46 @@ public class JoyStick { // 조이스틱
         for (int i = 1; i < l; i++) {
             if(!isAArr[i]){
                 rightEnd = i;
-                move = Math.min(l-1-i, move);
-                System.out.println("case2 연산값 = " + (l-1-i));
+                System.out.println("오른쪽끝 = " + rightEnd);
+                move = Math.min(l-i, move);
+                System.out.println("case2 연산값 = " + (l-i));
                 break;
             }
         }
         // case3 - 오른쪽 가다가 왼쪽 유턴
         for (int i = 1; i <= l/2; i++) { // 절반만 탐색
-            // i만큼 오른쪽 이동한 상태에서 왼쪽 끝 탐색 >> leftEnd 까지
-            if(!isAArr[i] && (i*2-leftEnd) < l-1){
-                move = Math.min(i*2-leftEnd , move);
+            if(!isAArr[i]){ // i에서 왼쪽으로 유턴
+                // 종료 지점 찾기 - i에서 오른쪽방향으로 처음으로 A가 아닌값
+                for (int j = i+1; j < l; j++) {
+                    if (!isAArr[j]){
+                        // i에서 왼쪽으로 가서 j까지 도달 거리
+                        move = Math.min(i + l - (j-i), move);
+                        break;
+                    }
+                }
+
             }
         }
+        System.out.println("case3 연산 후 move = " + move);
 
 
         // case4 - 왼쪽 가다가 오른쪽 유턴
-        for (int i = 1; i <= l/2; i++) {
-            // i만큼 왼쪽으로 이동한 상태에서 오른쪽 끝 탐색 >> rightEnd 까지
-            if(!isAArr[l-1-i] && (i*2+rightEnd) < l-1){
-                move = Math.min(i*2+rightEnd, move);
+        for (int i = -1; i >= -l/2 ; i--) {
+            if(!isAArr[i+l]){ // i에서 오른쪽으로 유턴
+                // 종료 지점 찾기 - i에서 왼쪽방향으로 처음으로 A가 아닌값
+                for (int j = i-1; j > -l ; j--) {
+                    if(!isAArr[j+l]){
+                        // i에서 오른쪽으로 가서 j까지 도달 거리
+                        move = Math.min(-i*2 +j+l, move);
+                        break;
+                    }
+                }
+
             }
         }
 
-        System.out.println("move = " + move);
+        System.out.println("case4 연산 후 move = " + move);
         answer+=move;
-
 
 
         // 2 알파벳 연산 - 각각의 위치에서 alphabetCount 연산을 실행
