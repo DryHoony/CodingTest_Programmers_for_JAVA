@@ -4,7 +4,7 @@ public class JoyStick { // 조이스틱
     // 오락씩 이니셜 기록 - 조작 최소 횟수
     // name 의 길이는 1~20
 
-    public static void main(String[] args) { // 실패 2개뿐 - 16,17 반례 찾아보자!
+    public static void main(String[] args) {
         // 연산을 2단계로 나눠 독립적으로 해보자 - 위치이동 연산 / 알파벳 연산
 
         String name = "AAAA";
