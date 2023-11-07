@@ -5,8 +5,8 @@ import java.util.Comparator;
 
 public class MaximumNumber { // 가장 큰 수
 
-    public static void main(String[] args) { // 실패1개 - 11예제
-        int[] numbers = {3,30,34,5,9}; // 길이 1~100,000 값 0~1,000
+    public static void main(String[] args) { // gpt 찬스 씀! - 처음부터 복잡도를 너무 생각하지 말자. 정의대로 일단 구현 try
+        int[] numbers = {0,0,0}; // 길이 1~100,000 값 0~1,000
 
         // 연산용 변수
         int l = numbers.length;
@@ -24,6 +24,11 @@ public class MaximumNumber { // 가장 큰 수
                 return (b+a).compareTo(a+b);
             }
         });
+
+        if(strNumbers[0].equals("0")){
+//            return "0";
+            System.out.println("연산 종료!! return 0");
+        }
 
         // 문자열 이어붙이기
         StringBuilder answer = new StringBuilder();
