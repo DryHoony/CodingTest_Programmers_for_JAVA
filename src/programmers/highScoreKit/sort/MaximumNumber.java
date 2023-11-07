@@ -1,39 +1,44 @@
 package programmers.highScoreKit.sort;
 
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class MaximumNumber { // 가장 큰 수
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { // 실패1개 - 11예제
         int[] numbers = {3,30,34,5,9}; // 길이 1~100,000 값 0~1,000
 
         // 연산용 변수
-        String answer = "";
-        List<Integer>[] arr = new ArrayList[9];
+        int l = numbers.length;
 
+        // 정수 배열을 문자열 배열로 변환
+        String[] strNumbers = new String[l];
+        for (int i = 0; i < l; i++) {
+            strNumbers[i] = String.valueOf(numbers[i]);
+        }
 
-
-        int count0 = 0;
-        int digit;
-
-        for (int n:numbers){
-            if(n>=100){
-                digit = n/100;
-
-            } else if (n>=10) {
-
-            } else if (n>0) {
-
-            }else {
-                count0++;
+        // 문자열 정렬 - 정의 그대로 순서연산 정의 : 조합했을 때 더 큰 숫자 순서
+        Arrays.sort(strNumbers, new Comparator<String>() {
+            @Override
+            public int compare(String a, String b) {
+                return (b+a).compareTo(a+b);
             }
+        });
+
+        // 문자열 이어붙이기
+        StringBuilder answer = new StringBuilder();
+        for (String str : strNumbers){
+            answer.append(str);
         }
 
 
-
-
-        System.out.println("답은 = " + answer);
+        System.out.println("답은 = " + answer.toString());
     }
+
+
+
+
+
+
+
 }
