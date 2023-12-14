@@ -18,7 +18,7 @@ public class StockPrice { // 주식가격
 
         for (int n:prices) {
             if(n<min){
-//                answer += StockSpanOperator(stack, n); // answer 에 추가할 방법 구현
+                //  answer += StockSpanOperator(stack, n); // answer 에 추가할 방법 구현
                 stack.clear(); // stack 초기화
                 stack.push(n);
                 min=n; // 최소값 갱신
