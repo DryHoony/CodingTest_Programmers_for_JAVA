@@ -4,10 +4,21 @@ public class Test {
 
 
     public static void main(String[] args) {
-        String str = "0123456";
+        Map<Integer,Integer> test = new HashMap<>();
+        for (int i = 0; i < 10; i++) {
+            test.put(i,i);
+        }
 
-        System.out.println(str.substring(2,5));
-        System.out.println(str.substring(2,str.length()));
+        // 반복문 조회중 제거 test
+        // ConcurrentModificationException!!!
+        Set<Integer> keySet = test.keySet(); // 지역변수로 분리
+        for (int key:keySet){
+            System.out.println("key = " + key);
+            test.remove(key);
+        }
+
+
+        System.out.println(test.keySet());
 
     }
 

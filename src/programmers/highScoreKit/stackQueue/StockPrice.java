@@ -4,6 +4,7 @@ import java.util.*;
 
 public class StockPrice {
 
+    // ver1 - 정확성테스트 ok, 효율성테스트 fail! >> 2/5
     public static void main(String[] args) {
 
         int[] price = {1,2,3,2,3}; // 4,3,1,1,0
@@ -16,19 +17,25 @@ public class StockPrice {
         int calIndex = 0; // 현재 위치, 탐색 위치
 
         Map<Integer, List<Integer>> map = new HashMap<>();
+        List<Integer> deleteKeyList = new ArrayList<>();
 
         for (int x : price){
             // 1. x값 map.keySet() 순회 연산 - x값이 더 작으면 answer 에 할당
+            //반복문 중 삭제 변경시 ConcurrentModificationException 발생 >> 삭제연산을 분리
+
             for (int key:map.keySet()){
                 if(x < key){
-                    // asnwer 할당
                     for(int i:map.get(key)){
-                        answer[i] = calIndex - i;
+                        answer[i] = calIndex - i; // asnwer 할당
                     }
-                    // map 에서 key 제거
-                    map.remove(key); // keySet 조회-반복문 연산에 문제 없을까?
+                    deleteKeyList.add(key); // 제거 할 key ListUp
                 }
             }
+            // map 에서 key 제거
+            for(int key:deleteKeyList){
+                map.remove(key);
+            }
+            deleteKeyList.clear();
 
             // 2. x값 map 추가 연산 - 존재/비존재 구분
             if(map.containsKey(x)){
@@ -46,17 +53,17 @@ public class StockPrice {
         // 마무리 연산 - 남아있는 key,value 에 대해 answer 값 할당 연산
         calIndex--;
         for (int key:map.keySet()){
-
-
-
+            for (int i:map.get(key)){
+                answer[i] = calIndex-i;
+            }
         }
 
 
-        System.out.println("map 출력확인"); // ok
-        for(int key:map.keySet()){
-            System.out.println("key = " + key);
-            System.out.println(map.get(key));
-        }
+//        System.out.println("map 출력확인"); // ok
+//        for(int key:map.keySet()){
+//            System.out.println("key = " + key);
+//            System.out.println(map.get(key));
+//        }
 
         System.out.println();
         System.out.println("답은 = ");
