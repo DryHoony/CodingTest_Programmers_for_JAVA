@@ -2,75 +2,67 @@ package programmers.highScoreKit.stackQueue;
 
 import java.util.*;
 
-public class StockPrice { // 주식가격
-    // 초 단위로 기록된 주식가격
-    // 각 초의 입장에서 가격이 떨어지지 않은(자신보다 낮은 가격이 되는) 기간(사이 간격)은 몇 초인지 return
-    // 앞으로 연산(오른쪽 진행) - 재귀함수 이용해 보자!, 부분 정복 ver1
-    // 뒤로 연산(왼쪽 진행) -
-
-
-    public static int[] StockRisingSpan(int[] prices){
-        int l = prices.length;
-        int[] answer = new int[l];
-        int min = prices[0]; // 초기화
-
-        Stack<Integer> stack = new Stack<>();
-
-        for (int n:prices) {
-            if(n<min){
-                //  answer += StockSpanOperator(stack, n); // answer 에 추가할 방법 구현
-                stack.clear(); // stack 초기화
-                stack.push(n);
-                min=n; // 최소값 갱신
-
-            }
-            else{
-                stack.push(n);
-            }
-
-            // 끝자리 StockSpanOperator , 조금 다르다!
-
-        }
-
-
-        return null;
-    }
-
-    public static List<Integer> StockSpanOperator(Stack<Integer> stack, int n){
-        // StockRisingSpan 의 부분 연산
-        List<Integer> answer = new ArrayList<>(); // return
-        int blank=0; // 건너뜀 횟수
-        Stack<Integer> min = new Stack<>();
-        min.push(n);
-
-        while (!stack.empty()){
-            if(stack.peek() < min.peek()){
-                answer.add(0, min.size()+blank);
-                blank ++;
-            }
-            else{
-                // min 에서 어떤위치에 해당되는지 찾는 연산 And min을 update하는 연산
-            }
-        }
-
-
-
-
-        return answer;
-    }
-
-//    public static int[] monoIncrease(Stack<Integer> stack){ // 단조증가
-//        return null;
-//    }
-
+public class StockPrice {
 
     public static void main(String[] args) {
-        int[] prices = {1,2,3,2,3}; // 길이 2~100000 (꽤 길다), 값 1~10000
+
+        int[] price = {1,2,3,2,3}; // 4,3,1,1,0
+        // 값은 1~10,000  길이는 2~100,000
+        // 더 작은 숫자가 나올때 까지의 길이(거리) 기록
+
+        // 연산용 변수
+        int l = price.length; // 길이
+        int[] answer = new int[l]; // 답
+        int calIndex = 0; // 현재 위치, 탐색 위치
+
+        Map<Integer, List<Integer>> map = new HashMap<>();
+
+        for (int x : price){
+            // 1. x값 map.keySet() 순회 연산 - x값이 더 작으면 answer 에 할당
+            for (int key:map.keySet()){
+                if(x < key){
+                    // asnwer 할당
+                    for(int i:map.get(key)){
+                        answer[i] = calIndex - i;
+                    }
+                    // map 에서 key 제거
+                    map.remove(key); // keySet 조회-반복문 연산에 문제 없을까?
+                }
+            }
+
+            // 2. x값 map 추가 연산 - 존재/비존재 구분
+            if(map.containsKey(x)){
+                // 존재하면 - value 값 List 에 추가
+                map.get(x).add(calIndex);
+            }
+            else {
+                // 존재하지 않으면 - key 로 추가
+                map.put(x, new ArrayList<>());
+                map.get(x).add(calIndex);
+            }
+            calIndex ++; // 다음 index
+        }
+
+        // 마무리 연산 - 남아있는 key,value 에 대해 answer 값 할당 연산
+        calIndex--;
+        for (int key:map.keySet()){
 
 
 
+        }
 
 
+        System.out.println("map 출력확인"); // ok
+        for(int key:map.keySet()){
+            System.out.println("key = " + key);
+            System.out.println(map.get(key));
+        }
+
+        System.out.println();
+        System.out.println("답은 = ");
+        for (int a:answer){
+            System.out.println(a);
+        }
     }
 
 }
