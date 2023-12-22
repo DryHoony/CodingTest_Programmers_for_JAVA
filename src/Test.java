@@ -5,8 +5,7 @@ public class Test {
 
 
     public static void main(String[] args) {
-        int[][] test = new int[3][5];
-        System.out.println(test.length);
+
 
 
     }
