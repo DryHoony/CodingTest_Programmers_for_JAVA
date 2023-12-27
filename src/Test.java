@@ -5,8 +5,13 @@ public class Test {
 
 
     public static void main(String[] args) {
+//        for (; ;) {
+//            System.out.println("무한루프 test");
+//        }
 
-
+//        for (int i = 0; i < 10; i++) {
+//            System.out.println(i-- + " 무한루프 test");
+//        }
 
     }
 
