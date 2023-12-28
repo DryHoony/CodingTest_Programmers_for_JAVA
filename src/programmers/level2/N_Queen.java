@@ -6,19 +6,28 @@ public class N_Queen { // N-Queen
     static int N;
 
     public static void main(String[] args) {
-        int n = 3; // 1~12
+        int n = 4; // 1~12
 
 
         // 본연산
         N = n;
         queenCalculate(n);
+        System.out.println("답은 = " + answer);
 
 //        // queenConquer test
 //        boolean[][] chessBoard = new boolean[n][n];
 //        queenConquer(chessBoard, 2,1);
 
+        // 여러개 실행
+//        for (int i = 1; i < 20; i++) {
+//            N = i;
+//            answer=0;
+//            queenCalculate(i);
+////            System.out.println(i+"-Queen = " + answer);
+//            System.out.println("a"+i+" = " + answer);
+//        }
 
-        System.out.println("답은 = " + answer);
+
     }
 
     static void queenCalculate(int n){
@@ -33,8 +42,8 @@ public class N_Queen { // N-Queen
     }
 
     static void queenCalculateRecursion(boolean[][] chessBoard, int k){ // chessBoard 에서 k번째 줄 연산
-        printBoard(chessBoard);
-        System.out.println(k + "번째 줄 연산 ----------------");
+//        printBoard(chessBoard);
+//        System.out.println(k + "번째 줄 연산 ----------------");
 
         if(k == N-1){ // 종료조건
             for (int i = 0; i < N; i++) {
@@ -49,11 +58,11 @@ public class N_Queen { // N-Queen
             for (int i = 0; i < N; i++) {
                 if(chessBoard[k][i]){
                     // 재귀 - 가능한 [k][i]에 대해 모두 재귀 실행
-                    System.out.println("["+k+"]["+i+"]" + "에서 퀸 연산 및 재귀 실행");
+//                    System.out.println("["+k+"]["+i+"]" + "에서 퀸 연산 및 재귀 실행");
                     boolean[][] branchChessBoard = queenConquer(chessBoard, k,i);
                     queenCalculateRecursion(branchChessBoard, k+1);
 //                    queenCalculateRecursion(queenConquer(chessBoard, k,i), k+1);
-                    System.out.println(k+"번째 줄에서 분기문 몇번 탈까?");
+//                    System.out.println(k+"번째 줄에서 분기문 몇번 탈까?");
                 }
             }
         }
@@ -62,7 +71,7 @@ public class N_Queen { // N-Queen
     }
 
     static boolean[][] queenConquer(boolean[][] chessBoard, int i, int j){
-        System.out.println("["+i+"]["+j+"]" + "에서 재귀전에 퀸 정복연산");
+//        System.out.println("["+i+"]["+j+"]" + "에서 재귀전에 퀸 정복연산");
 
 //        boolean[][] newBoard = chessBoard.clone(); // 깊은복사 안되는것 같다!
         boolean[][] newBoard = new boolean[N][N];
@@ -84,7 +93,7 @@ public class N_Queen { // N-Queen
         for (int x = 0; x <= i+j; x++) {
             int y = i+j-x;
             if(y>=0 && y<N && x<N){
-                System.out.println("["+y+"]["+x+"]" + "우상대각 false");
+//                System.out.println("["+y+"]["+x+"]" + "우상대각 false");
                 newBoard[y][x] = false;
             }
         }
