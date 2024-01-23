@@ -32,7 +32,7 @@ public class JadenCaseStringMaking { // JadenCase 문자열 만들기
     }
 
     // ver2.1
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
 //        String s = "3people unFollowed me";
 //        String s = "one two  three    four";
         String s = "  for the what 1what  ";
@@ -67,6 +67,35 @@ public class JadenCaseStringMaking { // JadenCase 문자열 만들기
 //        answer.trim();
         while(answer.substring(answer.length()-1).equals(" ")){
             answer = answer.substring(0, answer.length()-1);
+        }
+
+        System.out.println("답은 = " + answer);
+    }
+
+    // ver3
+    public static void main(String[] args) {
+        String s = "3people unFollowed me";
+
+        boolean isfirstLetter = true;
+        String answer = "";
+
+        // 본연산
+        for(String letter:s.split("")){
+
+            if(letter.equals(" ")){ // 1. 공백
+                answer += " ";
+                isfirstLetter = true;
+            }
+            else { // 2. 단어
+                if(isfirstLetter){ // 첫글자
+                    answer += letter.toUpperCase();
+                    isfirstLetter = false;
+                }
+                else { // 뒷글자
+                    answer += letter.toLowerCase();
+                }
+            }
+
         }
 
         System.out.println("답은 = " + answer);
