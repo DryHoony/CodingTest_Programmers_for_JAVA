@@ -31,10 +31,13 @@ public class JadenCaseStringMaking { // JadenCase 문자열 만들기
 //        System.out.println("답은 = ");
     }
 
+    // ver2.1
     public static void main(String[] args) {
 //        String s = "3people unFollowed me";
-        String s = "one two  three    four";
-        boolean spaceUnDone = true;
+//        String s = "one two  three    four";
+        String s = "  for the what 1what  ";
+
+        boolean spaceUnDone = false; // 초기공백X
         boolean firstLetter = true;
         String answer = "";
 
@@ -45,13 +48,13 @@ public class JadenCaseStringMaking { // JadenCase 문자열 만들기
                 if (spaceUnDone){
                     answer += " ";
                     spaceUnDone = false;
-                    firstLetter = true;
+                    firstLetter = true; // 단어구분, 대문자가능
                 }
             }
             else { // 2. 단어
                 if(firstLetter){ // 첫글자
                     answer += letter.toUpperCase();
-                    spaceUnDone = true;
+                    spaceUnDone = true; // 단어구분, 공백가능
                     firstLetter = false;
                 }
                 else { // 뒷글자
@@ -61,7 +64,11 @@ public class JadenCaseStringMaking { // JadenCase 문자열 만들기
 
         }
 
-        answer.trim();
+//        answer.trim();
+        while(answer.substring(answer.length()-1).equals(" ")){
+            answer = answer.substring(0, answer.length()-1);
+        }
+
         System.out.println("답은 = " + answer);
     }
 }
