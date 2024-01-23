@@ -17,7 +17,7 @@ public class CellPhonePrice { // 핸드폰 가격 비교
         int[] price2 = {1610000,170000,530000};
         int charge2 = 99000;
         int charge2down = 45000;
-        int monthNeed = 7;
+        int monthNeed = 6;
 
 
         // 계산
