@@ -30,17 +30,17 @@ public class LineUpWay { // 줄서는 방법
             // 1. 자릿수 찾기
             fi = list.size();
             while (true){
-                if(Factorial(fi)+count < k) break;
+                if(factorial(fi)+count < k) break;
                 else fi--;
             }
             // Factorial(fi) 가 몇번 들어가는지 연산, 'fi-1' 자리에 연산수 만큼 list[index]값 할당
 
             // 2. 자릿수 할당
-            int div = (int) ((k-count)/Factorial(fi));
+            int div = (int) ((k-count)/ factorial(fi));
             answer[aIndex] = list.get(div);
             aIndex++;
             list.remove(div);
-            count += Factorial(fi) * div;
+            count += factorial(fi) * div;
 
             // 중간연산 결과 출력
             System.out.println();
@@ -58,7 +58,7 @@ public class LineUpWay { // 줄서는 방법
     }
 
     // ver1
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         int n = 5;
         long k = 2;
 
@@ -73,7 +73,7 @@ public class LineUpWay { // 줄서는 방법
         while(k>1){ // 종료조건 k=0 and aIndex=n (answer 에 모두 할당)
             // 현재 연산 자릿수 = n-aIndex
             // F(i-1) 값이 몇번 들어갈까? = numList 에서 몇번째 Index 뽑아갈까? = k/Factorial(n-aIndex-1)
-            int i = (int) (k/Factorial(n-aIndex-1));
+            int i = (int) (k/ factorial(n-aIndex-1));
             System.out.println();
             System.out.println(aIndex+1 +  "번째 i = " + i);
 
@@ -89,7 +89,7 @@ public class LineUpWay { // 줄서는 방법
                 System.out.println("numList = " + numList);
                 System.out.println("k = " + k);
             } else {
-                k -= Factorial(n-aIndex-1) * i; // 경우의 수 count
+                k -= factorial(n-aIndex-1) * i; // 경우의 수 count
                 System.out.println("남은 k = " + k);
 
                 answer[aIndex] = numList.get(i); // answer 에 할당
@@ -137,7 +137,75 @@ public class LineUpWay { // 줄서는 방법
 
     }
 
-    public static long Factorial(int n){
+    public static void main(String[] args) {
+        int n = 5;
+        long k = 26;
+        lineUpWayCases(n, k);
+
+//        for (int i = 1; i < 10; i++) {
+//            k=i;
+//            System.out.print("n = " + n);
+//            System.out.println(",  k = " + k + " 연산 ---------------");
+//            lineUpWayCases(n,k);
+//            System.out.println("--------- 위는 " + k + "번째 답 ---------");
+//        }
+
+
+
+    }
+
+    public static int[] lineUpWayCases(int n, long k){
+        // 연산용 변수
+        ArrayList<Integer> numList = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            numList.add(i);
+        }
+        int[] answer = new int[n];
+        int aIndex=0;
+
+        // 연산
+        while (k>2){
+            int i = (int)((k-1)/factorial(n-aIndex-1));
+            System.out.println("i = " + i);
+
+            answer[aIndex] = numList.get(i);
+            aIndex++;
+            numList.remove(i);
+            if(i==0) continue; // k 연산 XX
+
+            k -= factorial(n-aIndex)*i;
+            System.out.println("k = " + k);
+            printAnswer(answer);
+        }
+
+
+
+        if(k==1){
+            while (!numList.isEmpty()){
+                answer[aIndex] = numList.get(0);
+                aIndex++;
+                numList.remove(0);
+            }
+        } else { // k==2 >> 마지막 2자리만 switch
+            while (numList.size()>2){
+                answer[aIndex] = numList.get(0);
+                aIndex++;
+                numList.remove(0);
+            }
+            answer[aIndex] = numList.get(1);
+            aIndex++;
+            numList.remove(1);
+            answer[aIndex] = numList.get(0);
+            aIndex++;
+            numList.remove(0);
+        }
+
+
+        printAnswer(answer);
+        return answer;
+    }
+
+    public static long factorial(int n){
         long a = 1;
         for (int i = 2; i <= n; i++) {
             a *= i;
@@ -145,4 +213,11 @@ public class LineUpWay { // 줄서는 방법
         return a;
     }
 
+    public static void printAnswer(int[] answer){
+        System.out.print("answer 출력 = ");
+        for (int a:answer){
+            System.out.print(a + " ");
+        }
+        System.out.println();
+    }
 }
