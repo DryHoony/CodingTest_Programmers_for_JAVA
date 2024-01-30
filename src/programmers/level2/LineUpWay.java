@@ -4,7 +4,7 @@ package programmers.level2;
 import java.util.ArrayList;
 
 public class LineUpWay { // 줄서는 방법
-    public static void main(String[] args) {
+    public static void main0(String[] args) {
         int n = 5; // 20이하 자연수
         long k = 7;
 
@@ -55,6 +55,86 @@ public class LineUpWay { // 줄서는 방법
         for (int i:answer){
             System.out.print(i + " ");
         }
+    }
+
+    // ver1
+    public static void main(String[] args) {
+        int n = 5;
+        long k = 2;
+
+        // 연산용 변수
+        ArrayList<Integer> numList = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            numList.add(i);
+        }
+        int[] answer = new int[n];
+        int aIndex=0;
+
+        while(k>1){ // 종료조건 k=0 and aIndex=n (answer 에 모두 할당)
+            // 현재 연산 자릿수 = n-aIndex
+            // F(i-1) 값이 몇번 들어갈까? = numList 에서 몇번째 Index 뽑아갈까? = k/Factorial(n-aIndex-1)
+            int i = (int) (k/Factorial(n-aIndex-1));
+            System.out.println();
+            System.out.println(aIndex+1 +  "번째 i = " + i);
+
+            if(i==0){
+                answer[aIndex] = numList.get(i);
+                aIndex++;
+                numList.remove(i);
+                System.out.print("answer = ");
+                for (int a:answer){
+                    System.out.print(a + " ");
+                }
+                System.out.println();
+                System.out.println("numList = " + numList);
+                System.out.println("k = " + k);
+            } else {
+                k -= Factorial(n-aIndex-1) * i; // 경우의 수 count
+                System.out.println("남은 k = " + k);
+
+                answer[aIndex] = numList.get(i); // answer 에 할당
+                aIndex++;
+                numList.remove(i); // numList 제거
+
+                if(k==0){
+                    // F(i) 딱 맞춤 >> 남은 numList 역순 할당
+                    int l = numList.size();
+                    for (int j = l-1; j >= 0; j--) {
+                        answer[aIndex] = numList.get(j);
+                        aIndex++;
+                        numList.remove(j);
+                    }
+                }
+
+                System.out.print("answer = ");
+                for (int a:answer){
+                    System.out.print(a + " ");
+                }
+                System.out.println();
+                System.out.println("numList = " + numList);
+            }
+
+
+        }
+
+//        System.out.println("numList = " + numList);
+//        System.out.println("aIndex = " + aIndex);
+        // 마지막 항 할당
+        while (!numList.isEmpty()){
+            answer[aIndex] = numList.get(0);
+            aIndex++;
+            numList.remove(0);
+        }
+
+
+
+        System.out.println("---------------------------------");
+        System.out.println("answer 출력 >> ");
+        for (int a:answer){
+            System.out.print(a + " ");
+        }
+
+
     }
 
     public static long Factorial(int n){
