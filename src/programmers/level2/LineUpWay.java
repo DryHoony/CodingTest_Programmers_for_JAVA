@@ -178,8 +178,6 @@ public class LineUpWay { // 줄서는 방법
             printAnswer(answer);
         }
 
-
-
         if(k==1){
             while (!numList.isEmpty()){
                 answer[aIndex] = numList.get(0);
