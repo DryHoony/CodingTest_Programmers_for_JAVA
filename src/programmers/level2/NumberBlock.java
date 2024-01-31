@@ -4,8 +4,7 @@ public class NumberBlock { // 숫자블록
     // n 번째 연산 : n보다 큰 'n배수' 위치에 n을 할당(덮어쓰기) >> index[n*i] 위치에 할당
 
     // 방법1 : DP 이용 >> 범위를 1~end 까지 설정하고 처음부터 연산
-    // 방법 1.1 : 절반 부터 시작해서, 내림차순으로 연산, if(!0) 일때만 할당하면 될듯
-    // 방법2 : 각각의 n에 'n보다 작은 최대 약수' 를 할당 연산
+    // 방법2 : 각각의 n에 'n보다 작은 최대 약수' 를 할당 연산 >> No!!! 이해를 잘못했다.
 
     // ver1 방법1
     public static void main1(String[] args) {
@@ -43,15 +42,16 @@ public class NumberBlock { // 숫자블록
     }
     
     
-    // ver2
+    // ver2 - 13번만 실패, 효율성 0점
     public static void main(String[] args) {
         long begin = 1;
         long end = 10;
         
         int[] answer = new int[(int) (end-begin)+1];
+        System.out.println("answer 길이= " + answer.length);
         // 연산
         for (int i = 0; i < answer.length; i++) {
-            answer[i] = MaxDivisor(i+1);
+            answer[i] = MaxDivisor(i+(int) begin);
         }
 
         System.out.println("answer 출력확인");
@@ -60,6 +60,7 @@ public class NumberBlock { // 숫자블록
         }
 //        System.out.println("답은 = ");
     }
+
     
     public static int MaxDivisor(int k){ // k보다 작은 최대 약수 return
         for (int i = k-1; i > 0 ; i--) {
