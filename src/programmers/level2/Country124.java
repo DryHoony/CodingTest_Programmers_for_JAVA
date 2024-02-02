@@ -144,7 +144,7 @@ public class Country124 { // 124 나라의 숫자
         System.out.println("answer = " + answer);
     }
 
-    public static void main(String[] args) {
+    public static void main3_1(String[] args) {
 //        for (int i = 1; i <= 200; i++) {
 //            System.out.print("i = " + i + " >> ");
 //            System.out.println(solutionVer3(i));
@@ -210,8 +210,77 @@ public class Country124 { // 124 나라의 숫자
 //            System.out.println(threeSeries(i));
 //        }
 //    }
-
     public static int threeSeries(int k){
         return ((int) Math.pow(3,k)-1)/2*3;
     }
+
+    // ver4 쉬운 풀이
+    public static void main(String[] args) {
+        int n=1; // 몇번째 수인지 입력
+
+        for (int num = 1; num < 200; num++) {
+
+            System.out.print("num = " + num + " >> ");
+//            System.out.println(num-1 + "을 3으로 나눈 나머지 = " + (num-1)%3);
+            System.out.println(method2(num));
+
+
+        }
+    }
+
+
+    public static String method(int n){
+        String answer = "";
+        int k;
+
+        while (n>0){
+            n--;
+            k = n%3;
+//            System.out.println("k = " + k);
+            if(k==0){
+                answer += "1";
+            }else if(k==1){
+                answer += "2";
+            }else if(k==2){
+                answer += "4";
+            }
+
+//            n -= Math.pow(3,i);
+            n /= 3;
+        }
+
+        String answer0 = "";
+        for (int j = answer.length()-1; j >= 0; j--) {
+            answer0 += answer.charAt(j);
+        }
+
+        return answer0;
+    }
+
+    public static String method2(int n){
+        String answer = "";
+        int k;
+
+        while (n>0){
+            n--;
+            k = n%3;
+//            System.out.println("k = " + k);
+            if(k==0){
+                answer = "1" + answer;
+            }else if(k==1){
+                answer = "2" + answer;
+            }else if(k==2){
+                answer = "4" + answer;
+            }
+
+//            n -= Math.pow(3,i);
+            n /= 3;
+        }
+
+
+        return answer;
+    }
+
+
+
 }
