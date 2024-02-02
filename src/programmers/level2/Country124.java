@@ -145,14 +145,15 @@ public class Country124 { // 124 나라의 숫자
     }
 
     public static void main(String[] args) {
-        for (int i = 1; i <= 200; i++) {
-            System.out.print("i = " + i + " >> ");
-            System.out.println(solutionVer3(i));
-        }
+//        for (int i = 1; i <= 200; i++) {
+//            System.out.print("i = " + i + " >> ");
+//            System.out.println(solutionVer3(i));
+//        }
 
 //        System.out.println();
-//        System.out.println("13 test"); // 111
-//        System.out.println(solutionVer3(13));
+        int n = 110;
+        System.out.println(n + " + test"); //
+        System.out.println(solutionVer3(n));
     }
 
     public static String solutionVer3(int n){
@@ -174,10 +175,10 @@ public class Country124 { // 124 나라의 숫자
 //            System.out.println(n-threeSeries(i-1) + " 에서 " + (int) Math.pow(3,i-1) + " 이 몇번 들어가냐? >> ");
 
             k = (n-threeSeries(i-1)+(int)Math.pow(3,i-1)-1)/((int) Math.pow(3,i-1));
-//            System.out.println(n-threeSeries(i-1) + " 에서 " + (int) Math.pow(3,i-1) + " 이 몇번째에 들어가냐? >> ");
-//            System.out.println("3진법 자릿수 k = " + k);
+            System.out.println(n-threeSeries(i-1) + " 에서 " + (int) Math.pow(3,i-1) + " 이 몇번째에 들어가냐? >> ");
+            System.out.println("3진법 자릿수 k = " + k);
             n -= k*((int) Math.pow(3,i-1));
-//            System.out.println("남은 n = " + n);
+            System.out.println("남은 n = " + n);
 
 
             if(k==1){
@@ -187,7 +188,7 @@ public class Country124 { // 124 나라의 숫자
             }else if(k==3){
                 answer += "4";
             }
-//            System.out.println("할당된 answer = " + answer);
+            System.out.println("할당된 answer = " + answer);
             i--;
         }
 
