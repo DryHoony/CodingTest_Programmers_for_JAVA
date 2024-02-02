@@ -49,7 +49,7 @@ public class Country124 { // 124 나라의 숫자
     }
 
     // ver2
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         int n = 2;
 //        System.out.println("n = " + n);
 //        System.out.println(change(n));
@@ -93,4 +93,124 @@ public class Country124 { // 124 나라의 숫자
         return answer;
     }
 
+    // ver3
+    public static void main3(String[] args) {
+        int n=1;
+        System.out.println("n = " + n);
+        int i = 1; // 자릿수
+
+        // 자릿수 결정
+        while (threeSeries(i) < n){ // n <= threeSeries(i) 만족
+            i++;
+        }
+        System.out.println("자릿수 i = " + i);
+
+        // 필기값 i=4
+
+        String answer = "";
+        int k;
+        while (i>1){
+            // 각 자릿수 연산 3^(i-1)가 몇번 들어갈 수 있나 = k
+//            k = (n-threeSeries(i-1))/((int) Math.pow(3,i-1)); // 핵심 연산!!
+//            System.out.println(n-threeSeries(i-1) + " 에서 " + (int) Math.pow(3,i-1) + " 이 몇번 들어가냐? >> ");
+            k = (n-threeSeries(i-1)+2)/((int) Math.pow(3,i-1));
+
+            System.out.println("3진법 자릿수 k = " + k);
+            n -= k*((int) Math.pow(3,i-1));
+            System.out.println("남은 n = " + n);
+
+
+            if(k==1){
+                answer += "1";
+            }else if(k==2){
+                answer += "2";
+            }else if(k==3){
+                answer += "4";
+            }
+            System.out.println("할당된 answer = " + answer);
+            i--;
+        }
+
+        // 마지막 자릿수 연산 따로 - %연산 등에서 오류난다
+        if(n==1){
+            answer += "1";
+        }else if(n==2){
+            answer += "2";
+        }else if(n==3){
+            answer += "4";
+        }
+
+        System.out.println();
+        System.out.println("answer = " + answer);
+    }
+
+    public static void main(String[] args) {
+        for (int i = 1; i <= 200; i++) {
+            System.out.print("i = " + i + " >> ");
+            System.out.println(solutionVer3(i));
+        }
+
+//        System.out.println();
+//        System.out.println("13 test"); // 111
+//        System.out.println(solutionVer3(13));
+    }
+
+    public static String solutionVer3(int n){
+        int i = 1; // 자릿수
+
+        // 자릿수 결정
+        while (threeSeries(i) < n){ // n <= threeSeries(i) 만족
+            i++;
+        }
+//        System.out.println("자릿수 i = " + i);
+
+        // 필기값 i=4
+
+        String answer = "";
+        int k;
+        while (i>1){
+            // 각 자릿수 연산 3^(i-1)가 몇번 들어갈 수 있나 = k
+//            k = (n-threeSeries(i-1))/((int) Math.pow(3,i-1)); // 핵심 연산!!
+//            System.out.println(n-threeSeries(i-1) + " 에서 " + (int) Math.pow(3,i-1) + " 이 몇번 들어가냐? >> ");
+
+            k = (n-threeSeries(i-1)+(int)Math.pow(3,i-1)-1)/((int) Math.pow(3,i-1));
+//            System.out.println(n-threeSeries(i-1) + " 에서 " + (int) Math.pow(3,i-1) + " 이 몇번째에 들어가냐? >> ");
+//            System.out.println("3진법 자릿수 k = " + k);
+            n -= k*((int) Math.pow(3,i-1));
+//            System.out.println("남은 n = " + n);
+
+
+            if(k==1){
+                answer += "1";
+            }else if(k==2){
+                answer += "2";
+            }else if(k==3){
+                answer += "4";
+            }
+//            System.out.println("할당된 answer = " + answer);
+            i--;
+        }
+
+        // 마지막 자릿수 연산 따로 - %연산 등에서 오류난다
+        if(n==1){
+            answer += "1";
+        }else if(n==2){
+            answer += "2";
+        }else if(n==3){
+            answer += "4";
+        }
+
+        return answer;
+    }
+
+//    public static void main(String[] args) {
+//        for (int i = 1; i < 6; i++) {
+//            System.out.print("i = " + i + " >> ");
+//            System.out.println(threeSeries(i));
+//        }
+//    }
+
+    public static int threeSeries(int k){
+        return ((int) Math.pow(3,k)-1)/2*3;
+    }
 }
