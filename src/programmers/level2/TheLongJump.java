@@ -17,7 +17,6 @@ public class TheLongJump { // 멀리뛰기
             answerList[i] = (answerList[i-1] + answerList[i-2]) % 1234567;
         }
 
-
         System.out.println("답은 = " + answerList[n-1]);
     }
 }
