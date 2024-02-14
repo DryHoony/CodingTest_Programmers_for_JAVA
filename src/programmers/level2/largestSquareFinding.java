@@ -111,7 +111,7 @@ public class largestSquareFinding { // 가장 큰 정사각형 찾기
         System.out.println("답은 = " + largestLength*largestLength);
     }
 
-    // ver3 - 디버깅 필요!!
+    // ver3 - 디버깅 필요!! >> 다시 처음부터
     // 각 행의 가능한 변위를 어떻게 표현하는게 효율적일까?, 어떤 구조여야 나중에 연산이 편할까?
     public static void main(String[] args) {
         int[][] board = new int[][]{{0,1,1,1},{1,1,1,1},{1,1,1,1},{0,0,1,0}};
@@ -161,6 +161,8 @@ public class largestSquareFinding { // 가장 큰 정사각형 찾기
         }
 
 
+
+
         // 본 연산
         Stack<int[]> preLineStack = new Stack<>();
         Stack<int[]> nowLineStack = new Stack<>();
@@ -178,7 +180,7 @@ public class largestSquareFinding { // 가장 큰 정사각형 찾기
             lineStartFlag = true;
             for (int j = 0; j < colLength; j++) { // j열 - 첫행 우선 연산과 유사
                 if(j+answerLength > colLength) break;
-                // 첫행 우선 복사 >> 수정
+                //
                 if(board[i][j]==1){
                     if (lineStartFlag){
                         nowLine = new int[2]; // 좌~우
@@ -203,34 +205,34 @@ public class largestSquareFinding { // 가장 큰 정사각형 찾기
                 nowLine = nowLineStack.pop();
                 for (int[] preLine:preLineStack){
                     // preLine[새작행,좌, 우], nowLine[좌,우]
-                    if(preLine[2] <= nowLine[0] || nowLine[1] <= preLine[1]) break;
-                    else if(preLine[2] > nowLine[0]){ // preLine - nowLine
-                        int a = preLine[2]-nowLine[0] +1; // 가로길이
-                        int b = i - preLine[0] +1; // 세로길이
-                        if(Math.max(a,b) > answerLength){ // 현재 답보다 더 큰 사이즈만
-                            answerLength = Math.max(a,b);
-                            // 할당
-                            newLine = new int[3]; // [시작행, 좌, 우]
-                            newLine[0] = preLine[0];
-                            newLine[1] = nowLine[0];
-                            newLine[2] = preLine[2];
-                            lineList.add(newLine);
-                        }
-
-
-                    }else { // nowLine[1] > preLine[1] // nowLine-preLine
-                        int a = nowLine[1] - preLine[1] +1; // 가로길이
-                        int b = i - preLine[0] +1; // 세로길이
-                        if(Math.max(a,b) > answerLength){ // 현재 답보다 더 큰 사이즈만
-                            answerLength = Math.max(a,b);
-                            // 할당
-                            newLine = new int[3]; // [시작행, 좌, 우]
-                            newLine[0] = preLine[0];
-                            newLine[1] = nowLine[0];
-                            newLine[2] = preLine[2];
-                            lineList.add(newLine);
-                        }
-                    }
+                    if(preLine[2] <= nowLine[0] || nowLine[1] <= preLine[1]) continue;
+                    // 겹치는 구간에 따른 연산 수정 필요!!
+                    else if ()
+//                    else if(preLine[2] > nowLine[0]){ // preLine - nowLine
+//                        int a = preLine[2]-nowLine[0] +1; // 가로길이
+//                        int b = i - preLine[0] +1; // 세로길이
+//                        if(Math.max(a,b) > answerLength){ // 현재 답보다 더 큰 사이즈만
+//                            answerLength = Math.max(a,b);
+//                            // 할당
+//                            newLine = new int[3]; // [시작행, 좌, 우]
+//                            newLine[0] = preLine[0];
+//                            newLine[1] = nowLine[0];
+//                            newLine[2] = preLine[2];
+//                            lineList.add(newLine);
+//                        }
+//                    }else { // nowLine[1] > preLine[1] // nowLine-preLine
+//                        int a = nowLine[1] - preLine[1] +1; // 가로길이
+//                        int b = i - preLine[0] +1; // 세로길이
+//                        if(Math.max(a,b) > answerLength){ // 현재 답보다 더 큰 사이즈만
+//                            answerLength = Math.max(a,b);
+//                            // 할당
+//                            newLine = new int[3]; // [시작행, 좌, 우]
+//                            newLine[0] = preLine[0];
+//                            newLine[1] = nowLine[0];
+//                            newLine[2] = preLine[2];
+//                            lineList.add(newLine);
+//                        }
+//                    }
 
 
                 }
