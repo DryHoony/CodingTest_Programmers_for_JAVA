@@ -11,10 +11,7 @@ public class Main {
 //    푸시 : 파일을 추가하거나 변경 내용을 원격 저장소에 업로드하는 작업
 
     public static void main(String[] args) {
-        int n = 10;
-        for(int i=1; i<=n; i+=2){
-            System.out.println(i);
-        }
-    }
+		
+	}
 
 }
