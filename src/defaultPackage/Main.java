@@ -5,6 +5,7 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+		System.out.print("출력 Test");
 	}
 	
 //  https://brunch.co.kr/@mystoryg/168

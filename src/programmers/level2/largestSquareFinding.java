@@ -2,6 +2,7 @@ package programmers.level2;
 
 //import javax.sound.sampled.Line;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Stack;
 
 public class largestSquareFinding { // 가장 큰 정사각형 찾기
@@ -111,140 +112,111 @@ public class largestSquareFinding { // 가장 큰 정사각형 찾기
         System.out.println("답은 = " + largestLength*largestLength);
     }
 
-    // ver3 - 디버깅 필요!! >> 다시 처음부터
-    // 각 행의 가능한 변위를 어떻게 표현하는게 효율적일까?, 어떤 구조여야 나중에 연산이 편할까?
+    // ver3 
     public static void main(String[] args) {
-        int[][] board = new int[][]{{0,1,1,1},{1,1,1,1},{1,1,1,1},{0,0,1,0}};
-//        int[][] board = new int[][]{{0,0,1,1},{1,1,1,1}};
-//        int[][] board = new int[][]{{0,0,0,0},{0,0,0,0}};
-//        int[][] board = new int[][]{{0,1,1,1,0,0,1,1,0,1},{0,1,1,1,0,0,1,1,0,1},{0,1,1,1,0,0,1,1,0,1}};
-
-        // 연산용 변수
-        int rowLength = board.length;
-        int colLength = board[0].length;
-        boolean lineStartFlag; // 새로운 line 유무 판단
-        int[] nowLine = new int[4]; // 변수 선언
-        int answerLength=0;
-
-        // 각 행은 한번만 탐색할것!
-        // 자료구죠 - [i행, j행, 좌, 우] : [i행~j행 에서 시작해서 좌~우까지 가능]
-        ArrayList<int[]> lineList = new ArrayList<>();
-
-        // 첫행 우선 연산
-        lineStartFlag = true;
-        for (int j = 0; j < colLength; j++) {
-            if(board[0][j]==1){
-                if (lineStartFlag){
-                    nowLine = new int[3];
-                    lineList.add(nowLine); // 변위 할당
-                    nowLine[0] = 0; // 0번째 행
-                    nowLine[1] = j; // j번째 col 에서 시작
-                    nowLine[2] = colLength-1; // for문 끝까지 돌경우, 초기 할당값 유지
-                    lineStartFlag = false;
-                }else {
-                    continue;
-                }
-            }else if (!lineStartFlag){ // board[0][j]==0
-                nowLine[2] = j-1;
-                lineStartFlag = true;
-            }
-        }
-        if(!lineList.isEmpty()) answerLength=1; // 하나라도 들어있으면 일단 1정사각형 확보
-
-        // 첫행 할당 확인 >> ok
-        for (int[] line:lineList){
-            System.out.println("행 좌 우");
-            for (int i:line){
-                System.out.print(i + " ");
-            }
-            System.out.println();
-        }
+    	int[][] board;
+//    	board = new int[][]{{0,1,1,1},{1,1,1,1},{1,1,1,1},{0,0,1,0}};
+//      board = new int[][]{{0,0,1,1},{1,1,1,1}};
+//      board = new int[][]{{0,0,0,0},{0,0,0,0}};
+    	board = new int[][] {
+    	    {0, 1, 0, 0, 1, 1, 0, 1, 1, 0},
+    	    {1, 0, 1, 0, 1, 1, 1, 0, 1, 1},
+    	    {0, 1, 0, 1, 0, 1, 1, 1, 0, 1},
+    	    {1, 1, 1, 0, 0, 1, 1, 1, 1, 1},
+    	    {1, 0, 1, 1, 1, 1, 1, 0, 1, 1},
+    	    {1, 1, 1, 1, 1, 1, 1, 0, 0, 0},
+    	    {1, 1, 1, 0, 1, 1, 1, 1, 1, 1},
+    	    {1, 1, 0, 1, 1, 0, 1, 0, 1, 1},
+    	    {1, 0, 1, 1, 1, 0, 1, 1, 0, 1},
+    	    {1, 1, 1, 0, 1, 1, 1, 0, 1, 1}
+    	};
 
 
+    	
+    	
 
-
-        // 본 연산
-        Stack<int[]> preLineStack = new Stack<>();
-        Stack<int[]> nowLineStack = new Stack<>();
-        int[] newLine;
-
-
-        for (int i = 1; i < rowLength; i++) { // i행
-            if(i+answerLength > rowLength) break;
-            // i행 탐색준비
-            for (int[] line:lineList){
-                preLineStack.add(line);
-            }
-            lineList = new ArrayList<>(); // 초기화
-
-            lineStartFlag = true;
-            for (int j = 0; j < colLength; j++) { // j열 - 첫행 우선 연산과 유사
-                if(j+answerLength > colLength) break;
-                //
-                if(board[i][j]==1){
-                    if (lineStartFlag){
-                        nowLine = new int[2]; // 좌~우
-                        nowLineStack.add(nowLine);
-                        nowLine[0] = j; // j번째 col 에서 시작
-                        nowLine[1] = colLength-1; // for문 끝까지 돌경우, 초기 할당값 유지
-                        lineStartFlag = false;
-                    }else {
-                        continue;
-                    }
-                }else if (!lineStartFlag){ // board[0][j]==0
-                    nowLine[1] = j-1;
-                    lineStartFlag = true;
-                }
-            }
-
-            // 최소길이 1 할당 - 아래에서 정사각형은 최소길이 2부터 연산
-            if(!nowLineStack.isEmpty() & answerLength==0) answerLength=1;
-
-            // 핵심! - i행 탐색완료 후 연산 - preLineStack * nowLineStack 가능한 조합 >> lineList 에 할당, 이때 answerLength 로 필터링
-            while (!nowLineStack.isEmpty()){
-                nowLine = nowLineStack.pop();
-                for (int[] preLine:preLineStack){
-                    // preLine[새작행,좌, 우], nowLine[좌,우]
-                    if(preLine[2] <= nowLine[0] || nowLine[1] <= preLine[1]) continue;
-                    // 겹치는 구간에 따른 연산 수정 필요!!
-//                    else if ()
-//                    else if(preLine[2] > nowLine[0]){ // preLine - nowLine
-//                        int a = preLine[2]-nowLine[0] +1; // 가로길이
-//                        int b = i - preLine[0] +1; // 세로길이
-//                        if(Math.max(a,b) > answerLength){ // 현재 답보다 더 큰 사이즈만
-//                            answerLength = Math.max(a,b);
-//                            // 할당
-//                            newLine = new int[3]; // [시작행, 좌, 우]
-//                            newLine[0] = preLine[0];
-//                            newLine[1] = nowLine[0];
-//                            newLine[2] = preLine[2];
-//                            lineList.add(newLine);
-//                        }
-//                    }else { // nowLine[1] > preLine[1] // nowLine-preLine
-//                        int a = nowLine[1] - preLine[1] +1; // 가로길이
-//                        int b = i - preLine[0] +1; // 세로길이
-//                        if(Math.max(a,b) > answerLength){ // 현재 답보다 더 큰 사이즈만
-//                            answerLength = Math.max(a,b);
-//                            // 할당
-//                            newLine = new int[3]; // [시작행, 좌, 우]
-//                            newLine[0] = preLine[0];
-//                            newLine[1] = nowLine[0];
-//                            newLine[2] = preLine[2];
-//                            lineList.add(newLine);
-//                        }
-//                    }
-
-
-                }
-            }
-            preLineStack.clear();
-
-        }
-
-
-        int answer = answerLength*answerLength;
-        System.out.println("답은 = " + answer);
+    	largestSquareFinding obj = new largestSquareFinding();
+    	System.out.println(obj.solution(board));
+    	
+	}
+    
+    public int solution(int [][] board) {
+    	// 연산용 변수
+    	int iMax = board.length; // 1~1000
+    	int jMax = board[0].length; // 1~1000
+    	int i; // 행 Index
+    	int j; // 열 index
+    	
+    	int squareLength = 0; // 제곱하면 넓이
+    	boolean notExistFlag = true;
+    	
+    	int[] interval = new int[2];
+    	ArrayList<int[]>[] posibleIntervalArray = new ArrayList[iMax];
+    	for(i=0; i<iMax; i++) {
+    		posibleIntervalArray[i] = new ArrayList();
+    	}
+    	// [1,2], [5,8], [20,30]
+    	
+    	// 1. 첫번째 연산 squareLength 값 최소 1 할당 >> squareLength
+    	a:for(i=0; i<iMax; i++) {
+    		for(j=0; j<jMax; j++) {
+    			if(board[i][j] == 1) {
+    				notExistFlag = false;
+    				squareLength = 1;
+    				break a;
+    			}
+    		}
+    	}
+    	if(notExistFlag) return 0;
+    	
+    	// 1테스트 - return 0 >> ok
+    	
+    	
+    	// 2. 각 행의 가능한 구간 구하기, 길이는 2이상 >> interval, posibleInterval
+    	for(i=0; i<iMax; i++) {
+    		for(j=0; j<jMax-1; j++) { // 끝자리 jMax 제외(길이 2 이상 연산, out of Array Exception)
+    			if(board[i][j]==1 && board[i][j+1]==1) {
+    				interval[0] = j;
+    				interval[1] = j+1; // jMax까지 탐색
+    				
+    				j++;
+    				while(j<jMax-1) {
+    					if(board[i][j+1] == 1) {
+    						interval[1]++;
+    						j++;
+    					}
+    					else {
+    						break;
+    					}
+    				}
+    				
+    				posibleIntervalArray[i].add(interval);
+    				interval = new int[2]; 
+//    				System.out.println(i + "번째 행 = [" + interval[0] + "," + interval[1]+"]");
+    				
+    			}
+    		}
+    	}
+    	
+    	// 2테스트
+    	for(i=0; i<iMax; i++) {
+    		System.out.print(i + "행 = ");
+    		for (int k = 0; k < posibleIntervalArray[i].size(); k++) {
+    			System.out.print("[");
+    			System.out.print(posibleIntervalArray[i].get(k)[0]);
+    			System.out.print(", ");
+    			System.out.print(posibleIntervalArray[i].get(k)[1]);
+    			System.out.print("]   ");
+			}
+    		System.out.println();
+    	}
+    	
+    	// 3. posibleInterval 의 구간을 합쳐 정사각형 구하기 
+    	
+    	
+    	return squareLength * squareLength;
     }
+        
 
     
 }
