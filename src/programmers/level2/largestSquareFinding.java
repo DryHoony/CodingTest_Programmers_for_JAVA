@@ -1,6 +1,6 @@
 package programmers.level2;
 
-import javax.sound.sampled.Line;
+//import javax.sound.sampled.Line;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -207,7 +207,7 @@ public class largestSquareFinding { // 가장 큰 정사각형 찾기
                     // preLine[새작행,좌, 우], nowLine[좌,우]
                     if(preLine[2] <= nowLine[0] || nowLine[1] <= preLine[1]) continue;
                     // 겹치는 구간에 따른 연산 수정 필요!!
-                    else if ()
+//                    else if ()
 //                    else if(preLine[2] > nowLine[0]){ // preLine - nowLine
 //                        int a = preLine[2]-nowLine[0] +1; // 가로길이
 //                        int b = i - preLine[0] +1; // 세로길이

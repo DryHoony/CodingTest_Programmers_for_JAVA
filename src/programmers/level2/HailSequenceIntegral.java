@@ -2,7 +2,7 @@ package programmers.level2;
 
 import java.util.ArrayList;
 
-import static javax.swing.UIManager.get;
+//import static javax.swing.UIManager.get;
 
 public class HailSequenceIntegral { // 우박수열 정적분
 
