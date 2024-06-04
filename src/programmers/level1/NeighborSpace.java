@@ -15,8 +15,8 @@ public class NeighborSpace { // 이웃한 칸
                 , {"red", "red", "blue", "orange"}
                 , {"blue", "orange", "red", "red"}
                 , {"orange", "orange", "red", "blue"}};
-        h = 1;
-        w = 1;
+        h = 3;
+        w = 3;
         result = 2;
 
         NeighborSpace obj = new NeighborSpace();
@@ -25,6 +25,28 @@ public class NeighborSpace { // 이웃한 칸
     }
 
     public int solution(String[][] board, int h, int w){
+        int count=0;
+        String color = board[h][w];
+
+        // 위
+        if(h>0 && board[h-1][w].equals(color))
+            count++;
+        // 아래
+        if(h<board.length-1 && board[h+1][w].equals(color))
+            count++;
+        // 좌
+        if(w>0 && board[h][w-1].equals(color))
+            count++;
+        // 우
+        if(w<board[0].length-1 && board[h][w+1].equals(color)) // -1 추가
+            count++;
+
+
+
+        return count;
+    }
+
+    public int solution1(String[][] board, int h, int w){ // 런타임 에러 8개
         int count=0;
         String color = board[h][w];
 
