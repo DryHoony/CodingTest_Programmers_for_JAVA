@@ -7,19 +7,30 @@ public class GeunwooMetroProblem1 { // 근우 지하철 문제
 //    minimize(임의의 점에서 임의의 점까지 이동시간의 평균)
 
     static float[][] space;
+    static float size;
 
     public static void main(String[] args) {
         int[] startPoint; // 출발 위치
         int[] targetPoint; // 도착 위치
 
-        int size = 1000; // 공간 크기
-        space = new float[size][size];
+        size = 1000; // 공간 크기
+        space = new float[(int) size][(int) size];
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 space[i][j] = trainApproachDistance(new int[]{i,j});
             }
         }
+
+        // 출력
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                System.out.print(space[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+
 
 
 
@@ -30,8 +41,8 @@ public class GeunwooMetroProblem1 { // 근우 지하철 문제
     public static float trainApproachDistance(int[] startPoint){ // X 모양 전철까지 거리
         float distance; // 전철까지 대각선 거리
 
-        if( (startPoint[0]<500 && startPoint[1]>=500) || (startPoint[0]>=500 && startPoint[1]<500) ){ // 1,3 사분면 -> x+y-999=0 대각선
-            distance = (float) (Math.abs(startPoint[0]+startPoint[0]-999) / Math.sqrt(2));
+        if( (startPoint[0]<500 && startPoint[1]>=size/2) || (startPoint[0]>=size/2 && startPoint[1]<size/2) ){ // 1,3 사분면 -> x+y-999=0 대각선
+            distance = (float) (Math.abs(startPoint[0]+startPoint[0]-size-1) / Math.sqrt(2));
         }
         else{ // 2,4 사분면 -> x-y=0 대각선
             distance = (float) (Math.abs(startPoint[0]-startPoint[0]) / Math.sqrt(2));
