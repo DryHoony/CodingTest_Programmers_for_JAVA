@@ -14,6 +14,7 @@ public class Test {
 		testMap.put(1,1);
 		System.out.println(testMap.get(1));
 		System.out.println(testMap.get(2));
+//		int tryNull = testMap.get(2);
 	}
 	
 

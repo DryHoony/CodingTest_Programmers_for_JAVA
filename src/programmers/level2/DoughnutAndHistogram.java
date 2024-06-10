@@ -1,5 +1,7 @@
 package programmers.level2;
 
+import programmers.level1.IfDivisorCountEven;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,20 +23,20 @@ public class DoughnutAndHistogram { // 도넛과 막대 그래프
         result = new int[] {2,1,1,0}; // 정점의 번호, 도넛 모양 그래프의 수, 막대 모양 그래프 수, 8자 모양 그래프 수
 
         // case 2
-//        edges = new int[][] {{4, 11}, {1, 12}, {8, 3}, {12, 7}, {4, 2}, {7, 11}, {4, 8}, {9, 6}, {10, 11}, {6, 10}, {3, 5}, {11, 1}, {5, 3}, {11, 9}, {3, 8}};
-//        result = new int[] {4,0,1,2};
+        edges = new int[][] {{4, 11}, {1, 12}, {8, 3}, {12, 7}, {4, 2}, {7, 11}, {4, 8}, {9, 6}, {10, 11}, {6, 10}, {3, 5}, {11, 1}, {5, 3}, {11, 9}, {3, 8}};
+        result = new int[] {4,0,1,2};
 
         solution3(edges);
     }
 
     public static int[] solution3(int[][] edges){ // node 자료구조 ver
         Map<Integer, Integer> nextNodeMap = new HashMap<>();
-//        Map<Integer, Integer> preNode = new HashMap<>();
+//        Map<Integer, Integer> preNodeMap = new HashMap<>(); // 순환안되는 '막대연산'을 위해 역추적 용
         ArrayList<int[]> duplicatedEdges = new ArrayList<>();
         boolean[] usedNode = new boolean[1000001]; // node 사용 여부, default 는 false
 
         int[] answer = new int[4];
-        int constructNode;
+//        int constructNode;
 
         //////////////// edges 연산
         for (int[] edge:edges){
@@ -45,31 +47,132 @@ public class DoughnutAndHistogram { // 도넛과 막대 그래프
                 // 도넛완성
                 answer[1]++;
                 usedNode[edge[0]] = true;
+
+                continue;
             }
 
             // case1: if not(nextNodeMap.containsKey()) -> 정상할당(new)
-            if(nextNodeMap.containsKey(edge[0])){
+            if(!nextNodeMap.containsKey(edge[0])){
                 nextNodeMap.put(edge[0],edge[1]);
                 int startNode = edge[0];
+                int endNode = edge[1];
                 int nextNode = edge[1];
-                // case1.1 : if(고리연산) 고리Node 삭제, 도넛모양완성 -> answer[1], usedNode
-                while(true){
-                    nextNode = nextNodeMap.get(nextNode);
+                // case1.1 : if(고리연산), 도넛모양완성 -> answer[1], usedNode
+                while(nextNodeMap.get(nextNode) != null){
+                    nextNode = nextNodeMap.get(nextNode); // nullPointException 가능 -> while 문에서 연산
+                    if(nextNode == startNode){
+                        // 도넛완성
+                        answer[1]++;
+                        // userNode 할당
+                        usedNode[startNode] = true;
+                        nextNode = endNode;
+                        while(nextNode != startNode){
+                            usedNode[nextNode] = true;
+                            nextNode = nextNodeMap.get(nextNode);
+                        }
+                        break;
+                    }
+                    else if(nextNode == endNode){
+                        // 헛바퀴
+                        break;
+                    }
                 }
             }
-
-
-
-            // case2: else(case1) key 존재시 duplicatedEdges 에 할당 (생성노드 or 8자모양)
+            else { // case2: else(case1) key 존재시 duplicatedEdges 에 할당 (생성노드 or 8자모양)
+                duplicatedEdges.add(edge);
+            }
 
         }
 
+        ArrayList<Integer> constructNodeList = new ArrayList<>();
         ///////////////// duplicatedEdges 연산
-        // edge '시작'하는(생성 Node 와 구분) 고리 만들어질 경우, 8자 모양 -> answer[1], answer[3], usedNode
-        // duplicatedEdge 반복문 연산 완료 후 끝까지 남아있는 값이 생성노드 -> asnwer[0]
+        for(int[] edge:duplicatedEdges){ // 생성노드 or 8자노드중심
+
+            int startNode = edge[0];
+            int endNode = edge[1];
+            int nextNode = edge[1];
+            boolean isConstructor = true;
+            ArrayList<Integer> fakeCircle = new ArrayList<>();
+            // edge '시작'하는(생성 Node 와 구분) 고리 만들어질 경우, 8자 모양 -> answer[1], answer[3], usedNode
+            while(nextNodeMap.get(nextNode) != null){
+                nextNode = nextNodeMap.get(nextNode);
+                if(nextNode == startNode){
+                    // 8자 완성
+                    answer[1]--;
+                    answer[3]++;
+                    // usedNode 할당
+                    usedNode[startNode] = true;
+                    nextNode = endNode;
+                    while(nextNode != startNode){
+                        usedNode[nextNode] = true;
+                        nextNode = nextNodeMap.get(nextNode);
+                    }
+                    isConstructor = false;
+                    break;
+                }
+                else if(fakeCircle.contains(nextNode)){
+                    // 헛바퀴 - 생성노드
+                    break;
+                }
+                fakeCircle.add(nextNode);
+
+            }
+
+            if(isConstructor){
+//                constructNodeList.add(edge[0]);
+                answer[0] = edge[0];
+            }
+
+            // 생성자 출발 막대노드 >> answer[2]
+            if(nextNodeMap.get(nextNode) == null){
+                answer[2]++; // 마지막 연산이므로 갯수만 세면 ok
+                nextNode = edge[1];
+                usedNode[nextNode] = true;
+                while(nextNodeMap.get(nextNode) != null){
+                    nextNode = nextNodeMap.get(nextNode);
+                    usedNode[nextNode] = true;
+                }
+
+            }
+        }
+
+        // duplicatedEdge 반복문 연산 완료 후 끝까지 남아있는 값이 생성노드 -> answer[0]
+//        System.out.println("생성노드 확인 -> " + constructNodeList);
+//        System.out.println("당연히 다 같겠지? 아님 곤란빤스");
+//        System.out.println();
+
+//        answer[0] = constructNodeList.get(0);
+
+
         // nextNodeMap 를 순회하면서 사용되지 않은 노드 if(!usedNode)이면 막대 모양 연산 -> answer[2];
+        for(int i:nextNodeMap.keySet()){
+            if(usedNode[i]) {
+                System.out.println(i + "노드는 사용됨");
+            }
+            else if(i == answer[0]){
+                System.out.println(i + "노드는 생성노드");
+                // 생성노드에서 막대 check - duplicatedEdges 에서 확인 (예제 2 참조)
+            }
+            else {
+                System.out.println(i + "노드는 사용안됨");
+                // 막대 연산 start (예제 1 참조)
+                boolean isNewBar = true;
+                int nextNode = i;
+                usedNode[nextNode] = true;
+//                System.out.println("막대연산");
+                while(nextNodeMap.get(nextNode) != null){
+                    nextNode = nextNodeMap.get(nextNode);
+                    if(usedNode[nextNode]) isNewBar = false;
+                    else usedNode[nextNode] = true;
+                }
+
+                if(isNewBar) answer[2]++;
 
 
+            }
+        }
+
+        System.out.println("answer 출력확인 >> " + answer[0] + ", "+ answer[1] + ", "+ answer[2] + ", "+ answer[3]);
         return answer;
     }
 
