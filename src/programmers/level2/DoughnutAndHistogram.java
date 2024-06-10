@@ -28,21 +28,49 @@ public class DoughnutAndHistogram { // 도넛과 막대 그래프
     }
 
     public static int[] solution3(int[][] edges){ // node 자료구조 ver
-        Map<Integer, Integer> nextNode = new HashMap<>();
-        Map<Integer, Integer> preNode = new HashMap<>();
+        Map<Integer, Integer> nextNodeMap = new HashMap<>();
+//        Map<Integer, Integer> preNode = new HashMap<>();
         ArrayList<int[]> duplicatedEdges = new ArrayList<>();
+        boolean[] usedNode = new boolean[1000001]; // node 사용 여부, default 는 false
 
         int[] answer = new int[4];
+        int constructNode;
 
+        //////////////// edges 연산
         for (int[] edge:edges){
-            // node(next, pre)에 할당, 중복시 duplicatedEdges 에 할당
+
+            // case0: 셀프도넛모양, 미리 처리 >> answer[1], usedNode;
+            if(edge[0] == edge[1]){
+                nextNodeMap.put(edge[0],edge[1]);
+                // 도넛완성
+                answer[1]++;
+                usedNode[edge[0]] = true;
+            }
+
+            // case1: if not(nextNodeMap.containsKey()) -> 정상할당(new)
+            if(nextNodeMap.containsKey(edge[0])){
+                nextNodeMap.put(edge[0],edge[1]);
+                int startNode = edge[0];
+                int nextNode = edge[1];
+                // case1.1 : if(고리연산) 고리Node 삭제, 도넛모양완성 -> answer[1], usedNode
+                while(true){
+                    nextNode = nextNodeMap.get(nextNode);
+                }
+            }
+
+
+
+            // case2: else(case1) key 존재시 duplicatedEdges 에 할당 (생성노드 or 8자모양)
 
         }
 
-        // duplicatedEdges 내에서 '생성노드' 찾기 >> answer[0]
+        ///////////////// duplicatedEdges 연산
+        // edge '시작'하는(생성 Node 와 구분) 고리 만들어질 경우, 8자 모양 -> answer[1], answer[3], usedNode
+        // duplicatedEdge 반복문 연산 완료 후 끝까지 남아있는 값이 생성노드 -> asnwer[0]
+        // nextNodeMap 를 순회하면서 사용되지 않은 노드 if(!usedNode)이면 막대 모양 연산 -> answer[2];
 
 
-        return null;
+        return answer;
     }
 
     static int[] answer;
