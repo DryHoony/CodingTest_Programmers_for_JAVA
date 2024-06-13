@@ -1,7 +1,6 @@
 package programmers.level2;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class OilDrilling { // 석유 시추
 
@@ -79,21 +78,80 @@ public class OilDrilling { // 석유 시추
         // case 1~3 ok
 
         // step1.2 가로 덩어리의 세로 연결 -> 최종 덩어리 도출
+        Map<Integer, int[]> oilMassMap = new HashMap<>(); // Index - [크기, 왼쪽끝, 오른쪽끝]
+        int oilIndex = 0;
+        int[] oilMass;
 
-        // step1.2.1 widthOilMassArray 의 각 행을 한번씩만 스캔
-        // step1.2.2 각각의 widthOilMass 에 Index 를 부여, 이어지는 OilMass 는 같은 Index
-        // 세부내용
-        // step1.2.3 나중에 이어지는 index 들 예외처리
-        // index 를 기준으로 oilMassArray (크기, 열1, 열2, ...) 도출
-        // 세부내용
-        // oilMassArray 를 스캔하여 각 열의 oil 값 도출
+        ArrayList<Integer> preOilIndexArr = new ArrayList<>(); // 이전행의 widthOilMass 의 Index List -> 겹칠때 Index 뽑아오기용
+        ArrayList<Integer> nowOilIndexArr = new ArrayList<>();
+        ArrayList<Set<Integer>> connectedIndexSetList = new ArrayList<>(); // 겹치는 Index -> Set 으로 묶음
+
+        // step1.2.1 widthOilMassArray 의 각 행을 한번씩만 스캔 -> oilMassMap, connectedIndexSetList
+        // 첫행 따로 연산 - 겹침X
+        for(int[] widthOil : widthOilMassArray[0]){
+            oilIndex++;
+            oilMass = new int[]{widthOil[1]-widthOil[0]+1, widthOil[0], widthOil[1]}; // [크기, 왼쪽끝, 오른쪽끝]
+            oilMassMap.put(oilIndex, oilMass);
+
+            preOilIndexArr.add(oilIndex);
+        }
+
+        for (int i = 1; i < n; i++) {
+            System.out.println(i + "행의 widthOil 탐색 시작");
+
+            for(int[] widthOil : widthOilMassArray[i]){
+                ArrayList<Integer> sameIndex = new ArrayList<>(); // 겹치는 Index 저장용
+
+                // 윗층과 연결된 oilMass 탐색 -> sameIndex
+                for (int j = 0; j < preOilIndexArr.size(); j++) { // 이전 oilIndex 값 = preOilIndexArr.get(j)
+                    int[] preWidthOilMass = widthOilMassArray[i - 1].get(0);
+
+                    if (preWidthOilMass[1] < widthOil[0] || widthOil[1] < preWidthOilMass[0]) {
+                        // 단일 비연결
+                        continue;
+
+                    }else {
+                        // 연결 -> 연결된 oilIndex -> sameIndex 에 할당
+                        sameIndex.add(preOilIndexArr.get(j));
+                    }
+                }
+
+                // sameIndex 연산
+                if(sameIndex.size() == 0){
+                    // 종합 비연결 -> oilIndex 새로 할당
+                    oilIndex++;
+                    oilMass = new int[]{widthOil[1]-widthOil[0]+1, widthOil[0], widthOil[1]}; // [크기, 왼쪽끝, 오른쪽끝]
+                    oilMassMap.put(oilIndex, oilMass);
+
+                    nowOilIndexArr.add(oilIndex);
+                }
+                else { // 연결된 sameIndex 처리>>
+                    // 첫행 index 를 할당
+                    // oilMassMap.get(sameIndex.get(0)) = [크기, x,y] 업데이트
+                    // 구현필요
+
+                    if(sameIndex.size() > 1){ // connectedIndexSetList
+                        // 구현필요
+                    }
+                }
+            }
+
+            preOilIndexArr = nowOilIndexArr; // 다음연산 준비
+            nowOilIndexArr = new ArrayList<>(); // 초기화
+
+        }
+
+        // step 1.2.1.1 connectedIndexSetList 의 Set 끼리 겹치는것이 있는지 확인!!!
+
+        // step1.2.2 connectedIndexSetList 를 기준으로 oilMassMap 에서 뽑아서(제거) finalOilMass 를 도출
+          int[] finalOilMass = new int[3]; // 바로 columnValue 계산
+        // 도출한 finalOilMass 를 columnValue 에 연산
+          int[] columnValue = new int[m]; // 이 중 Max 값이 답
+
+        // step1.2.3 oilMassMap 에 남아있는 oilMass [크기, 왼쪽끝, 오른쪽끝] 를 columnValue 에 연산
 
 
-
-
-
-
-        // step2 칼럼별 해당 덩어리 사이즈 합 도출, Max 값이 답
+        // step2 columnValue 의 최댓값 index 가 답!
 
 
         return 0;
