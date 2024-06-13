@@ -27,10 +27,10 @@ public class OilDrilling { // 석유 시추
 //        land = new int[][] {{1,0},{0,1}};
 //        result = 1;
 
-        solution(land);
+        solution1(land);
     }
 
-    public static int solution(int[][] land){
+    public static int solution1(int[][] land){
         int n = land.length; // 세로길이
         int m = land[0].length; // 가로길이
 
@@ -79,6 +79,14 @@ public class OilDrilling { // 석유 시추
         // case 1~3 ok
 
         // step1.2 가로 덩어리의 세로 연결 -> 최종 덩어리 도출
+
+        // step1.2.1 widthOilMassArray 의 각 행을 한번씩만 스캔
+        // step1.2.2 각각의 widthOilMass 에 Index 를 부여, 이어지는 OilMass 는 같은 Index
+        // 세부내용
+        // step1.2.3 나중에 이어지는 index 들 예외처리
+        // index 를 기준으로 oilMassArray (크기, 열1, 열2, ...) 도출
+        // 세부내용
+        // oilMassArray 를 스캔하여 각 열의 oil 값 도출
 
 
 
