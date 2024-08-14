@@ -27,15 +27,7 @@ public class JCapTest {
     ///////////////////////////////////////////
 
     public static void main(String[] args) {
-        JCapTest j = new JCapTest(10);
-        j.fn();
 
-
-        String str = "a";
-        str.length();
-
-        int[] arr = new int[1];
-        int[] arr2 = {7};
 
 
 
