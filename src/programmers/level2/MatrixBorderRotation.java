@@ -9,11 +9,11 @@ public class MatrixBorderRotation { // 행렬 테두리 회전하기
         int[][] queries; // 1~10000
         int[] result; // 각 회전(query) 의 최솟값
 
-        // 예시 1
-        rows = 6;
-        columns = 6;
-        queries = new int[][]{{2,2,5,4},{3,3,6,6},{5,1,6,3}};
-        result = new int[]{8, 10, 25};
+//        // 예시 1
+//        rows = 6;
+//        columns = 6;
+//        queries = new int[][]{{2,2,5,4},{3,3,6,6},{5,1,6,3}};
+//        result = new int[]{8, 10, 25};
 
 //        // 예시 2
 //        rows = 3;
@@ -21,11 +21,11 @@ public class MatrixBorderRotation { // 행렬 테두리 회전하기
 //        queries = new int[][]{{1,1,2,2},{1,2,2,3},{2,1,3,2},{2,2,3,3}};
 //        result = new int[]{1, 1, 5, 3};
 //
-//        // 예시 3
-//        rows = 100;
-//        columns = 97;
-//        queries = new int[][]{{1,1,100,97}};
-//        result = new int[]{1};
+        // 예시 3
+        rows = 100;
+        columns = 97;
+        queries = new int[][]{{1,1,100,97}};
+        result = new int[]{1};
 
         solution(rows, columns, queries);
     }
