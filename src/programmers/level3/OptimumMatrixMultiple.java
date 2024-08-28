@@ -30,6 +30,7 @@ public class OptimumMatrixMultiple { // 최적의 행렬 곱셈
         System.out.println("답은 = " + solution(matrix_sizes));
     }
 
+    // ver1
     public static int solution(int[][] matrix_sizes){
         int answer = 0;
         int left = matrix_sizes[0][0];
