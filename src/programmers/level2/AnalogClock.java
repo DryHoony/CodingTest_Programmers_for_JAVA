@@ -19,7 +19,7 @@ public class AnalogClock { // 아날로그 시계
         inputList.add(new int[]{0, 0, 0, 23, 59, 59, 2852});
 
         for (int[] input : inputList){
-            int answer = solution1(input[0], input[1], input[2], input[3], input[4], input[5]);
+            int answer = solution2(input[0], input[1], input[2], input[3], input[4], input[5]);
             if(answer == input[6]){
                 System.out.println("Correct! answer: " + answer);
             }
@@ -32,7 +32,7 @@ public class AnalogClock { // 아날로그 시계
 
     }
 
-
+    // 실패!! 처음부터 해보자!!
      public static int solution1(int h1, int m1, int s1, int h2, int m2, int s2){
          int count=0;
 
@@ -104,7 +104,154 @@ public class AnalogClock { // 아날로그 시계
          return count;
      }
 
+     public static int solution2(int h1, int m1, int s1, int h2, int m2, int s2){
+        int count=0;
 
+         // 시간차
+         double hDif=0;
+         double mDif=0;
+         double sDif=0;
+         if(s1 <= s2) sDif = s2 - s1;
+         else{
+             sDif = 60 - s1 + s2;
+             mDif--;
+         }
+         if(m1 <= m2) mDif += m2 - m1;
+         else{
+             mDif += 60 - m1 + m2;
+             hDif--;
+         }
+         hDif += h2 - h1;
+         System.out.println("시간차 >> 시: " + hDif + ", 분: " + mDif + ", 초: " + sDif);
+
+         // h1:m1:s1 -> h2:m2:s2 까지 시간차를 추가
+
+
+
+         // 초 연산 sDif
+         if(isSecBiggerThanHour(h1,m1,s1)){
+             //  1. '초침'이 시침보다 앞에 있었는데 (한바퀴 돌고) 따라잡은 경우 ++
+             if(isSecBiggerThanHour(h1,m1,(s1+(int)sDif)%60) && secondAngle(s1) > secondAngle(s1+(int)sDif)) count++;
+         }else{
+             //  2. '초침'이 시침보다 뒤에 있었는데 앞지른 경우 ++
+             if(isSecBiggerThanHour(h1,m1,s1+(int)sDif)) count++;
+         }
+
+
+         if(isSecBiggerThanMinute(m1,s1)){
+             //  4. '초침'이 분침보다 앞에 있었는데 (한바퀴 돌고) 따라잡은 경우 ++
+             if(isSecBiggerThanMinute(m1, s1+(int)sDif) && secondAngle(s1) > secondAngle(s1+(int)sDif)) count++;
+         }else{
+             //  3. '초침'이 분침보다 뒤에 있었는데 앞지른 경우 ++
+             if(isSecBiggerThanMinute(m1, s1+(int)sDif)) count++;
+         }
+
+         s1 += sDif;
+         if(s1 >= 60){
+             s1 = s1%60;
+             m1++;
+         }
+
+         // 분 연산 mDif - 초침은 고정
+         // 초침은 1분마다 '분침'을 따라잡음, But 1시간 내에 1바퀴 차이날 수 있음
+         count += mDif;
+         if(isSecBiggerThanMinute(m1,s1)){
+             //  1. '분침'이 초침보다 뒤에 있었는데 앞지른 경우 --
+         }else{
+             //  2. '분침'이 초침보다 앞에 있었는데 (한바퀴 돌고) 따라잡은 경우 --
+         }
+
+
+         // 초침은 1분마다 '시침'을 따라잡음, But 1시간에 내에 1바퀴 차이날 수 있음
+         //  3. '시침'이 초침보다 뒤에 있었는데 앞지른 경우 --
+         //  4. '시침'이 초침보다 앞에 있었는데 (한바퀴 돌고) 따라잡은 경우 --
+
+         m1 += mDif;
+         if(m1 >= 60){
+             m1 = s1%60;
+             h1++;
+         }
+
+         // 시 연산 hDif - 초침, 분침 고정
+         // 초침은 1시간마다 '시침'을 60번 잡음, But 12시간 내에 1바퀴 차이날 수 있음
+         // If(12시간 차이) -- (한바퀴 확정 잡음)
+         //  1. '시침'이 초침보다 뒤에 있었는데 앞지른 경우 --
+         //  2. '시침'이 초침보다 앞에 있었는데 (한바퀴 돌고) 따라잡은 경우 --
+         // 초침은 1시간마다 '분침'을 59번 잡음 - 둘다 고정값, 예외주의
+
+
+         // 예외처리
+         if(h1 == 0 && m1 == 0 && s1 == 0) count++; // 시작부터 울림
+         if(h2 == 12 && m2 == 0 && s2 == 0) count++; // 종료할때 울림
+         if (h1*3600 + m1+60 + s1 < 12*60*60 && h2*3600 + m2*60 + s2 > 12*60*60) count--; // 12시 넘어가는 경우 (중복 연산됨)
+
+
+
+        return count;
+     }
+
+    public static boolean isSecBiggerThanHour(int h, int m, int s){
+        if(s >= 60){
+            s = s%60;
+            m++;
+        }
+        if(m >= 60){
+            m = m%60;
+            h++;
+        }
+
+        double hour = h*30 + (double)m/2 + (double)s/120;
+        int second = s*6;
+
+        if(second >= hour) return true;
+        else return false;
+    }
+
+    public static boolean isSecBiggerThanMinute(int m, int s){
+        if(s >= 60){
+            s = s%60;
+            m++;
+        }
+        if(m >= 60){
+            m = m%60;
+        }
+
+        double minute = m*6 + (double)s/10;
+        int second = s*6;
+
+        if(second >= minute) return true;
+        else return false;
+    }
+
+    public static double hourAngle(int h, int m, int s){
+        if(s >= 60){
+            s = s%60;
+            m++;
+        }
+        if(m >= 60){
+            m = m%60;
+            h++;
+        }
+
+        return h*30 + (double)m/2 + (double)s/120;
+    }
+
+    public static double minuteAngle(int m, int s){
+        if(s >= 60){
+            s = s%60;
+            m++;
+        }
+        if(m >= 60){
+            m = m%60;
+        }
+
+        return m*6 + (double)s/10;
+    }
+
+    public static int secondAngle(int s){
+        s = s%60;
+        return s*6;
+    }
 
 
 
