@@ -1,6 +1,8 @@
 package programmers.highScoreKit.sort;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class HIndex { // H-Index
@@ -67,7 +69,7 @@ public class HIndex { // H-Index
         return max;
     }
 
-    public static void main(String[] args) { // ver1 - Nice! 한번에 통과!
+    public static void main0(String[] args) { // ver1 - Nice! 한번에 통과!
         int[] citations = {3, 0, 6, 1, 5}; // 원소값 0~10000, 배열 길이 1~1000
 
 //        Arrays.sort(citations, Collections.reverseOrder()); // Integer[] 여야 한다
@@ -92,9 +94,42 @@ public class HIndex { // H-Index
         // 결과확인
         System.out.println(H);
 
+    }
 
 
+    // 재시도 2024/08/28
+    public static void main(String[] args) {
+        int[] citations = {3, 0, 6, 1, 5}; // 원소값 0~10000, 배열 길이 1~1000
+        int answer = 3;
+
+        System.out.println(solution(citations));
 
     }
+
+    public static int solution(int[] citations) {
+
+        // 내림차순 정렬 >> arr
+        Arrays.sort(citations);
+        int l = citations.length;
+        int[] arr = new int[l];
+        for (int i = 0; i < l; i++) {
+            arr[i] = citations[l-1-i];
+        }
+
+        int answer = 0;
+        int h;
+
+        for (int i = 0; i < l; i++) {
+            h = Math.min(arr[i], i+1);
+            if(answer < h){
+                answer = h;
+            }
+            else break;
+        }
+
+
+        return answer;
+    }
+
 
 }
