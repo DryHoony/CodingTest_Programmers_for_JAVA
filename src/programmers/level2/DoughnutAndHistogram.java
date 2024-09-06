@@ -26,7 +26,139 @@ public class DoughnutAndHistogram { // 도넛과 막대 그래프
         edges = new int[][] {{4, 11}, {1, 12}, {8, 3}, {12, 7}, {4, 2}, {7, 11}, {4, 8}, {9, 6}, {10, 11}, {6, 10}, {3, 5}, {11, 1}, {5, 3}, {11, 9}, {3, 8}};
         result = new int[] {4,0,1,2};
 
-        solution4(edges);
+        solution5(edges);
+    }
+
+    public static int[] solution5(int[][] edges){
+        Map<Integer, ArrayList<Integer>> edgeMap = new HashMap<>(); // 간선정보
+        ArrayList<Integer> startNode = new ArrayList<>(edgeMap.keySet()); // 출발 Node 정보
+        Map<Integer, Boolean> nodeDoughnutCheck = new HashMap<>(); // 도넛(혹은 8자)으로 사용된 노드
+        ArrayList<Integer> targetList; // edgeMap 할당용
+
+        for (int[] edge : edges){
+            if(edgeMap.containsKey(edge[0])){
+                edgeMap.get(edge[0]).add(edge[1]);
+            }else{
+                targetList = new ArrayList<>();
+                targetList.add(edge[1]);
+                edgeMap.put(edge[0], targetList);
+                nodeDoughnutCheck.put(edge[0], false);
+            }
+        }
+        int zeroNode = -1; // 정점
+        int[] answer = new int[4];
+        // [0] 정점 - 도착이 3개 이상이면 확정
+        // [1] 도넛 - 모든 노드가 하나의 도착을 가지고, 순회
+        // [2] 막대 - , (도넛과 8자 이후 남은 edgeMap 을 순회하면서 막대를 찾아야함)
+        // [3] 8자 - 중심에서 2가지 방향으로 각자 순회, (도넛처럼 조회하다 2개의 도착을 가지는 중심에서 다시 조회)
+
+        // 연산1 - 도넛, 8자를 먼저 해결
+        ArrayList<Integer> circle;
+
+        startNodeSearchDoughnut : while(!startNode.isEmpty()){
+            int a = startNode.get(0);
+
+            searchNodeA : switch (edgeMap.get(a).size()){
+                case 0: // 막대의 끝
+                    startNode.remove(0);
+                    break;
+
+                case 1: // 도넛 순회 가능성
+                    // 메인연산 ★
+                    circle = new ArrayList<>();
+                    circle.add(a);
+                    int k = edgeMap.get(a).get(0);
+                    try {
+                        edgeMap.get(k);
+                    }catch (NullPointerException e){ // 막대
+                        break;
+                    }
+
+                    int type = 1; // 도넛 일단 고정
+                    while(k != a){ // circle 만들기 Try
+                        circle.add(k);
+                        switch (edgeMap.get(k).size()){
+                            case 1: //  정상순회중
+                                k  = edgeMap.get(k).get(0);
+                                try {
+                                    edgeMap.get(k);
+                                }catch (NullPointerException e){
+                                    type = 2; // 막대네!
+                                    break;
+                                }
+                                break;
+                            case 2: // 8자의 중심 찾음 >> 여기서 8자 해결해야 함
+                                type = 3; // 8자네!!
+                                a = k; // a를 8자 중심으로 다시 연산
+                                break;
+                        }
+                    }
+
+                    if(type == 1){ // 도넛이면
+                        for(int c:circle){
+                            edgeMap.remove(c);
+                            nodeDoughnutCheck.put(c, true);
+                        }
+                        answer[1] ++; // 도넛 추가
+                    }
+                    else if(type == 3){ // 8자이면
+                        // 8자 중심(현재 a)부터 다시 순회! -> 도넛 2개 순회
+
+                        // 1도넛 순회
+                        circle = new ArrayList<>();
+                        k = edgeMap.get(a).get(0);
+                        while(k != a){
+                            circle.add(k);
+                            k = edgeMap.get(k).get(0);
+                        }
+                        for(int c:circle){
+                            edgeMap.remove(c);
+                            nodeDoughnutCheck.put(c, true);
+                        }
+
+                        // 2 도넛 순회
+                        circle = new ArrayList<>();
+                        k = edgeMap.get(a).get(1);
+                        while(k != a){
+                            circle.add(k);
+                            k = edgeMap.get(k).get(0);
+                        }
+                        for(int c:circle){
+                            edgeMap.remove(c);
+                            nodeDoughnutCheck.put(c,true);
+                        }
+
+                        // 중심도 제거
+                        edgeMap.remove(a);
+                        nodeDoughnutCheck.put(a, true);
+
+                        answer[3] ++; // 8자 추가
+                    }
+                    break;
+
+                case 2: // 8자의 중심 or 정점
+                    // 다시 a로 돌아오지 않고 b 에서 순회한다면 그것은 정점!
+                    int b;
+
+                    // 1도넛 (가능성) 순회
+                    b = edgeMap.get(a).get(0);
+
+                    // 2도넛 (가능성) 순회
+                    b = edgeMap.get(a).get(1);
+
+
+                    break;
+                default: // 3이상일때는 '정점' 확정
+                    zeroNode = a;
+                    continue;
+            }
+
+        }
+
+
+
+
+        return answer;
     }
 
     public static int[] solution4(int[][] edges){ // node 자료구조 ver
